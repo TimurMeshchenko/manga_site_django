@@ -6,13 +6,29 @@ on:
 jobs:
   run_tests:
     runs-on: [ubuntu-latest]
+
+    postgres:
+      image: postgres:15
+      env:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: Qewads
+        POSTGRES_DB: remanga
+      ports:
+        - 5432:5432
+      options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
           architecture: 'x64'
+
       - name: Install requirements
         run: pip install -r requirements.txt
+
+      - name: Run database migrations
+        run: python manage.py migrate
+
       - name: Tests
         run: python manage.py test
