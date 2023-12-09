@@ -1,0 +1,449 @@
+{% extends "catalog.html" %}
+{% load static %}
+
+{% block title %}
+  <title>Поиск</title>
+{% endblock %}
+
+{% block css %}
+  <link rel="preload" href="{% static 'search/ab24ef225a3ac5d5.css' %}" as="style" />
+  <link rel="stylesheet" href="{% static 'search/ab24ef225a3ac5d5.css' %}" data-n-p="" />
+{% endblock %}
+
+{% block styles %}
+  <style id="__jsx-2a8f39a92d173359">
+    .mwFull.jsx-2a8f39a92d173359 {
+      max-width: 100%;
+    }
+  </style>
+  <style id="__jsx-934d5549bc0ba301">
+    .root.jsx-934d5549bc0ba301 {
+      display: -webkit-inline-box;
+      display: -webkit-inline-flex;
+      display: -moz-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      -moz-box-orient: vertical;
+      -moz-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      position: relative;
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      vertical-align: top;
+    }
+
+    .margin-normal.jsx-934d5549bc0ba301 {
+      margin: 8px 0;
+    }
+
+    .margin-dense.jsx-934d5549bc0ba301 {
+      margin: 4px 0;
+    }
+
+    .fullWidth.jsx-934d5549bc0ba301 {
+      width: 100%;
+    }
+  </style>
+  <style id="__jsx-1025e0387f6b8ad7">
+    div.jsx-1025e0387f6b8ad7 {
+      width: 100%;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      -moz-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+    }
+
+    @media (min-width: 1024px) {
+      div.jsx-1025e0387f6b8ad7 {
+        max-width: -webkit-calc(1600px + (100vw/64 * 7) * 2);
+        max-width: -moz-calc(1600px + (100vw/64 * 7) * 2);
+        max-width: calc(1600px + (100vw / 64 * 7) * 2);
+        padding-left: -webkit-calc(100vw/64 * 7);
+        padding-left: -moz-calc(100vw/64 * 7);
+        padding-left: calc(100vw / 64 * 7);
+        padding-right: -webkit-calc(100vw/64 * 7);
+        padding-right: -moz-calc(100vw/64 * 7);
+        padding-right: calc(100vw / 64 * 7);
+      }
+    }
+
+    @media (min-width: 1440px) {
+      div.jsx-1025e0387f6b8ad7 {
+        max-width: -webkit-calc(1600px + (100vw/72 * 9) * 2);
+        max-width: -moz-calc(1600px + (100vw/72 * 9) * 2);
+        max-width: calc(1600px + (100vw / 72 * 9) * 2);
+        padding-left: -webkit-calc(100vw/72 * 9);
+        padding-left: -moz-calc(100vw/72 * 9);
+        padding-left: calc(100vw / 72 * 9);
+        padding-right: -webkit-calc(100vw/72 * 9);
+        padding-right: -moz-calc(100vw/72 * 9);
+        padding-right: calc(100vw / 72 * 9);
+      }
+
+      .slim.jsx-1025e0387f6b8ad7 {
+        max-width: -webkit-calc(1440px + (100vw/72 * 2) * 2);
+        max-width: -moz-calc(1440px + (100vw/72 * 2) * 2);
+        max-width: calc(1440px + (100vw / 72 * 2) * 2);
+        padding-left: -webkit-calc(100vw/72 * 7);
+        padding-left: -moz-calc(100vw/72 * 7);
+        padding-left: calc(100vw / 72 * 7);
+        padding-right: -webkit-calc(100vw/72 * 7);
+        padding-right: -moz-calc(100vw/72 * 7);
+        padding-right: calc(100vw / 72 * 7);
+      }
+    }
+  </style>
+  <style id="__jsx-7324287667afa997">
+    .grid-item.jsx-7324287667afa997 {
+      margin: 0;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    .zeroMinWidth.jsx-7324287667afa997 {
+      min-width: 0;
+    }
+  </style>
+  <style id="__jsx-1458226471">
+    .grid-item.jsx-1458226471 {}
+
+    @media screen and (min-width: 600px) {
+      .grid-item.jsx-1458226471 {}
+    }
+
+    @media screen and (min-width: 800px) {
+      .grid-item.jsx-1458226471 {}
+    }
+
+    @media screen and (min-width: 1024px) {
+      .grid-item.jsx-1458226471 {}
+    }
+
+    @media screen and (min-width: 1440px) {
+      .grid-item.jsx-1458226471 {}
+    }
+  </style>
+  <style id="__jsx-5da9c2067ceba581">
+    .grid-container.jsx-5da9c2067ceba581 {
+      width: 100%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+  </style>
+  <style id="__jsx-3243961146">
+    .grid-container.jsx-3243961146 {
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -webkit-box-align: stretch;
+      -webkit-align-items: stretch;
+      -moz-box-align: stretch;
+      -ms-flex-align: stretch;
+      align-items: stretch;
+      -webkit-align-content: stretch;
+      -ms-flex-line-pack: stretch;
+      align-content: stretch;
+      -webkit-box-pack: space-between;
+      -webkit-justify-content: space-between;
+      -moz-box-pack: space-between;
+      -ms-flex-pack: space-between;
+      justify-content: space-between;
+    }
+
+    .grid-container.jsx-3243961146>.grid-item {
+      padding: 0px;
+    }
+  </style>
+  <style id="__jsx-b26231077db42c90">
+    main.jsx-b26231077db42c90 {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      -moz-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      height: 100%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      -moz-box-orient: vertical;
+      -moz-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -moz-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -moz-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      padding-top: 56px;
+    }
+  </style>
+  <style id="__jsx-1886084869">
+    main.jsx-1886084869 {
+      min-height: 100vh;
+    }
+
+    @media (max-width: 599.5px) {
+      main.jsx-1886084869 {
+        padding-top: 56px;
+      }
+    }
+  </style>
+  <style id="__jsx-1357876864">
+    html {
+      font-family: "__Exo_2_cfc288", "__Exo_2_Fallback_cfc288";
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" href="{% static 'search/a87e1eafaffb2fdc.css' %}" />
+  <style type="text/css" data-styled-jsx="">
+    .root.jsx-f8919b3175e5971e {
+      position: absolute;
+      height: 2px;
+      bottom: 0;
+      width: 100%;
+      -webkit-transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      -moz-transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      -o-transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+      -moz-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+    }
+
+    .inner.jsx-f8919b3175e5971e {
+      width: -webkit-calc(100% - 24px);
+      width: -moz-calc(100% - 24px);
+      width: calc(100% - 24px);
+      height: 2px;
+    }
+
+    .vertical.jsx-f8919b3175e5971e .inner.jsx-f8919b3175e5971e {
+      width: 2px;
+      height: 100%;
+    }
+
+    .color-primary.jsx-f8919b3175e5971e {
+      background-color: var(--primary);
+    }
+
+    .color-secondary {
+      background-color: var(--secondary);
+    }
+
+    .vertical.jsx-f8919b3175e5971e {
+      height: 100%;
+      width: 2px;
+      right: 0;
+    }
+  </style>
+  <style type="text/css" data-styled-jsx="">
+    div.jsx-88620ec3676b2b4a {
+      margin-left: 8px;
+      padding: 0;
+      cursor: pointer;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      -webkit-transition-duration: 0.3s;
+      -moz-transition-duration: 0.3s;
+      -o-transition-duration: 0.3s;
+      transition-duration: 0.3s;
+    }
+
+    div.jsx-88620ec3676b2b4a:hover {
+      -webkit-box-shadow: 0 2px 8px rgba(10, 46, 82, 0.5);
+      -moz-box-shadow: 0 2px 8px rgba(10, 46, 82, 0.5);
+      box-shadow: 0 2px 8px rgba(10, 46, 82, 0.5);
+      opacity: 0.95;
+    }
+
+    div.jsx-88620ec3676b2b4a:active {
+      -webkit-transform: scale(0.95);
+      -moz-transform: scale(0.95);
+      -ms-transform: scale(0.95);
+      -o-transform: scale(0.95);
+      transform: scale(0.95);
+    }
+  </style>
+{% endblock %}
+{% block body %}
+<div id="__next">
+  <main class="jsx-b26231077db42c90 jsx-1886084869">
+    <div class="jsx-1025e0387f6b8ad7 Search_page__1Cxti slim">
+      <div class="jsx-934d5549bc0ba301 root fullWidth Input_formControl__KCNcj Search_input__kra3Y">
+        <div class="Input_root__4qYWz Input_adornedStart__TdLzU Input_adornedEnd__ucA_D Input_outlined__QwLf6">
+          <svg class="SvgIcon_root__keb_Y Search_icon__mI5Z5" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+            </path>
+          </svg>
+          <input aria-invalid="false" placeholder="Что ищем, семпай?" type="text"
+            class="Input_input__F9Zao Input_inputAdornedStart__nBfdi Input_inputAdornedEnd__5xGz7" value="" />
+        </div>
+        <p class="Input_formHelperText__GpxnN"></p>
+      </div>
+      <div class="Tabs_root__ELKiZ" style="margin: 4px 8px 16px">
+        <div class="Tabs_scroller__CzLOC Tabs_fixed__LrdFy" style="overflow: hidden; margin-bottom: 0">
+          <div class="Tabs_flexContainer__Zbnn6" role="tab-list">
+            <button class="Button_button__JOS9_ Tab_root__aAqqc Tab_textColor-primary__1ucBX Tab_selected__952d4"
+              tabindex="0" type="button" role="tab" aria-selected="true">
+              <span class="wrapper">Тайтлы</span></button>
+          </div>
+          <span class="jsx-f8919b3175e5971e root Tabs_indicator__XEjFI" style="left: 0px; width: 77.0938px">
+            <div class="jsx-f8919b3175e5971e inner color-primary"></div>
+          </span>
+        </div>
+      </div>
+      <div class="Search_container__R4TRt Search_content__rRts_">
+        <div class="grid">
+          <div class="gridPlaceholder"></div>
+          <div class="gridPlaceholder"></div>
+          <div class="gridPlaceholder"></div>
+          <div class="gridPlaceholder"></div>
+          <div class="gridPlaceholder"></div>
+          <div class="gridPlaceholder"></div>
+          <div class="gridPlaceholder"></div>
+          <div class="gridPlaceholder"></div>
+          <style>
+            .gridItem {
+              padding: 8px;
+            }
+          </style>
+          <style>
+            .grid {
+              width: 100%;
+              display: flex;
+              flex-wrap: wrap;
+              box-sizing: border-box;
+              padding: 0 8px;
+            }
+
+            .gridItem,
+            .gridPlaceholder {
+              flex: 1 0 auto;
+              max-width: 50%;
+              width: 140px;
+            }
+
+            @media (min-width: 1440px) {
+
+              .gridItem,
+              .gridPlaceholder {
+                width: 160px;
+              }
+
+              .xlSlim {
+                width: 140px;
+              }
+            }
+
+            @media (max-width: 600px) {
+
+              .gridItem,
+              .gridPlaceholder {
+                width: 110px;
+              }
+
+              .gridItem {
+                padding: 6px;
+              }
+            }
+          </style>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="Footer_footer__aYlrA">
+  </footer>
+</div>
+<script>
+  const json_data = "{{ json_data | escapejs }}";
+  const data = JSON.parse(json_data);
+  var grid = document.querySelector(".grid");
+  const input = document.querySelector(".Input_input__F9Zao");
+
+  let filteredArr = [];
+  grid_html = grid.innerHTML;
+  input.addEventListener("keyup", (e) => {
+    grid.innerHTML = grid_html;
+    filteredArr = data.filter((info) =>
+      info["rus_name"].toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    if (filteredArr.length > 0) {
+      filteredArr.map((info) => {
+        grid.insertAdjacentHTML(
+          "afterBegin",
+          `              
+              <div class="gridItem">
+                <a
+                  title="${info['rus_name']}"
+                  class="Vertical_card__Sxft_"
+                  href="/manga/${info['dir_name']}"
+                  ><div class="Vertical_wrapper__eThs_">
+                    <div
+                      class="Image_container__NpLCh Image_hover__XbAZP rounded-md Vertical_img__vaURH Image_imagePlaceholder__oa9r1"
+                    >
+                      <div
+                        class="Image_imgStatic__14_gQ Image_image__HOj0m Image_imgFluid__Men3E Image_lazyLoaded__VDjoe"
+                        style="
+                          background-image: url('/media/titles/${info["img_url"]}');
+                        "
+                      ></div>
+                    </div>
+                    <div class="Vertical_rating__nY5Rc">${info["avg_rating"].toFixed(1)}</div>
+                  </div>
+                  <p
+                    class="Typography_caption__yY5RL Typography_color-textSecondary__gCJWS"
+                  >
+                    Глав ${info["count_chapters"]}
+                  </p>
+                  <h4
+                    class="Typography_h6__crs2H Typography_lineClamp-2__4Ampt Typography_lineClamp__92oq_"
+                  >
+                    ${info["rus_name"]}
+                  </h4></a
+                >
+              </div>`
+        );
+      });
+    } else {
+      grid.innerHTML = `<b>No results found...</b>`
+    }
+  });
+</script>
+{% endblock %}

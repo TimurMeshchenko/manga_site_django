@@ -1,0 +1,25 @@
+{% for title in titles_list %}
+
+<div class="gridItem">
+    <a title="{{ title.rus_name }}" class="Vertical_card__Sxft_" href="{% url 'remanga:title' title.dir_name %}">
+        <div class="Vertical_wrapper__eThs_">
+            <div
+                class="Image_container__NpLCh Image_hover__XbAZP rounded-md Vertical_img__vaURH Image_imagePlaceholder__oa9r1">
+                <div class="Image_imgStatic__14_gQ Image_image__HOj0m Image_imgFluid__Men3E Image_lazyLoaded__VDjoe"
+                    style="background-image: url('/media/titles/{{ title.img_url }}');"
+                    alt="Обложка произведения {{ title.rus_name }}"></div>
+            </div>
+            <div class="Vertical_rating__nY5Rc">
+                {{ title.avg_rating|floatformat:1 }}
+            </div>
+        </div>
+        <p class="Typography_caption__yY5RL Typography_color-textSecondary__gCJWS">
+            {{ title.manga_type }}
+        </p>
+        <h4 class="Typography_h6__crs2H Typography_lineClamp-2__4Ampt Typography_lineClamp__92oq_">
+            {{ title.rus_name }}
+        </h4>
+    </a>
+</div>
+
+{% endfor %}

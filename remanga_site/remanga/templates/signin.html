@@ -1,0 +1,149 @@
+{% extends "catalog.html" %}
+{% load static %}
+  
+{% block title %}
+  <title>Вход</title>
+{% endblock %}
+
+{% block css %}
+  <link rel="preload" href="{% static 'signin/cb4f8de50573f9d5.css' %}" as="style" />
+  <link rel="stylesheet" href="{% static 'signin/cb4f8de50573f9d5.css' %}" data-n-g="" />
+  <link rel="stylesheet" type="text/css" href="{% static 'signin/843ea9ec36d246ae.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'signin/920c959cc716ad46.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'signin/029ac71e4e31b456.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'signin/09e4f43c14f4840f.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'signin/9dd15375466b1de0.css' %}" />
+{% endblock %}
+  
+{% block styles %}
+  <style>
+    .form.jsx-2964599226bcbb16>button {
+      margin: 8px 0 8px;
+      padding: 12px;
+    }
+
+    .Button_fullWidth__Dgoqh {
+      width: 200px;
+    }
+
+    .Button_contained-size-large__HCqRj {
+      padding: 9px 26px;
+      font-size: 13px;
+      border-radius: 32px;
+    }
+
+    .Button_contained-primary__IViyX {
+      color: var(--text-on-primary);
+      background: var(--primary);
+    }
+
+    .Button_contained__8_KFk {
+      border-radius: 24px;
+    }
+
+    .Button_button___CisL,
+    .Button_button___CisL:before {
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      will-change: box-shadow, transform;
+    }
+
+    .Button_button___CisL {
+      border: 0;
+      cursor: pointer;
+      margin: 0;
+      display: inline-flex;
+      outline: 0;
+      position: relative;
+      align-items: center;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      vertical-align: middle;
+      -moz-appearance: none;
+      justify-content: center;
+      text-decoration: none;
+      background-color: initial;
+      -webkit-appearance: none;
+      -webkit-tap-highlight-color: transparent;
+      min-width: auto;
+      box-sizing: border-box;
+      touch-action: manipulation;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.5;
+      border-radius: 8px;
+      letter-spacing: 0.055em;
+      color: inherit;
+      overflow: hidden;
+      flex-direction: row;
+    }
+
+    button {
+      text-align: center;
+    }
+
+    .Button_contained-primary__IViyX {
+      color: var(--text-on-primary);
+      background: var(--primary);
+    }
+
+    .form.jsx-b2be4f715220f048>div {
+      padding: 8px 0 4px;
+    }
+
+    .after_form {
+      margin-right: 15px;
+    }   
+  </style>
+{% endblock %}
+
+{% block body %}
+
+  <div
+    class="Dialog_paper__JNmkA Dialog_paperWidth-xs__LpPEM Dialog_paper-scroll-paper__3WvVF rounded"
+    style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          width: 100%;
+          flex-direction: column;
+      ">
+    <div class="jsx-4c4906b68fb5f50a container">
+      <h5
+        class="Typography_h5__8pAxj Typography_color-textSecondary__iFFB7 Typography_gutterBottom__Q_9Ve Typography_align-left___WQEo"
+        style="font-size: 1.1rem;">
+        Войти в аккаунт</h5>
+      <form method="post" class="jsx-b2be4f715220f048 form">
+        {%csrf_token %}
+        <div class="jsx-261496919888b024 root fullWidth Input_formControl__B11lU">
+          <div class="Input_root___0KQ3 Input_outlined__GjuSL"><input aria-invalid="false" name="username"
+              placeholder="*Логин/почта" rows="1" type="text" class="Input_input___YBKm" value="" autofocus=""
+              autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username"></div>
+          <p class="Input_formHelperText__EwCsr"></p>
+        </div>
+        <div class="jsx-261496919888b024 root fullWidth Input_formControl__B11lU">
+          <div class="Input_root___0KQ3 Input_outlined__GjuSL"><input aria-invalid="false" name="password"
+              placeholder="*Пароль" rows="1" type="password" class="Input_input___YBKm" value=""
+              autocomplete="current-password" required="" id="id_password"></div>
+          <p class="Input_formHelperText__EwCsr"></p>
+        </div>
+    </div>
+
+    {{ form.non_field_errors }}
+
+    <button
+      class="Button_button___CisL Button_button___CisL Button_contained__8_KFk Button_contained-primary__IViyX Button_contained-size-large__HCqRj Button_fullWidth__Dgoqh"
+      tabindex="0" type="submit"><span class="Button_label__jamx3">Войти</span></button>
+    </form>
+    <p
+      class="Typography_body2__piveF Typography_color-primary__xoN6_ Typography_bold__SKyBL Typography_align-center__j_M0w">
+      <a href="{% url 'remanga:signup' %}" class="jsx-4c4906b68fb5f50a"
+        style="color: var(--primary-light);">Зарегистрироваться</a>
+    </p>
+  </div>
+  </div>
+{% endblock %}

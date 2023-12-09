@@ -1,0 +1,74 @@
+{% extends "signin.html" %} {% load static %} {% block body %}
+
+{% block title %}
+<title>Регистрация</title>
+{% endblock %}
+
+<div
+  class="Dialog_paper__JNmkA Dialog_paperWidth-xs__LpPEM Dialog_paper-scroll-paper__3WvVF rounded"
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+  ">
+  <div class="jsx-4c4906b68fb5f50a container">
+    <h5
+      class="Typography_h5__8pAxj Typography_color-textSecondary__iFFB7 Typography_gutterBottom__Q_9Ve Typography_align-left___WQEo"
+      style="font-size: 1.1rem">
+      Зарегистрировать аккаунт
+    </h5>
+    <form method="post" class="jsx-b2be4f715220f048 form">
+      {% csrf_token %}
+      <div class="jsx-261496919888b024 root fullWidth Input_formControl__B11lU">
+        <div class="Input_root___0KQ3 Input_outlined__GjuSL">
+          <input aria-invalid="false" name="username" placeholder="*Никнейм" rows="1" type="text"
+            class="Input_input___YBKm" value="" maxlength="150" autocapitalize="none" autocomplete="username"
+            autofocus="" required="" id="id_username" />
+        </div>
+        <p class="Input_formHelperText__EwCsr"></p>
+      </div>
+      <div class="jsx-261496919888b024 root fullWidth Input_formControl__B11lU">
+        <div class="Input_root___0KQ3 Input_outlined__GjuSL">
+          <input aria-invalid="false" name="email" placeholder="*Почта" rows="1" type="text" class="Input_input___YBKm"
+            value="" type="email" autocomplete="email" maxlength="254" required="" id="id_email" />
+        </div>
+        <p class="Input_formHelperText__EwCsr"></p>
+      </div>
+      <div class="jsx-261496919888b024 root fullWidth Input_formControl__B11lU">
+        <div class="Input_root___0KQ3 Input_outlined__GjuSL"><input aria-invalid="false" name="password1"
+            placeholder="*Пароль" rows="1" type="password" class="Input_input___YBKm" value=""
+            autocomplete="new-password" required="" id="id_password1" /></div>
+        <p class="Input_formHelperText__EwCsr"></p>
+      </div>
+      <div class="jsx-261496919888b024 root fullWidth Input_formControl__B11lU">
+        <div class="Input_root___0KQ3 Input_outlined__GjuSL"><input aria-invalid="false" name="password2"
+            placeholder="*Пароль еще раз" rows="1" type="password" class="Input_input___YBKm" value=""
+            autocomplete="new-password" required="" id="id_password2" /></div>
+        <p class="Input_formHelperText__EwCsr"></p>
+      </div>
+      {% for field in form %}
+      {% for error in field.errors %}
+      <p style="color: red">{{ error }}
+        {% endfor %}
+        {% endfor %}
+        <br />
+        <button
+          class="Button_button___CisL Button_button___CisL Button_contained__8_KFk Button_contained-primary__IViyX Button_contained-size-large__HCqRj Button_fullWidth__Dgoqh after_form"
+          tabindex="0" type="submit"><span class="Button_label__jamx3">Регистрация</span>
+        </button>
+    </form>
+
+    <p class="Typography_body2__piveF Typography_color-textSecondary__iFFB7 Typography_align-center__j_M0w after_form"
+      style="margin-top: 10px">
+      Уже есть аккаунт?
+    </p>
+    <p
+      class="Typography_body2__piveF Typography_color-primary__xoN6_ Typography_bold__SKyBL Typography_align-center__j_M0w after_form">
+      <a href="{% url 'remanga:signin' %}" class="jsx-4c4906b68fb5f50a" style="color: var(--primary-light)">Войти</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

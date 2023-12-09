@@ -1,0 +1,1339 @@
+{% extends "catalog.html" %}
+{% load static %}
+
+{% block title %}
+<title>{{ title.rus_name }}</title>
+{% endblock %}
+
+{% block css %}
+<link rel="preload" href="{% static 'title/5689d52a5bc7437e.css' %}" as="style" />
+<link rel="stylesheet" href="{% static 'title/5689d52a5bc7437e.css' %}" data-n-p="" />
+<link rel="preload" href="{% static 'title/f246e387903032ed.css' %}" as="style" />
+<link rel="stylesheet" href="{% static 'title/f246e387903032ed.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'title/8910bb6d49cf84aa.css' %}" />
+{% endblock %}
+
+{% block styles %}
+<style id="__jsx-2a8f39a92d173359">
+  .mwFull.jsx-2a8f39a92d173359 {
+    max-width: 100%;
+  }
+</style>
+<style id="__jsx-5036979311864256">
+  .root.jsx-5036979311864256 {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    cursor: pointer;
+  }
+
+  .content.jsx-5036979311864256 {
+    padding: 64px 48px 0 16px;
+    height: 100vh;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    z-index: 3;
+    opacity: 0.3;
+    -webkit-transition: background-color 200ms linear, opacity 200ms linear;
+    -moz-transition: background-color 200ms linear, opacity 200ms linear;
+    -o-transition: background-color 200ms linear, opacity 200ms linear;
+    transition: background-color 200ms linear, opacity 200ms linear;
+  }
+
+  .root.jsx-5036979311864256:hover .withHover.jsx-5036979311864256 {
+    background: var(--bg-secondary);
+  }
+
+  .root.jsx-5036979311864256:hover .content.jsx-5036979311864256 {
+    opacity: 0.8;
+  }
+</style>
+<style id="__jsx-525f9ca96b40a0e6">
+  .root.jsx-525f9ca96b40a0e6 {
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  .buttons.jsx-525f9ca96b40a0e6 {
+    padding: 8px 4px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+  }
+
+  .buttons.jsx-525f9ca96b40a0e6>* {
+    margin-bottom: 12px;
+  }
+
+  .content.jsx-525f9ca96b40a0e6 {
+    height: 100%;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+  }
+
+  .readBtn.jsx-525f9ca96b40a0e6 {
+    padding: 8px;
+    fontweight: 500;
+    marginbottom: 8;
+  }
+</style>
+<style id="__jsx-4f80e21670f66bac">
+  .rating.jsx-4f80e21670f66bac {
+    cursor: pointer;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -moz-box-orient: horizontal;
+    -moz-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    font-size: 16px;
+  }
+
+  span.jsx-4f80e21670f66bac {
+    margin-left: 2px;
+  }
+</style>
+<style id="__jsx-7324287667afa997">
+  .grid-item.jsx-7324287667afa997 {
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .zeroMinWidth.jsx-7324287667afa997 {
+    min-width: 0;
+  }
+</style>
+<style id="__jsx-2767723650">
+  .grid-item.jsx-2767723650 {
+    flex-grow: 0;
+    max-width: 20%;
+    flex-basis: 20%;
+  }
+
+  @media screen and (min-width: 600px) {
+    .grid-item.jsx-2767723650 {
+      flex-grow: 0;
+      max-width: none;
+      flex-basis: auto;
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    .grid-item.jsx-2767723650 {}
+  }
+
+  @media screen and (min-width: 1024px) {
+    .grid-item.jsx-2767723650 {}
+  }
+
+  @media screen and (min-width: 1440px) {
+    .grid-item.jsx-2767723650 {}
+  }
+</style>
+<style id="__jsx-b8d4b7781168762e">
+  .stat.jsx-b8d4b7781168762e {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-left: 16px;
+    font-size: 16px;
+    vertical-align: middle;
+    line-height: 24px;
+    padding: 8px 6px;
+    color: var(--text-secondary);
+  }
+
+  .stat.jsx-b8d4b7781168762e>* {
+    margin-right: 8px;
+  }
+
+  .red.jsx-b8d4b7781168762e {
+    background: rgba(255, 0, 0, 0.2);
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+  }
+</style>
+<style id="__jsx-5da9c2067ceba581">
+  .grid-container.jsx-5da9c2067ceba581 {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+</style>
+<style id="__jsx-1710873767">
+  .grid-container.jsx-1710873767 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    -moz-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-box-pack: flex-start;
+    -webkit-justify-content: flex-start;
+    -moz-box-pack: flex-start;
+    -ms-flex-pack: flex-start;
+    justify-content: flex-start;
+  }
+
+  .grid-container.jsx-1710873767>.grid-item {
+    padding: 0px;
+  }
+</style>
+<style id="__jsx-e268305963073dea">
+  .header.jsx-e268305963073dea {
+    border-bottom: var(--border);
+    padding: 32px 8px 12px 36px;
+  }
+</style>
+<style id="__jsx-dee7f94cda4cd9fa">
+  .templateWrapper.jsx-dee7f94cda4cd9fa {
+    position: absolute;
+    top: -1e4px;
+    left: -12e3px;
+  }
+</style>
+<style id="__jsx-c62bbc403caec98b">
+  .tags.jsx-c62bbc403caec98b {
+    margin: 6px -4px 12px;
+  }
+</style>
+<style id="__jsx-7721551bb9cc7c76">
+  .container.jsx-7721551bb9cc7c76 {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+</style>
+<style id="__jsx-2367132066">
+  .grid-item.jsx-2367132066 {
+    flex-grow: 0;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+
+  @media screen and (min-width: 600px) {
+    .grid-item.jsx-2367132066 {}
+  }
+
+  @media screen and (min-width: 800px) {
+    .grid-item.jsx-2367132066 {}
+  }
+
+  @media screen and (min-width: 1024px) {
+    .grid-item.jsx-2367132066 {
+      flex-grow: 1;
+      max-width: 100%;
+      flex-basis: 0;
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    .grid-item.jsx-2367132066 {}
+  }
+</style>
+<style id="__jsx-2547249553">
+  .grid-container.jsx-2547249553 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    -moz-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    -webkit-box-pack: flex-start;
+    -webkit-justify-content: flex-start;
+    -moz-box-pack: flex-start;
+    -ms-flex-pack: flex-start;
+    justify-content: flex-start;
+  }
+
+  .grid-container.jsx-2547249553>.grid-item {
+    padding: 20px;
+  }
+</style>
+<style id="__jsx-2351776619">
+  .grid-item.jsx-2351776619 {
+    flex-grow: 1;
+    max-width: 100%;
+    flex-basis: 0;
+  }
+
+  @media screen and (min-width: 600px) {
+    .grid-item.jsx-2351776619 {}
+  }
+
+  @media screen and (min-width: 800px) {
+    .grid-item.jsx-2351776619 {}
+  }
+
+  @media screen and (min-width: 1024px) {
+    .grid-item.jsx-2351776619 {}
+  }
+
+  @media screen and (min-width: 1440px) {
+    .grid-item.jsx-2351776619 {}
+  }
+</style>
+<style id="__jsx-289239491">
+  .grid-container.jsx-289239491 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    -moz-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    -webkit-box-pack: flex-start;
+    -webkit-justify-content: flex-start;
+    -moz-box-pack: flex-start;
+    -ms-flex-pack: flex-start;
+    justify-content: flex-start;
+  }
+
+  .grid-container.jsx-289239491>.grid-item {
+    padding: 0px;
+  }
+</style>
+<style id="__jsx-26265f9d7209f510">
+  .root.jsx-26265f9d7209f510 {
+    max-width: 1320px;
+    width: 100%;
+    padding: 24px 64px;
+    min-height: -webkit-calc(100vh - 64px);
+    min-height: -moz-calc(100vh - 64px);
+    min-height: calc(100vh - 64px);
+  }
+
+  .leftRow.jsx-26265f9d7209f510 {
+    width: 250px;
+  }
+
+  .right.jsx-26265f9d7209f510 {
+    max-width: 250px;
+    width: 250px;
+    position: relative;
+    padding-top: 8px;
+  }
+</style>
+<style id="__jsx-1458226471">
+  .grid-item.jsx-1458226471 {}
+
+  @media screen and (min-width: 600px) {
+    .grid-item.jsx-1458226471 {}
+  }
+
+  @media screen and (min-width: 800px) {
+    .grid-item.jsx-1458226471 {}
+  }
+
+  @media screen and (min-width: 1024px) {
+    .grid-item.jsx-1458226471 {}
+  }
+
+  @media screen and (min-width: 1440px) {
+    .grid-item.jsx-1458226471 {}
+  }
+</style>
+<style id="__jsx-1025e0387f6b8ad7">
+  div.jsx-1025e0387f6b8ad7 {
+    width: 100%;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+
+  @media (min-width: 1024px) {
+    div.jsx-1025e0387f6b8ad7 {
+      max-width: -webkit-calc(1600px + (100vw/64 * 7) * 2);
+      max-width: -moz-calc(1600px + (100vw/64 * 7) * 2);
+      max-width: calc(1600px + (100vw / 64 * 7) * 2);
+      padding-left: -webkit-calc(100vw/64 * 7);
+      padding-left: -moz-calc(100vw/64 * 7);
+      padding-left: calc(100vw / 64 * 7);
+      padding-right: -webkit-calc(100vw/64 * 7);
+      padding-right: -moz-calc(100vw/64 * 7);
+      padding-right: calc(100vw / 64 * 7);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    div.jsx-1025e0387f6b8ad7 {
+      max-width: -webkit-calc(1600px + (100vw/72 * 9) * 2);
+      max-width: -moz-calc(1600px + (100vw/72 * 9) * 2);
+      max-width: calc(1600px + (100vw / 72 * 9) * 2);
+      padding-left: -webkit-calc(100vw/72 * 9);
+      padding-left: -moz-calc(100vw/72 * 9);
+      padding-left: calc(100vw / 72 * 9);
+      padding-right: -webkit-calc(100vw/72 * 9);
+      padding-right: -moz-calc(100vw/72 * 9);
+      padding-right: calc(100vw / 72 * 9);
+    }
+
+    .slim.jsx-1025e0387f6b8ad7 {
+      max-width: -webkit-calc(1440px + (100vw/72 * 2) * 2);
+      max-width: -moz-calc(1440px + (100vw/72 * 2) * 2);
+      max-width: calc(1440px + (100vw / 72 * 2) * 2);
+      padding-left: -webkit-calc(100vw/72 * 7);
+      padding-left: -moz-calc(100vw/72 * 7);
+      padding-left: calc(100vw / 72 * 7);
+      padding-right: -webkit-calc(100vw/72 * 7);
+      padding-right: -moz-calc(100vw/72 * 7);
+      padding-right: calc(100vw / 72 * 7);
+    }
+  }
+</style>
+<style id="__jsx-3243961146">
+  .grid-container.jsx-3243961146 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    -moz-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    -webkit-box-pack: space-between;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: space-between;
+    -ms-flex-pack: space-between;
+    justify-content: space-between;
+  }
+
+  .grid-container.jsx-3243961146>.grid-item {
+    padding: 0px;
+  }
+</style>
+<style id="__jsx-b26231077db42c90">
+  main.jsx-b26231077db42c90 {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-top: 56px;
+  }
+</style>
+<style id="__jsx-2515649928">
+  main.jsx-2515649928 {
+    min-height: unset;
+  }
+
+  @media (max-width: 599.5px) {
+    main.jsx-2515649928 {
+      padding-top: 0;
+    }
+  }
+</style>
+<style id="__jsx-1357876864">
+  html {
+    font-family: "__Exo_2_cfc288", "__Exo_2_Fallback_cfc288";
+  }
+</style>
+<style type="text/css" data-styled-jsx="">
+  .root.jsx-f8919b3175e5971e {
+    position: absolute;
+    height: 2px;
+    bottom: 0;
+    width: 100%;
+    -webkit-transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    -moz-transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    -o-transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+
+  .inner.jsx-f8919b3175e5971e {
+    width: -webkit-calc(100% - 24px);
+    width: -moz-calc(100% - 24px);
+    width: calc(100% - 24px);
+    height: 2px;
+  }
+
+  .vertical.jsx-f8919b3175e5971e .inner.jsx-f8919b3175e5971e {
+    width: 2px;
+    height: 100%;
+  }
+
+  .color-primary.jsx-f8919b3175e5971e {
+    background-color: var(--primary);
+  }
+
+  .color-secondary {
+    background-color: var(--secondary);
+  }
+
+  .vertical.jsx-f8919b3175e5971e {
+    height: 100%;
+    width: 2px;
+    right: 0;
+  }
+</style>
+<style type="text/css" data-styled-jsx="">
+  div.jsx-88620ec3676b2b4a {
+    margin-left: 8px;
+    padding: 0;
+    cursor: pointer;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+  }
+
+  div.jsx-88620ec3676b2b4a:hover {
+    -webkit-box-shadow: 0 2px 8px rgba(10, 46, 82, 0.5);
+    -moz-box-shadow: 0 2px 8px rgba(10, 46, 82, 0.5);
+    box-shadow: 0 2px 8px rgba(10, 46, 82, 0.5);
+    opacity: 0.95;
+  }
+
+  div.jsx-88620ec3676b2b4a:active {
+    -webkit-transform: scale(0.95);
+    -moz-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    -o-transform: scale(0.95);
+    transform: scale(0.95);
+  }
+</style>
+<style type="text/css" data-styled-jsx="">
+  .root.jsx-c08a448cf846d669 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 0.01em;
+    max-height: 2em;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .positionStart.jsx-c08a448cf846d669 {
+    margin-right: 8;
+  }
+
+  .positionEnd.jsx-c08a448cf846d669 {
+    margin-left: 8px;
+  }
+
+  .disablepointerevents {
+    pointer-events: none;
+  }
+
+  .modal.jsx-24297ecd4e1681b6 {
+    position: fixed;
+    z-index: 1300;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+  }
+
+  .modal.jsx-3374786578 {
+    visibility: unset;
+  }
+
+  div.jsx-abc0dc1e74fa3514 {
+    z-index: -1;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .Dialog_container___8sF_ {
+    height: 100%;
+    width: 100%;
+    outline: 0;
+  }
+
+  .Dialog_scroll-body__nSP8j {
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+  }
+
+  .Dialog_paper-scroll-body__eos89 {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .paper.jsx-7f4bbfca36e2b46d {
+    overflow: hidden;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+
+  .root.jsx-b4198a5461045988 {
+    margin: 40px 24px 32px;
+  }
+
+  .item.jsx-b4198a5461045988 {
+    cursor: pointer;
+    padding: 10px 16px;
+    margin-bottom: 8px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background-color: var(--bg-secondary);
+    font-size: 16px;
+    border: 1px solid transparent;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -moz-box-orient: horizontal;
+    -moz-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+
+  .item.jsx-b4198a5461045988>* {
+    margin: 0 4px;
+  }
+
+  .SvgIcon_fontSize-small__fjOf4 {
+    font-size: 1rem;
+  }
+
+  .SvgIcon_color-warning__tVs_m {
+    fill: var(--warning);
+    ;
+  }
+</style>
+<style type="text/css" data-styled-jsx="">
+  .root.jsx-934d5549bc0ba301 {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    position: relative;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: top;
+  }
+
+  .margin-normal.jsx-934d5549bc0ba301 {
+    margin: 8px 0;
+  }
+
+  .margin-dense.jsx-934d5549bc0ba301 {
+    margin: 4px 0;
+  }
+
+  .fullWidth.jsx-934d5549bc0ba301 {
+    width: 100%;
+  }
+</style>
+<style type="text/css" data-styled-jsx="">
+  .submenu.jsx-98e73d71ac525cf0 {
+    color: var(--text-secondary);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+</style>
+<style type="text/css" data-styled-jsx="">
+  .comments.jsx-a1b2d119e625548b {
+    margin: 8px 0;
+  }
+
+  .pr.jsx-a1b2d119e625548b {
+    padding-right: 8px;
+  }
+</style>
+<style type="text/css" data-styled-jsx="">
+  a.jsx-918629f30f833e0 {
+    color: var(--primary);
+  }
+</style>
+<style type="text/css" data-styled-jsx="">
+  .scoreBorder.jsx-3914328852 {
+    border-left: 2px solid unset;
+  }
+</style>
+<style type="text/css" data-styled-jsx="">
+  .scoreBorder.jsx-3594298489 {
+    border-left: 2px solid #cd7f32;
+  }
+
+  button.transparent {
+    background-color: transparent;
+    border: none;
+    width: 224px;
+  }
+
+  .itemActive.jsx-b4198a5461045988 {
+    border: 1px solid var(--primary);
+  }
+
+  .SvgIcon_color-primary__TnNB7 {
+      color: var(--primary);
+  }  
+
+  .SvgIcon_color-secondary__OvK95 {
+      color: var(--secondary);
+  }  
+</style>
+{% endblock %}
+{% block body %}
+
+<div id="__next">
+  <main class="jsx-b26231077db42c90 jsx-2515649928">
+    <div itemscope="" itemtype="https://schema.org/CreativeWorkSeries" class="flex w-full justify-center">
+      <!--$--><!--$-->
+      <div class="jsx-26265f9d7209f510 root">
+        <div style="top: 0px; display: none; width: 359px" class="jsx-5036979311864256 root">
+          <div class="jsx-5036979311864256 content withHover">
+            <p class="Typography_body1__TZSwE Typography_color-textSecondary__gCJWS">
+              <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-large__Xgixi" focusable="false" viewBox="0 0 24 24"
+                aria-hidden="true" style="transform: rotate(180deg)">
+                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
+              </svg>Наверх
+            </p>
+          </div>
+        </div>
+        <div class="jsx-5da9c2067ceba581 jsx-289239491 grid-container">
+          <div class="jsx-26265f9d7209f510 leftRow">
+            <div style="position: sticky; top: 80px">
+              <div class="jsx-525f9ca96b40a0e6 root">
+                <div class="Image_container__NpLCh rounded-md Image_imagePlaceholder__oa9r1" style="margin: 0px 0 8px">
+                  <img alt="Обложка произведения undefined"
+                    class="Image_image__HOj0m Image_imgFluid__Men3E Image_lazyLoaded__VDjoe"
+                    src="/media/titles/{{ title.img_url }}" />
+                </div>
+                <div class="jsx-525f9ca96b40a0e6 buttons">
+                  <form method="post" class="form_bookmark">
+                    {%csrf_token%}
+                    <button
+                      class="Button_button__JOS9_ Button_button__JOS9_ Button_contained__C0zVd Button_contained-primary__ZtvzA Button_fullWidth__iQYat"
+                      tabindex="0" type="submit" style="font-weight: 600; border-radius: 8px" name="form_name"
+                      value="bookmark">
+                      <span class="Button_label__py8bK"><span
+                          class="Button_startIcon__LY2Am Button_icon-size-medium__SLolh"><span style="width: 16px"
+                            class="jsx-525f9ca96b40a0e6"></span></span>
+                        {% if is_bookmark_added %}
+                        Убрать из закладок
+                        {% else %}
+                        Добавить в закладки
+                        {% endif %}
+                        <span class="Button_endIcon__n8Bpv Button_icon-size-medium__SLolh"><svg
+                            class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t" focusable="false"
+                            viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
+                          </svg></span></span></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="jsx-7324287667afa997 jsx-2351776619 grid-item">
+            <div class="jsx-e268305963073dea header">
+              <h1 class="Typography_h3__xWrmf Typography_gutterBottom__mjtdd" itemprop="name">
+                {{ title.rus_name }}
+              </h1>
+              <div class="jsx-5da9c2067ceba581 jsx-1710873767 grid-container">
+                <meta itemprop="typicalAgeRange" content="16+" class="jsx-b8d4b7781168762e" />
+                <div style="padding: 8px 0; font-size: 16px" class="jsx-7324287667afa997 jsx-2767723650 grid-item">
+                  <div itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating"
+                    class="jsx-4f80e21670f66bac rating">
+                    <meta itemprop="itemReviewed" content="Начало после конца" class="jsx-4f80e21670f66bac" />
+                    <meta itemprop="worstRating" content="1" class="jsx-4f80e21670f66bac" />
+                    <meta itemprop="bestRating" content="10" class="jsx-4f80e21670f66bac" />
+                    <meta itemprop="ratingValue" content="9.3" class="jsx-4f80e21670f66bac" /><svg
+                      class="SvgIcon_root__keb_Y SvgIcon_color-warning__hq27a" focusable="false" viewBox="0 0 24 24"
+                      aria-hidden="true">
+                      <path
+                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+                      </path>
+                    </svg><span class="jsx-4f80e21670f66bac"><span class="jsx-4f80e21670f66bac title_avg_rating">
+                      {{ title.avg_rating|floatformat:1 }}
+                    </span>
+                    </span>
+                    <span class="jsx-4f80e21670f66bac"> (голосов: <span itemprop="ratingCount"
+                        class="jsx-4f80e21670f66bac ratingCount">{{ title.count_rating }}</span>)</span>
+                  </div>
+                </div>
+                <div class="jsx-b8d4b7781168762e stat" aria-label="В закладках у 199032  пользователей">
+                  <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t" focusable="false" viewBox="0 0 24 24"
+                    aria-hidden="true">
+                    <path
+                      d="M19 18l2 1V3c0-1.1-.9-2-2-2H8.99C7.89 1 7 1.9 7 3h10c1.1 0 2 .9 2 2v13zM15 5H5c-1.1 0-2 .9-2 2v16l7-3 7 3V7c0-1.1-.9-2-2-2z">
+                    </path>
+                  </svg><span class="title_count_bookmarks">{{ title.count_bookmarks }}</span>
+                </div>
+                <div itemprop="copyrightYear" class="jsx-b8d4b7781168762e stat">
+                  {{ title.issue_year }}
+                </div>
+              </div>
+            </div>
+            <div class="jsx-5da9c2067ceba581 jsx-2547249553 grid-container">
+              <div class="jsx-7324287667afa997 jsx-2367132066 grid-item">
+                <meta itemprop="numberOfPages" content="179" />
+                <div class="Tabs_root__ELKiZ mx-2 mb-2">
+                  <div class="Tabs_scroller__CzLOC Tabs_fixed__LrdFy" style="overflow: hidden; margin-bottom: 0">
+                    <div class="Tabs_flexContainer__Zbnn6" role="tab-list">
+                      <button
+                        class="Button_button__JOS9_ Tab_root__aAqqc Tab_textColor-primary__1ucBX Tab_selected__952d4"
+                        tabindex="0" type="button" role="tab" aria-selected="true">
+                        <span class="wrapper">Описание</span></button><button
+                        class="Button_button__JOS9_ Tab_root__aAqqc Tab_textColor-primary__1ucBX" tabindex="-1"
+                        type="button" role="tab" aria-selected="false">
+                        <span class="wrapper">Главы ({{ title.count_chapters }})</span>
+                      </button>
+                    </div>
+                    <span class="jsx-f8919b3175e5971e root Tabs_indicator__XEjFI" style="left: 0px; width: 97.5781px">
+                      <div class="jsx-f8919b3175e5971e inner color-primary"></div>
+                    </span>
+                  </div>
+                </div>
+                <div class="px-4 py-2">
+                  <div class="m-1 mb-8">
+                    <div class="Typography_body1__TZSwE Typography_lineClamp-4__593mC Typography_lineClamp__92oq_"
+                      itemprop="description">
+                      {{ title.description | safe }}
+                    </div>
+                  </div>
+                  <div class="jsx-dee7f94cda4cd9fa templateWrapper">
+                    Вы находитесь на странице манги Начало после конца/ The
+                    Beginning After the End. Относится к жанрам
+                    экшен,приключения,трагедия,фэнтези. Выпускается с 2018
+                    года, статус манги - заморожен.
+                  </div>
+                  <div class="jsx-c62bbc403caec98b tags">
+                    {% for genre in title.genres.all %}
+                    <a class="Chip_chip__cpsxK Chip_gray__uE26d" title="Манга жанра {{ genre }}" href=""><span
+                        itemprop="genre" data-previewurl="">{{ genre }}</span></a>
+                    {% endfor %} {% for category in title.categories.all %}
+                    <a class="Chip_chip__cpsxK Chip_gray__uE26d" title="Манга жанра {{ category }}" href=""><span
+                        itemprop="genre" data-previewurl="">{{ category }}</span></a>
+                    {% endfor %}
+                  </div>
+                  <div class="jsx-7721551bb9cc7c76 container">
+                    <h4 class="Typography_h4__1eVxk Typography_gutterBottom__mjtdd">
+                      Комментарии {{ title.comments.count }}
+                    </h4>
+                    <div class="jsx-98e73d71ac525cf0" style="padding: 8px 0px">
+                      <div class="jsx-934d5549bc0ba301 root fullWidth Input_formControl__KCNcj">
+                        <div
+                          class="Input_root__4qYWz Input_adornedEnd__ucA_D Input_outlined__QwLf6"
+                          variant="outlined">
+
+                          <form method="post" style="width: 100%; height: 100%; display: flex;" class="form_comment_post">
+                            {%csrf_token%}
+
+                            <textarea rows="1" aria-invalid="false" name="text" placeholder="Оставить комментарий..."
+                              class="Input_input__F9Zao Input_inputMultiline__J_NsB Input_inputAdornedEnd__5xGz7"
+                              style="height: 45px; overflow: hidden"></textarea><textarea aria-hidden="true"
+                              class="Input_input__F9Zao Input_inputMultiline__J_NsB Input_inputAdornedEnd__5xGz7"
+                              readonly="" tabindex="-1" style="
+                                  visibility: hidden;
+                                  position: absolute;
+                                  overflow: hidden;
+                                  height: 0px;
+                                  top: 0px;
+                                  left: 0px;
+                                  transform: translateZ(0px);
+                                  width: 558px;
+                                "></textarea>
+                            <div class="jsx-c08a448cf846d669 root positionEnd Comments_endAdorment__qKzKK">
+                              <button
+                                class="Button_button__JOS9_ Button_button__JOS9_ Button_text__LI0qb Button_text-primary__NSm_C Button_text-size-small__kYaDZ Comments_iconButton__dwH2e"
+                                tabindex="0" type="button" name="form_name" value="comment">
+                                <span class="Button_label__py8bK"><svg
+                                    class="SvgIcon_root__keb_Y SvgIcon_color-primary__AFmfa" focusable="false"
+                                    viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                                  </svg></span>
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                        <p class="Input_formHelperText__EwCsr">0/500 символов</p>
+                      </div>
+                      <div class="jsx-98e73d71ac525cf0 submenu"></div>
+                    </div>
+                    <div class="jsx-a1b2d119e625548b">
+                      <div class="jsx-a1b2d119e625548b Comments_wrap__7NbKY"> 
+                        {% for comment in comments %} 
+                        <div class="jsx-3914328852 Comments_media__5h5tS">
+                          <a href="{% url 'remanga:profile' comment.author.id %}">
+                            {% if comment.author.avatar %}
+                            <img src="{{ comment.author.avatar.url }}" alt="..."
+                              class="jsx-3914328852 Comments_mediaAvatar__IuIbH" />
+                            {% else %}
+                            <img src="/media/users_avatars/no_avatar.jpg" alt="..." 
+                            class="jsx-3914328852 Comments_mediaAvatar__IuIbH"/>
+                          </a>
+                          {% endif %}
+                          <div class="jsx-3914328852 Comments_mediaBody__d6xxB">
+                            <div class="jsx-3914328852 Comments_mediaContent__KYew0 scoreBorder">
+                              <div class="jsx-3914328852 Comments_mediaHeading___sytl flex items-center">
+                                <a class="Comments_username__BIt0K"
+                                  href="{% url 'remanga:profile' comment.author.id %}">{{ comment.author.username }}
+                                </a><small class="jsx-3914328852">· {{ comment.created_at|timesince }}</small> 
+                                <div class="jsx-3914328852 ml-auto flex items-center">
+                                </div>
+                              </div>
+                              <div class="jsx-918629f30f833e0">
+                                {{ comment.content }}
+                              </div>
+                            </div>
+                            <div class="jsx-3914328852 Comments_footer__4u_24 flex items-center">
+                              <form method="post" class="comment_like_form">
+                                  {% csrf_token %}
+                                  <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="like_{{ comment.id }}" style="background-color: transparent;border: none;padding: 0;">
+                                    {% if comment in title_comments_ratings.comments_likes.all %}
+                                      <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t Comments_iconButton__dwH2e SvgIcon_color-primary__TnNB7" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path
+                                          d="M2 20h2c.55 0 1-.45 1-1v-9c0-.55-.45-1-1-1H2v11zm19.83-7.12c.11-.25.17-.52.17-.8V11c0-1.1-.9-2-2-2h-5.5l.92-4.65c.05-.22.02-.46-.08-.66-.23-.45-.52-.86-.88-1.22L14 2 7.59 8.41C7.21 8.79 7 9.3 7 9.83v7.84C7 18.95 8.05 20 9.34 20h8.11c.7 0 1.36-.37 1.72-.97l2.66-6.15z">
+                                        </path>
+                                      </svg>
+                                    {% else %}
+                                      <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t Comments_iconButton__dwH2e" focusable="false"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path
+                                          d="M2 20h2c.55 0 1-.45 1-1v-9c0-.55-.45-1-1-1H2v11zm19.83-7.12c.11-.25.17-.52.17-.8V11c0-1.1-.9-2-2-2h-5.5l.92-4.65c.05-.22.02-.46-.08-.66-.23-.45-.52-.86-.88-1.22L14 2 7.59 8.41C7.21 8.79 7 9.3 7 9.83v7.84C7 18.95 8.05 20 9.34 20h8.11c.7 0 1.36-.37 1.72-.97l2.66-6.15z">
+                                        </path>
+                                      </svg>
+                                    {% endif %}        
+                                  </button>
+                                <span class="Comments_score__fxIQG"> {{ comment.likes }} </span>
+                                <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="dislike_{{ comment.id }}"
+                                style="background-color: transparent;border: none;padding: 0;">
+                                {% if comment in title_comments_ratings.comments_dislikes.all %}
+                                  <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t Comments_iconButton__dwH2e SvgIcon_color-secondary__OvK95" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                      d="M22 4h-2c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1h2V4zM2.17 11.12c-.11.25-.17.52-.17.8V13c0 1.1.9 2 2 2h5.5l-.92 4.65c-.05.22-.02.46.08.66.23.45.52.86.88 1.22L10 22l6.41-6.41c.38-.38.59-.89.59-1.42V6.34C17 5.05 15.95 4 14.66 4h-8.1c-.71 0-1.36.37-1.72.97l-2.67 6.15z">
+                                    </path>
+                                  </svg>
+                                    {% else %}
+                                  <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t Comments_iconButton__dwH2e" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                      d="M22 4h-2c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1h2V4zM2.17 11.12c-.11.25-.17.52-.17.8V13c0 1.1.9 2 2 2h5.5l-.92 4.65c-.05.22-.02.46.08.66.23.45.52.86.88 1.22L10 22l6.41-6.41c.38-.38.59-.89.59-1.42V6.34C17 5.05 15.95 4 14.66 4h-8.1c-.71 0-1.36.37-1.72.97l-2.67 6.15z">
+                                    </path>
+                                  </svg>
+                                {% endif %}
+
+                                </button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/$--><!--/$-->
+    </div>
+  </main>
+  <footer class="Footer_footer__aYlrA">
+  </footer>
+</div>
+</div>
+<script id="__NEXT_DATA__" type="application/json">
+    </script>
+<script>
+  (function (m, e, t, r, i, k, a) {
+    m[i] =
+      m[i] ||
+      function () {
+        (m[i].a = m[i].a || []).push(arguments);
+      };
+    m[i].l = 1 * new Date();
+    (k = e.createElement(t)),
+      (a = e.getElementsByTagName(t)[0]),
+      (k.async = 1),
+      (k.src = r),
+      a.parentNode.insertBefore(k, a);
+  })(
+    window,
+    document,
+    "script",
+    "https://mc.yandex.ru/metrika/tag.js",
+    "ym"
+  );
+  ym(43900324, "init", {
+    clickmap: true,
+    trackLinks: true,
+    accurateTrackBounce: true,
+    webvisor: true,
+  });
+</script>
+<noscript>
+  <div>
+    <img src="https://mc.yandex.ru/watch/43900324" style="position: absolute; left: -9999px" alt="" />
+  </div>
+</noscript>
+<script>
+  <!-- -->
+</script>
+<script>
+  window.yaContextCb = window.yaContextCb || [];
+</script>
+
+<next-route-announcer>
+  <p aria-live="assertive" id="__next-route-announcer__" role="alert" style="
+          border: 0px;
+          clip: rect(0px, 0px, 0px, 0px);
+          height: 1px;
+          margin: -1px;
+          overflow: hidden;
+          padding: 0px;
+          position: absolute;
+          width: 1px;
+          white-space: nowrap;
+          overflow-wrap: normal;
+        "></p>
+</next-route-announcer>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'title/js/ajax/ajax_post.js' %}"></script>
+<script src="{% static 'title/js/ajax/title_rating_post.js' %}"></script>
+<script src="{% static 'title/js/ajax/bookmark_post.js' %}"></script>
+<script src="{% static 'title/js/ajax/comment_rating_post.js' %}"></script>
+<script src="{% static 'title/js/ajax/comment_post.js' %}"></script>
+
+<script src="{% static 'title/js/comment_input_stylization.js' %}"></script> 
+<script src="{% static 'title/js/title_menu_switcher.js' %}"></script> 
+
+<script>
+  const title_menu_switcher = new Title_menu_switcher("{{ title_rating }}", "{{ user.is_authenticated }}", 
+  "{% url 'remanga:signin' %}");
+
+  function add_chapters_menu(description_element) {
+    description_element.parentNode.insertAdjacentHTML('beforeend', `  
+      <div class="px-4 py-2">
+        <div class="Chapters_container__G5BYo">
+          <div class="Chapters_container__G5BYo">
+            {% for chapter in title.chapters.all %}
+            <div class="Chapters_chapterItem__z8nrU flex items-center">
+              <span class="Chapters_tome__VAir6">{{ chapter.tome }}</span
+              ><a
+                class="Chapters_content__lYYd5 flex items-center"
+                ><p
+                  class="Typography_body1__TZSwE Typography_color-inherit__bgLyK Chapters_title__Jsy0U"
+                >
+                  Глава {{ chapter.chapter }} 
+                </p>
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    `);
+  }
+
+  function add_rating_menu() {
+    document.querySelector("body").insertAdjacentHTML('beforeend', `
+    <div data-mui-test="Modal" role="presentation" class="jsx-24297ecd4e1681b6 jsx-3374786578 modal Dialog_root__IWQvZ">
+      <div data-test="Backdrop" aria-hidden="true" class="jsx-abc0dc1e74fa3514 jsx-24297ecd4e1681b6 jsx-3374786578 "
+        style="background-color: rgba(0, 0, 0, 0.667);"></div>
+      <div tabindex="0" data-test="sentinelStart"></div>
+      <div class="Dialog_container___8sF_ Dialog_scroll-body__nSP8j" tabindex="-1" style="opacity: 1;">
+        <div
+          class="jsx-7f4bbfca36e2b46d Dialog_paper__JNmkA Dialog_paperWidth-sm__1kKlh Dialog_paper-scroll-body__eos89 paper rounded">
+          <div class="jsx-b4198a5461045988 root">
+            <form method="post" class="form_title_rating">
+              {% csrf_token %}
+            <button class="transparent jsx-b4198a5461045988 item" type="submit">
+                <span class="jsx-b4198a5461045988">10</span> <svg
+                  class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
+                  aria-hidden="true">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                    class="SvgIcon_color-warning__tVs_m"></path>
+                </svg> <span class="jsx-b4198a5461045988">ЭТО ШЕДЕВР!</span>
+            </button>
+
+            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_9">
+              <span class="jsx-b4198a5461045988">9</span> <svg
+                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
+                aria-hidden="true">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                  class="SvgIcon_color-warning__tVs_m"></path>
+              </svg> <span class="jsx-b4198a5461045988">Отлично</span>
+            </button>
+            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_8">
+              <span class="jsx-b4198a5461045988">8</span> <svg
+                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
+                aria-hidden="true">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                  class="SvgIcon_color-warning__tVs_m"></path>
+              </svg> <span class="jsx-b4198a5461045988">Очень хорошо</span>
+            </button>
+            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_7">
+              <span class="jsx-b4198a5461045988">7</span> <svg
+                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
+                aria-hidden="true">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                  class="SvgIcon_color-warning__tVs_m"></path>
+              </svg> <span class="jsx-b4198a5461045988">Хорошо</span>
+            </button>
+            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_6">
+              <span class="jsx-b4198a5461045988">6</span> <svg
+                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
+                aria-hidden="true">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                  class="SvgIcon_color-warning__tVs_m"></path>
+              </svg> <span class="jsx-b4198a5461045988">Нормас</span>
+            </button>
+            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_5">
+              <span class="jsx-b4198a5461045988">5</span> <svg
+                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
+                aria-hidden="true">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                  class="SvgIcon_color-warning__tVs_m"></path>
+              </svg> <span class="jsx-b4198a5461045988">Под пивас пойдет</span>
+            </button>
+            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_4">
+              <span class="jsx-b4198a5461045988">4</span> <svg
+                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
+                aria-hidden="true">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                  class="SvgIcon_color-warning__tVs_m"></path>
+              </svg> <span class="jsx-b4198a5461045988">Ну такое</span>
+            </button>
+            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_3">
+              <span class="jsx-b4198a5461045988">3</span> <svg
+                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
+                aria-hidden="true">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                  class="SvgIcon_color-warning__tVs_m"></path>
+              </svg> <span class="jsx-b4198a5461045988">Убожество</span>
+            </button>
+            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_2">
+              <span class="jsx-b4198a5461045988">2</span> <svg
+                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
+                aria-hidden="true">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                  class="SvgIcon_color-warning__tVs_m"></path>
+              </svg> <span class="jsx-b4198a5461045988">Ниже плинтуса</span>
+            </button>
+            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_1">
+              <span class="jsx-b4198a5461045988">1</span> <svg
+                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
+                aria-hidden="true">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+                  class="SvgIcon_color-warning__tVs_m"></path>
+              </svg> <span class="jsx-b4198a5461045988">*********</span>
+            </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div tabindex="0" data-test="sentinelEnd"></div>
+    </div>
+    `)
+  }
+
+</script>
+<script>
+  new Comment_input_stylization();
+</script>
+
+<script>
+  if ('{{ user.is_authenticated }}' == "True")
+  {
+    const comment_rating_post = new Comment_rating_post(); 
+    
+    new Comment_post(comment_rating_post);
+    new Bookmark_post();
+  }
+
+  function add_empty_comment() {
+    document.querySelector(".Comments_wrap__7NbKY").insertAdjacentHTML('afterbegin', `
+      {% if user.is_authenticated %}
+        <div class="jsx-3914328852 Comments_media__5h5tS">
+          <a href="{% url 'remanga:profile' user.id %}">
+            {% if user.avatar %}
+            <img src="{{ user.avatar.url }}" alt="..."
+            class="jsx-3914328852 Comments_mediaAvatar__IuIbH" />
+            {% else %}
+            <img src="/media/users_avatars/no_avatar.jpg" alt="..." 
+            class="jsx-3914328852 Comments_mediaAvatar__IuIbH" />
+            {% endif %}
+          </a>
+        <div class="jsx-3914328852 Comments_mediaBody__d6xxB">
+            <div class="jsx-3914328852 Comments_mediaContent__KYew0 scoreBorder">
+            <div class="jsx-3914328852 Comments_mediaHeading___sytl flex items-center">
+                <a class="Comments_username__BIt0K"
+                href="{% url 'remanga:profile' user.id %}">{{ user.username }}
+                </a><small class="jsx-3914328852">· 0 minutes</small>
+                <div class="jsx-3914328852 ml-auto flex items-center">
+                </div>
+            </div>
+            <div class="jsx-918629f30f833e0">
+            </div>
+            </div>
+            <div class="jsx-3914328852 Comments_footer__4u_24 flex items-center">
+            <form method="post" class="comment_like_form">
+                {% csrf_token %}
+                <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="like_" style="background-color: transparent;border: none;padding: 0;">
+                <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t Comments_iconButton__dwH2e" focusable="false"
+                    viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                    d="M2 20h2c.55 0 1-.45 1-1v-9c0-.55-.45-1-1-1H2v11zm19.83-7.12c.11-.25.17-.52.17-.8V11c0-1.1-.9-2-2-2h-5.5l.92-4.65c.05-.22.02-.46-.08-.66-.23-.45-.52-.86-.88-1.22L14 2 7.59 8.41C7.21 8.79 7 9.3 7 9.83v7.84C7 18.95 8.05 20 9.34 20h8.11c.7 0 1.36-.37 1.72-.97l2.66-6.15z">
+                    </path>
+                </svg>
+                </button>
+                <span class="Comments_score__fxIQG"> 0 </span>
+                <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="dislike_"
+                style="background-color: transparent;border: none;padding: 0;">
+                <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t Comments_iconButton__dwH2e" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                    d="M22 4h-2c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1h2V4zM2.17 11.12c-.11.25-.17.52-.17.8V13c0 1.1.9 2 2 2h5.5l-.92 4.65c-.05.22-.02.46.08.66.23.45.52.86.88 1.22L10 22l6.41-6.41c.38-.38.59-.89.59-1.42V6.34C17 5.05 15.95 4 14.66 4h-8.1c-.71 0-1.36.37-1.72.97l-2.67 6.15z">
+                    </path>
+                </svg>
+                </button>
+            </form>
+            </div>
+        </div>
+        </div>
+      {% endif %}
+    `);
+  }
+</script>
+
+{% endblock %}
