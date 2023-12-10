@@ -1,13 +1,6 @@
 Пароль у акков fsafsafzcx
 
-прикрепить видео со всем функционалом, залить на yt
-
---------------------------------------------------------------------------------
-
 fastapi + mongodb? + redis + restapi, asyncio, закинуть в docker, 
 изучить команды PostgreSQL
-
-ALTER SEQUENCE remanga_title_categories_id_seq RESTART WITH 46;
-DELETE FROM your_table_name WHERE id = 5;
 
 from remanga.models import *
