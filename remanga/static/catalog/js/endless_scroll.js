@@ -2,7 +2,6 @@ class Endless_scroll {
     constructor(num_pages) {
         this.page = 1;
 
-        this.footer = document.querySelector("footer");
         this.grid = document.querySelector(".grid");
         this.gridPlaceholder = this.grid.querySelector(".gridPlaceholder");
 
@@ -35,10 +34,11 @@ class Endless_scroll {
     }
 
     is_last_title_scrolled() {
+      const footer = document.querySelector("footer");
       const all_titles = this.grid.querySelectorAll(".gridItem");
       const last_title = all_titles[all_titles.length - 1];
       const scrolledHeight = window.innerHeight + window.scrollY;
-      const height_from_last_title_to_end = last_title.offsetHeight + this.footer.offsetHeight;
+      const height_from_last_title_to_end = last_title.offsetHeight + footer.offsetHeight;
       
       return scrolledHeight + height_from_last_title_to_end >= document.documentElement.scrollHeight;
     }    
