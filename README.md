@@ -1,6 +1,6 @@
 # manga_site_django
 
-[![](https://shorturl.at/defwB)]
+![](https://drive.google.com/file/d/1KaluSrwv3eB8FyyOt3IWGKbekpmFRqDU/view?usp=sharing)
 
 
 В разделе "о проекте" указан демонстрационный сайт реализующий данный проект и технологии которые используются.
