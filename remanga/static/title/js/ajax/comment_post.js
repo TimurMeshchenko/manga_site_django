@@ -2,8 +2,6 @@ class Comment_post extends Ajax_post {
     constructor(comment_rating_post, user) {
         super();
         
-        console.log(user);
-
         this.comment_rating_post = comment_rating_post;
         this.textarea_comment_post = document.querySelector(".Input_inputAdornedEnd__5xGz7");
 

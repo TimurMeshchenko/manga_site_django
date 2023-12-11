@@ -163,16 +163,15 @@
     -moz-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    margin-left: 16px;
     font-size: 16px;
     vertical-align: middle;
     line-height: 24px;
     padding: 8px 6px;
-    color: var(--text-secondary);
   }
 
   .stat.jsx-b8d4b7781168762e>* {
     margin-right: 8px;
+    margin-bottom: 7px;
   }
 
   .red.jsx-b8d4b7781168762e {
@@ -227,7 +226,6 @@
 </style>
 <style id="__jsx-e268305963073dea">
   .header.jsx-e268305963073dea {
-    border-bottom: var(--border);
     padding: 32px 8px 12px 36px;
   }
 </style>
@@ -364,7 +362,8 @@
   }
 
   .leftRow.jsx-26265f9d7209f510 {
-    width: 250px;
+    width: 325px;
+    height: 450px;
   }
 
   .right.jsx-26265f9d7209f510 {
@@ -572,9 +571,9 @@
     margin-left: 8px;
     padding: 0;
     cursor: pointer;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
+    -webkit-border-radius: 25%;
+    -moz-border-radius: 25%;
+    border-radius: 25%;
     -webkit-transition-duration: 0.3s;
     -moz-transition-duration: 0.3s;
     -o-transition-duration: 0.3s;
@@ -804,12 +803,27 @@
   }
 
   .SvgIcon_color-primary__TnNB7 {
-      color: var(--primary);
+      fill: #5757ff;
   }  
 
   .SvgIcon_color-secondary__OvK95 {
-      color: var(--secondary);
+      fill: var(--secondary);
   }  
+
+  .Button_button___CisL:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      opacity: 0;
+      border-radius: 4px;
+  }  
+.Svg_rating {
+  width: 25px;padding-bottom: 3px;
+}
 </style>
 {% endblock %}
 {% block body %}
@@ -849,15 +863,11 @@
                           class="Button_startIcon__LY2Am Button_icon-size-medium__SLolh"><span style="width: 16px"
                             class="jsx-525f9ca96b40a0e6"></span></span>
                         {% if is_bookmark_added %}
-                        Убрать из закладок
+                        Убрать из списка
                         {% else %}
-                        Добавить в закладки
+                        Добавить в список
                         {% endif %}
-                        <span class="Button_endIcon__n8Bpv Button_icon-size-medium__SLolh"><svg
-                            class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t" focusable="false"
-                            viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
-                          </svg></span></span></button>
+                        </span></button>
                   </form>
                 </div>
               </div>
@@ -868,7 +878,25 @@
               <h1 class="Typography_h3__xWrmf Typography_gutterBottom__mjtdd" itemprop="name">
                 {{ title.rus_name }}
               </h1>
+              <div itemprop="copyrightYear" class="jsx-b8d4b7781168762e stat">
+                {{ title.issue_year }}
+              </div>
               <div class="jsx-5da9c2067ceba581 jsx-1710873767 grid-container">
+                <div class="Tabs_root__ELKiZ mx-2 mb-2">
+                  <div class="Tabs_scroller__CzLOC Tabs_fixed__LrdFy" style="overflow: hidden; margin-bottom: 0">
+                    <div class="Tabs_flexContainer__Zbnn6" role="tab-list">
+                      <button
+                        class="Button_button___CisL Button_button__JOS9_ Tab_root__aAqqc Tab_textColor-primary__1ucBX Tab_selected__952d4"
+                        tabindex="0" type="button" role="tab" aria-selected="true">
+                        <span class="wrapper">Обзор</span></button><button
+                        class="Button_button___CisL Button_button__JOS9_ Tab_root__aAqqc Tab_textColor-primary__1ucBX" tabindex="-1"
+                        type="button" role="tab" aria-selected="false">
+                        <span class="wrapper">Главы ({{ title.count_chapters }})</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
                 <meta itemprop="typicalAgeRange" content="16+" class="jsx-b8d4b7781168762e" />
                 <div style="padding: 8px 0; font-size: 16px" class="jsx-7324287667afa997 jsx-2767723650 grid-item">
                   <div itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating"
@@ -876,13 +904,14 @@
                     <meta itemprop="itemReviewed" content="Начало после конца" class="jsx-4f80e21670f66bac" />
                     <meta itemprop="worstRating" content="1" class="jsx-4f80e21670f66bac" />
                     <meta itemprop="bestRating" content="10" class="jsx-4f80e21670f66bac" />
-                    <meta itemprop="ratingValue" content="9.3" class="jsx-4f80e21670f66bac" /><svg
-                      class="SvgIcon_root__keb_Y SvgIcon_color-warning__hq27a" focusable="false" viewBox="0 0 24 24"
-                      aria-hidden="true">
-                      <path
-                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+                    <meta itemprop="ratingValue" content="9.3" class="jsx-4f80e21670f66bac" />
+                    <svg class="w-5 h-5 hover:scale-125 transition-all duration-75 ease-in-out active:rotate-180 active:scale-150"
+                      aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                      <path fill="rgb(216 172 8)"
+                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z">
                       </path>
-                    </svg><span class="jsx-4f80e21670f66bac"><span class="jsx-4f80e21670f66bac title_avg_rating">
+                    </svg>
+                    <span class="jsx-4f80e21670f66bac"><span class="jsx-4f80e21670f66bac title_avg_rating">
                       {{ title.avg_rating|floatformat:1 }}
                     </span>
                     </span>
@@ -891,38 +920,19 @@
                   </div>
                 </div>
                 <div class="jsx-b8d4b7781168762e stat" aria-label="В закладках у 199032  пользователей">
-                  <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t" focusable="false" viewBox="0 0 24 24"
-                    aria-hidden="true">
-                    <path
-                      d="M19 18l2 1V3c0-1.1-.9-2-2-2H8.99C7.89 1 7 1.9 7 3h10c1.1 0 2 .9 2 2v13zM15 5H5c-1.1 0-2 .9-2 2v16l7-3 7 3V7c0-1.1-.9-2-2-2z">
-                    </path>
-                  </svg><span class="title_count_bookmarks">{{ title.count_bookmarks }}</span>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M7.7002 3H16.3002C17.4052 3 18.3002 3.895 18.3002 5V21L12.0082 17.727L5.7002 21V5C5.7002 3.895 6.5952 3 7.7002 3Z"
+                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                  <span class="title_count_bookmarks">{{ title.count_bookmarks }}</span>
                 </div>
-                <div itemprop="copyrightYear" class="jsx-b8d4b7781168762e stat">
-                  {{ title.issue_year }}
-                </div>
+
               </div>
             </div>
             <div class="jsx-5da9c2067ceba581 jsx-2547249553 grid-container">
               <div class="jsx-7324287667afa997 jsx-2367132066 grid-item">
                 <meta itemprop="numberOfPages" content="179" />
-                <div class="Tabs_root__ELKiZ mx-2 mb-2">
-                  <div class="Tabs_scroller__CzLOC Tabs_fixed__LrdFy" style="overflow: hidden; margin-bottom: 0">
-                    <div class="Tabs_flexContainer__Zbnn6" role="tab-list">
-                      <button
-                        class="Button_button__JOS9_ Tab_root__aAqqc Tab_textColor-primary__1ucBX Tab_selected__952d4"
-                        tabindex="0" type="button" role="tab" aria-selected="true">
-                        <span class="wrapper">Описание</span></button><button
-                        class="Button_button__JOS9_ Tab_root__aAqqc Tab_textColor-primary__1ucBX" tabindex="-1"
-                        type="button" role="tab" aria-selected="false">
-                        <span class="wrapper">Главы ({{ title.count_chapters }})</span>
-                      </button>
-                    </div>
-                    <span class="jsx-f8919b3175e5971e root Tabs_indicator__XEjFI" style="left: 0px; width: 97.5781px">
-                      <div class="jsx-f8919b3175e5971e inner color-primary"></div>
-                    </span>
-                  </div>
-                </div>
                 <div class="px-4 py-2">
                   <div class="m-1 mb-8">
                     <div class="Typography_body1__TZSwE Typography_lineClamp-4__593mC Typography_lineClamp__92oq_"
@@ -975,17 +985,11 @@
                             <div class="jsx-c08a448cf846d669 root positionEnd Comments_endAdorment__qKzKK">
                               <button
                                 class="Button_button__JOS9_ Button_button__JOS9_ Button_text__LI0qb Button_text-primary__NSm_C Button_text-size-small__kYaDZ Comments_iconButton__dwH2e"
-                                tabindex="0" type="button" name="form_name" value="comment">
-                                <span class="Button_label__py8bK"><svg
-                                    class="SvgIcon_root__keb_Y SvgIcon_color-primary__AFmfa" focusable="false"
-                                    viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-                                  </svg></span>
+                                tabindex="0" type="button" name="form_name" value="comment" style="width: 70px;border: 1px solid;padding: 15px 42px;color: white;">Отправить
                               </button>
                             </div>
                           </form>
                         </div>
-                        <p class="Input_formHelperText__EwCsr">0/500 символов</p>
                       </div>
                       <div class="jsx-98e73d71ac525cf0 submenu"></div>
                     </div>
@@ -1020,17 +1024,16 @@
                                   {% csrf_token %}
                                   <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="like_{{ comment.id }}" style="background-color: transparent;border: none;padding: 0;">
                                     {% if comment in title_comments_ratings.comments_likes.all %}
-                                      <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t Comments_iconButton__dwH2e SvgIcon_color-primary__TnNB7" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                      <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t SvgIcon_color-primary__TnNB7 Svg_rating">
                                         <path
-                                          d="M2 20h2c.55 0 1-.45 1-1v-9c0-.55-.45-1-1-1H2v11zm19.83-7.12c.11-.25.17-.52.17-.8V11c0-1.1-.9-2-2-2h-5.5l.92-4.65c.05-.22.02-.46-.08-.66-.23-.45-.52-.86-.88-1.22L14 2 7.59 8.41C7.21 8.79 7 9.3 7 9.83v7.84C7 18.95 8.05 20 9.34 20h8.11c.7 0 1.36-.37 1.72-.97l2.66-6.15z">
-                                        </path>
+                                          d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
+                                          class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
                                       </svg>
-                                    {% else %}
-                                      <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t Comments_iconButton__dwH2e" focusable="false"
-                                        viewBox="0 0 24 24" aria-hidden="true">
+                                      {% else %}
+                                      <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating">
                                         <path
-                                          d="M2 20h2c.55 0 1-.45 1-1v-9c0-.55-.45-1-1-1H2v11zm19.83-7.12c.11-.25.17-.52.17-.8V11c0-1.1-.9-2-2-2h-5.5l.92-4.65c.05-.22.02-.46-.08-.66-.23-.45-.52-.86-.88-1.22L14 2 7.59 8.41C7.21 8.79 7 9.3 7 9.83v7.84C7 18.95 8.05 20 9.34 20h8.11c.7 0 1.36-.37 1.72-.97l2.66-6.15z">
-                                        </path>
+                                          d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
+                                          class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
                                       </svg>
                                     {% endif %}        
                                   </button>
@@ -1038,19 +1041,21 @@
                                 <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="dislike_{{ comment.id }}"
                                 style="background-color: transparent;border: none;padding: 0;">
                                 {% if comment in title_comments_ratings.comments_dislikes.all %}
-                                  <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t Comments_iconButton__dwH2e SvgIcon_color-secondary__OvK95" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                  <svg fill="currentColor" viewBox="0 0 40 40"
+                                    class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t SvgIcon_color-secondary__OvK95 Svg_rating"
+                                    style="transform: rotate(180deg);">
                                     <path
-                                      d="M22 4h-2c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1h2V4zM2.17 11.12c-.11.25-.17.52-.17.8V13c0 1.1.9 2 2 2h5.5l-.92 4.65c-.05.22-.02.46.08.66.23.45.52.86.88 1.22L10 22l6.41-6.41c.38-.38.59-.89.59-1.42V6.34C17 5.05 15.95 4 14.66 4h-8.1c-.71 0-1.36.37-1.72.97l-2.67 6.15z">
-                                    </path>
+                                      d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
+                                      class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
                                   </svg>
-                                    {% else %}
-                                  <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t Comments_iconButton__dwH2e" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                    {% else %}                                    
+                                  <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating"
+                                    style="transform: rotate(180deg);">
                                     <path
-                                      d="M22 4h-2c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1h2V4zM2.17 11.12c-.11.25-.17.52-.17.8V13c0 1.1.9 2 2 2h5.5l-.92 4.65c-.05.22-.02.46.08.66.23.45.52.86.88 1.22L10 22l6.41-6.41c.38-.38.59-.89.59-1.42V6.34C17 5.05 15.95 4 14.66 4h-8.1c-.71 0-1.36.37-1.72.97l-2.67 6.15z">
-                                    </path>
+                                      d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
+                                      class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
                                   </svg>
                                 {% endif %}
-
                                 </button>
                               </form>
                             </div>
@@ -1147,13 +1152,12 @@
           <div class="Chapters_container__G5BYo">
             {% for chapter in title.chapters.all %}
             <div class="Chapters_chapterItem__z8nrU flex items-center">
-              <span class="Chapters_tome__VAir6">{{ chapter.tome }}</span
-              ><a
+              <a
                 class="Chapters_content__lYYd5 flex items-center"
                 ><p
                   class="Typography_body1__TZSwE Typography_color-inherit__bgLyK Chapters_title__Jsy0U"
                 >
-                  Глава {{ chapter.chapter }} 
+                Том {{ chapter.tome }}  Глава {{ chapter.chapter }} 
                 </p>
               </a>
             </div>
@@ -1177,85 +1181,45 @@
             <form method="post" class="form_title_rating">
               {% csrf_token %}
             <button class="transparent jsx-b4198a5461045988 item" type="submit">
-                <span class="jsx-b4198a5461045988">10</span> <svg
-                  class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
-                  aria-hidden="true">
-                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                    class="SvgIcon_color-warning__tVs_m"></path>
-                </svg> <span class="jsx-b4198a5461045988">ЭТО ШЕДЕВР!</span>
+                <span class="jsx-b4198a5461045988">10</span>
+                <span class="jsx-b4198a5461045988">Эпик вин</span>
             </button>
 
             <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_9">
-              <span class="jsx-b4198a5461045988">9</span> <svg
-                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
-                aria-hidden="true">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                  class="SvgIcon_color-warning__tVs_m"></path>
-              </svg> <span class="jsx-b4198a5461045988">Отлично</span>
+              <span class="jsx-b4198a5461045988">9</span>
+              <span class="jsx-b4198a5461045988">Великолепно</span>
             </button>
             <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_8">
-              <span class="jsx-b4198a5461045988">8</span> <svg
-                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
-                aria-hidden="true">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                  class="SvgIcon_color-warning__tVs_m"></path>
-              </svg> <span class="jsx-b4198a5461045988">Очень хорошо</span>
+              <span class="jsx-b4198a5461045988">8</span> 
+              <span class="jsx-b4198a5461045988">Отлично</span>
             </button>
             <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_7">
-              <span class="jsx-b4198a5461045988">7</span> <svg
-                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
-                aria-hidden="true">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                  class="SvgIcon_color-warning__tVs_m"></path>
-              </svg> <span class="jsx-b4198a5461045988">Хорошо</span>
+              <span class="jsx-b4198a5461045988">7</span>
+              <span class="jsx-b4198a5461045988">Хорошо</span>
             </button>
             <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_6">
-              <span class="jsx-b4198a5461045988">6</span> <svg
-                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
-                aria-hidden="true">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                  class="SvgIcon_color-warning__tVs_m"></path>
-              </svg> <span class="jsx-b4198a5461045988">Нормас</span>
+              <span class="jsx-b4198a5461045988">6</span>
+              <span class="jsx-b4198a5461045988">Нормально</span>
             </button>
             <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_5">
-              <span class="jsx-b4198a5461045988">5</span> <svg
-                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
-                aria-hidden="true">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                  class="SvgIcon_color-warning__tVs_m"></path>
-              </svg> <span class="jsx-b4198a5461045988">Под пивас пойдет</span>
+              <span class="jsx-b4198a5461045988">5</span>
+              <span class="jsx-b4198a5461045988">Более-менее</span>
             </button>
             <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_4">
-              <span class="jsx-b4198a5461045988">4</span> <svg
-                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
-                aria-hidden="true">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                  class="SvgIcon_color-warning__tVs_m"></path>
-              </svg> <span class="jsx-b4198a5461045988">Ну такое</span>
+              <span class="jsx-b4198a5461045988">4</span>
+              <span class="jsx-b4198a5461045988">Плохо</span>
             </button>
             <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_3">
-              <span class="jsx-b4198a5461045988">3</span> <svg
-                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
-                aria-hidden="true">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                  class="SvgIcon_color-warning__tVs_m"></path>
-              </svg> <span class="jsx-b4198a5461045988">Убожество</span>
+              <span class="jsx-b4198a5461045988">3</span>
+              <span class="jsx-b4198a5461045988">Очень плохо</span>
             </button>
             <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_2">
-              <span class="jsx-b4198a5461045988">2</span> <svg
-                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
-                aria-hidden="true">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                  class="SvgIcon_color-warning__tVs_m"></path>
-              </svg> <span class="jsx-b4198a5461045988">Ниже плинтуса</span>
+              <span class="jsx-b4198a5461045988">2</span>
+              <span class="jsx-b4198a5461045988">Ужасно</span>
             </button>
             <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_1">
-              <span class="jsx-b4198a5461045988">1</span> <svg
-                class="SvgIcon_root__n_a0S SvgIcon_fontSize-small__fjOf4" focusable="false" viewBox="0 0 24 24"
-                aria-hidden="true">
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-                  class="SvgIcon_color-warning__tVs_m"></path>
-              </svg> <span class="jsx-b4198a5461045988">*********</span>
+              <span class="jsx-b4198a5461045988">1</span>
+              <span class="jsx-b4198a5461045988">Хуже некуда</span>
             </button>
             </form>
           </div>
@@ -1309,21 +1273,22 @@
             <form method="post" class="comment_like_form">
                 {% csrf_token %}
                 <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="like_" style="background-color: transparent;border: none;padding: 0;">
-                <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t Comments_iconButton__dwH2e" focusable="false"
-                    viewBox="0 0 24 24" aria-hidden="true">
+                  <svg fill="currentColor" viewBox="0 0 40 40"
+                    class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating">
                     <path
-                    d="M2 20h2c.55 0 1-.45 1-1v-9c0-.55-.45-1-1-1H2v11zm19.83-7.12c.11-.25.17-.52.17-.8V11c0-1.1-.9-2-2-2h-5.5l.92-4.65c.05-.22.02-.46-.08-.66-.23-.45-.52-.86-.88-1.22L14 2 7.59 8.41C7.21 8.79 7 9.3 7 9.83v7.84C7 18.95 8.05 20 9.34 20h8.11c.7 0 1.36-.37 1.72-.97l2.66-6.15z">
-                    </path>
-                </svg>
+                      d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
+                      class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
+                  </svg>
                 </button>
                 <span class="Comments_score__fxIQG"> 0 </span>
                 <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="dislike_"
                 style="background-color: transparent;border: none;padding: 0;">
-                <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t Comments_iconButton__dwH2e" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                  <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating"
+                    style="transform: rotate(180deg);">
                     <path
-                    d="M22 4h-2c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1h2V4zM2.17 11.12c-.11.25-.17.52-.17.8V13c0 1.1.9 2 2 2h5.5l-.92 4.65c-.05.22-.02.46.08.66.23.45.52.86.88 1.22L10 22l6.41-6.41c.38-.38.59-.89.59-1.42V6.34C17 5.05 15.95 4 14.66 4h-8.1c-.71 0-1.36.37-1.72.97l-2.67 6.15z">
-                    </path>
-                </svg>
+                      d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
+                      class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
+                  </svg>
                 </button>
             </form>
             </div>
@@ -1331,7 +1296,7 @@
         </div>
       {% endif %}
     `);
-  }
+  }  
 </script>
 
 {% endblock %}

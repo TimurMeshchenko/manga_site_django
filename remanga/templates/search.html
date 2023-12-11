@@ -276,9 +276,9 @@
       margin-left: 8px;
       padding: 0;
       cursor: pointer;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      border-radius: 50%;
+      -webkit-border-radius: 25%;
+      -moz-border-radius: 25%;
+      border-radius: 25%;
       -webkit-transition-duration: 0.3s;
       -moz-transition-duration: 0.3s;
       -o-transition-duration: 0.3s;
@@ -307,27 +307,10 @@
     <div class="jsx-1025e0387f6b8ad7 Search_page__1Cxti slim">
       <div class="jsx-934d5549bc0ba301 root fullWidth Input_formControl__KCNcj Search_input__kra3Y">
         <div class="Input_root__4qYWz Input_adornedStart__TdLzU Input_adornedEnd__ucA_D Input_outlined__QwLf6">
-          <svg class="SvgIcon_root__keb_Y Search_icon__mI5Z5" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
-            </path>
-          </svg>
-          <input aria-invalid="false" placeholder="Что ищем, семпай?" type="text"
+          <input aria-invalid="false" type="text"
             class="Input_input__F9Zao Input_inputAdornedStart__nBfdi Input_inputAdornedEnd__5xGz7" value="" />
         </div>
         <p class="Input_formHelperText__GpxnN"></p>
-      </div>
-      <div class="Tabs_root__ELKiZ" style="margin: 4px 8px 16px">
-        <div class="Tabs_scroller__CzLOC Tabs_fixed__LrdFy" style="overflow: hidden; margin-bottom: 0">
-          <div class="Tabs_flexContainer__Zbnn6" role="tab-list">
-            <button class="Button_button__JOS9_ Tab_root__aAqqc Tab_textColor-primary__1ucBX Tab_selected__952d4"
-              tabindex="0" type="button" role="tab" aria-selected="true">
-              <span class="wrapper">Тайтлы</span></button>
-          </div>
-          <span class="jsx-f8919b3175e5971e root Tabs_indicator__XEjFI" style="left: 0px; width: 77.0938px">
-            <div class="jsx-f8919b3175e5971e inner color-primary"></div>
-          </span>
-        </div>
       </div>
       <div class="Search_container__R4TRt Search_content__rRts_">
         <div class="grid">
@@ -424,18 +407,16 @@
                       ></div>
                     </div>
                     <div class="Vertical_rating__nY5Rc">${info["avg_rating"].toFixed(1)}</div>
+                    <div class="Horizontal_title_info">
+                      <p class="Typography_caption__yY5RL">
+                        ${info["manga_type"]}
+                      </p>
+                      <h4 class="Typography_h6__crs2H Typography_lineClamp-2__4Ampt Typography_lineClamp__92oq_">
+                        ${info["rus_name"]}
+                      </h4>
+                    </div>
                   </div>
-                  <p
-                    class="Typography_caption__yY5RL Typography_color-textSecondary__gCJWS"
-                  >
-                    Глав ${info["count_chapters"]}
-                  </p>
-                  <h4
-                    class="Typography_h6__crs2H Typography_lineClamp-2__4Ampt Typography_lineClamp__92oq_"
-                  >
-                    ${info["rus_name"]}
-                  </h4></a
-                >
+                </a>
               </div>`
         );
       });

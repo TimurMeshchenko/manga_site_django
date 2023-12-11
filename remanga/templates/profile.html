@@ -29,11 +29,9 @@
     box-sizing: border-box;
     touch-action: manipulation;
     text-transform: uppercase;
-    padding: 8px 16px;
-    font-size: 12px;
+    padding: 8px 10px;
     font-weight: 400;
     line-height: 1.5;
-    border-radius: 8px;
     letter-spacing: .055em;
     color: inherit;
     overflow: hidden;
@@ -159,10 +157,6 @@
 
   .Button_outlined-secondary__YEHpl:before {
     border: 1px solid var(--secondary)
-  }
-
-  .Button_contained__8_KFk {
-    border-radius: 24px
   }
 
   .Button_contained__8_KFk.Button_disabled__3sBhj {
@@ -1423,7 +1417,6 @@
 
   .Profile_header__tOPwp {
     width: 100%;
-    border-bottom: var(--border)
   }
 
   .Profile_content__p8ET2 {
@@ -1442,8 +1435,8 @@
   }
 
   div.Profile_avatar__dAlS6 {
-    width: 156px;
-    height: 156px;
+    width: 130px;
+    height: 130px;
     border: 2px solid #000
   }
 
@@ -1527,7 +1520,6 @@
 
   .Profile_section__BorR5 {
     margin: 24px 0;
-    border: var(--border);
     border-radius: 8px;
     padding: 16px 24px;
     font-size: 16px
@@ -4521,9 +4513,9 @@
     margin-left: 8px;
     padding: 0;
     cursor: pointer;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
+    -webkit-border-radius: 25%;
+    -moz-border-radius: 25%;
+    border-radius: 25%;
     -webkit-transition-duration: .3s;
     -moz-transition-duration: .3s;
     -o-transition-duration: .3s;
@@ -4936,6 +4928,9 @@
     <div class="Profile_header__tOPwp">
       <div
         class="jsx-1025e0387f6b8ad7 jsx-a32c8b4abb10806f jsx-3178113718 grid-container Profile_headerInner__8efOF slim">
+                <div class="jsx-4044919748 Profile_headerContent__wNIt3 grid-item">
+                  <h1 class="Typography_h2__3USRR Profile_username__2FYra">{{ profile.username }}</h1>
+                </div>
         <div class="jsx-944474436 Profile_avatarContainer__uuWxj grid-item">
           <div class="relative">
             <form method="post" enctype="multipart/form-data" class="form_avatar">
@@ -4945,27 +4940,13 @@
                 {% if profile.avatar %}
                 <img class="profile-pic" src="{{ profile.avatar.url }}" style="width: 100%;">
                 {% else %}
-                <svg class="SvgIcon_root__n_a0S Avatar_fallback__BjY1i" focusable="false" viewBox="0 0 24 24"
-                  aria-hidden="true">
-                  <path
-                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z">
-                  </path>
-                </svg>
+                  <img class="profile-pic" src='/media/users_avatars/no_avatar.jpg' style="width: 100%;">
                 {% endif %}
               </div>
               
               {% if user.username == profile.username %}
                 <input type="file" name="avatar" accept="image/*" id="id_avatar" style="display: none;">
-                
-                <span class="Profile_avatarEditIcon__Yfslw">
-                  <div class="Profile_iconContainer__I_sx1"><svg class="SvgIcon_root__n_a0S" focusable="false"
-                      viewBox="0 0 24 24" aria-hidden="true">
-                      <path
-                        d="M9.4 10.5l4.77-8.26C13.47 2.09 12.75 2 12 2c-2.4 0-4.6.85-6.32 2.25l3.66 6.35.06-.1zM21.54 9c-.92-2.92-3.15-5.26-6-6.34L11.88 9h9.66zm.26 1h-7.49l.29.5 4.76 8.25C21 16.97 22 14.61 22 12c0-.69-.07-1.35-.2-2zM8.54 12l-3.9-6.75C3.01 7.03 2 9.39 2 12c0 .69.07 1.35.2 2h7.49l-1.15-2zm-6.08 3c.92 2.92 3.15 5.26 6 6.34L12.12 15H2.46zm11.27 0l-3.9 6.76c.7.15 1.42.24 2.17.24 2.4 0 4.6-.85 6.32-2.25l-3.66-6.35-.93 1.6z">
-                      </path>
-                    </svg></div>
-                </span>
-
+            
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                 <script src="{% static 'title/js/ajax/ajax_post.js' %}"></script>
                 <script src="{% static 'profile/ajax/profile_avatar_post.js' %}"></script>
@@ -4978,9 +4959,6 @@
 
             </form>
           </div>
-        </div>
-        <div class="jsx-4044919748 Profile_headerContent__wNIt3 grid-item">
-          <h1 class="Typography_h2__3USRR Profile_username__2FYra">{{ profile.username }}</h1>
         </div>
       </div>
     </div>
@@ -4997,21 +4975,21 @@
             {% csrf_token %}
             <div class="jsx-261496919888b024 root fullWidth Input_formControl__B11lU">
               <div class="Input_root___0KQ3 Input_outlined__GjuSL">
-                <input aria-invalid="false" name="old_password" placeholder="*Старый пароль" rows="1" type="password"
+                <input aria-invalid="false" name="old_password" placeholder="Старый пароль" rows="1" type="password"
                   class="Input_input___YBKm" value="" id="id_old_password">
               </div>
               <p class="Input_formHelperText__EwCsr"></p>
             </div>
             <div class="jsx-261496919888b024 root fullWidth Input_formControl__B11lU">
               <div class="Input_root___0KQ3 Input_outlined__GjuSL">
-                <input aria-invalid="false" name="new_password1" placeholder="*Новый пароль" rows="1" type="password"
+                <input aria-invalid="false" name="new_password1" placeholder="Новый пароль" rows="1" type="password"
                   class="Input_input___YBKm" value="" id="id_new_password1">
               </div>
               <p class="Input_formHelperText__EwCsr"></p>
             </div>
             <div class="jsx-261496919888b024 root fullWidth Input_formControl__B11lU">
               <div class="Input_root___0KQ3 Input_outlined__GjuSL"><input aria-invalid="false" name="new_password2"
-                  placeholder="*Пароль ещё раз" rows="1" type="password" class="Input_input___YBKm" value=""
+                  placeholder="Пароль ещё раз" rows="1" type="password" class="Input_input___YBKm" value=""
                   id="id_new_password2">
               </div>
               <p class="Input_formHelperText__EwCsr"></p>
@@ -5028,6 +5006,7 @@
                   пароль</span></button>
           </form>
         </div>
+        <a href="{% url 'remanga:logout' %}"><button class="Button_button___CisL Button_button___CisL Button_contained__8_KFk Button_contained-primary__IViyX">Выход</button></a>
         {% endif %}
       </div>
     </div>

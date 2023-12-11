@@ -32,7 +32,7 @@ class Comment_rating_post extends Ajax_post {
     update_data(response) {
         const comment_rating_form = this.comment_rating_element.parentNode;
         const comment_score = comment_rating_form.querySelector(".Comments_score__fxIQG");
-        const comment_rating_buttons = comment_rating_form.querySelectorAll(".Comments_iconButton__dwH2e.SvgIcon_fontSize-small__i__5t");
+        const comment_rating_buttons = comment_rating_form.querySelectorAll(".jsx-2719031823.SvgIcon_fontSize-small__i__5t");
         
         comment_score.innerHTML = response['comment_likes'];
 

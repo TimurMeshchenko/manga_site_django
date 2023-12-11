@@ -6,7 +6,6 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width" />
-  <meta name="application-name" content="ReManga" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="format-detection" content="telephone=no" />
@@ -19,14 +18,14 @@
     content="читать мангу, читать мангу онлайн на русском, читать манхву, читать манхву онлайн на русском, читать маньхуа, читать маньхуа онлайн на русском" />
 
   {% block title %}
-  <title>Каталог манги онлайн на русском - ReManga</title>
+  <title>Каталог</title>
   {% endblock %}
 
   <meta name="robots" content="index,follow" />
   <meta name="googlebot" content="index,follow" />
   <meta name="description"
     content="Здесь вы можете прочитать мангу, манхву, маньхуа на русском. Самая удобная читалка манги в рунете, большой каталог манги. Читайте у нас!" />
-  <meta property="og:title" content="Каталог манги онлайн на русском - ReManga" />
+  <meta property="og:title" content="Каталог" />
   <meta property="og:description"
     content="Здесь вы можете прочитать мангу, манхву, маньхуа на русском. Самая удобная читалка манги в рунете, большой каталог манги. Читайте у нас!" />
   <meta name="viewport" content="width=device-width" />
@@ -477,7 +476,7 @@
       -moz-box-align: center;
       -ms-flex-align: center;
       align-items: center;
-      padding-top: 56px;
+      padding-top: 100px;
     }
   </style>
   <style id="__jsx-1886084869">
@@ -501,9 +500,9 @@
       margin-left: 8px;
       padding: 0;
       cursor: pointer;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      border-radius: 50%;
+      -webkit-border-radius: 25%;
+      -moz-border-radius: 25%;
+      border-radius: 25%;
       -webkit-transition-duration: 0.3s;
       -moz-transition-duration: 0.3s;
       -o-transition-duration: 0.3s;
@@ -646,9 +645,9 @@
       margin-left: 8px;
       padding: 0;
       cursor: pointer;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      border-radius: 50%;
+      -webkit-border-radius: 25%;
+      -moz-border-radius: 25%;
+      border-radius: 25%;
       -webkit-transition-duration: .3s;
       -moz-transition-duration: .3s;
       -o-transition-duration: .3s;
@@ -667,16 +666,11 @@
     <nav class="jsx-2a8f39a92d173359 Header_nav__V78KK">
       <div class="jsx-2a8f39a92d173359 Header_navContainer__3fCGy flexAuto">
         <div style="max-width: 300px" class="jsx-2a8f39a92d173359 hidden-smDown Header_navContainer__3fCGy ml16">
+          <a class="Button_button__JOS9_ Header_headerLink__EvjUK hidden-mdDown" tabindex="0" role="button"
+            href="{% url 'remanga:search' %}">
+            Поиск</a>
           <a class="Button_button__JOS9_ Header_headerLink__EvjUK" tabindex="0" role="button"
             href="{% url 'remanga:catalog' %}">Каталог</a>
-          <a class="Button_button__JOS9_ Header_headerLink__EvjUK hidden-mdDown" tabindex="0" role="button"
-            href="{% url 'remanga:search' %}"><svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-small__i__5t"
-              focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="margin-left: -2px; margin-right: 6px">
-              <path
-                d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
-              </path>
-            </svg>
-            Поиск</a>
         </div>
       </div>
       <div class="jsx-2a8f39a92d173359 Header_navContainer__3fCGy"></div>
@@ -694,64 +688,14 @@
         </div>
         {% if user.is_authenticated %}
         <div class="Avatar_avatar__hG0bH Avatar_colorDefault__MHL29 jsx-88620ec3676b2b4a">
-          {% if user.avatar %}
-          <img class="profile-pic" src="{{ user.avatar.url }}" style="width: 100%;">
-          {% else %}
-          <svg
-            class="SvgIcon_root__n_a0S Avatar_fallback__BjY1i" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z">
-            </path>
-          </svg>
-          {% endif %}
+          <a href="{% url 'remanga:profile' user.id %}">
+            {% if user.avatar %}
+            <img class="profile-pic" src="{{ user.avatar.url }}" style="width: 100%;">
+            {% else %}
+            <img class="profile-pic" src='/media/users_avatars/no_avatar.jpg' style="width: 100%;">
+            {% endif %}
+          </a>
         </div>
-        <script src="{% static 'catalog/js/user_menu_stylization.js' %}"></script>
-        <script>
-          new User_menu_stylization();
-          function add_user_menu() {
-            document.querySelector("body").insertAdjacentHTML('beforeend', `
-                <div role="tooltip"
-                  style="z-index: 1600; position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(-146px, 55px);"
-                  data-popper-placement="bottom-end" class="user_menu">
-                  <div scale="0.1" direction="up" style="opacity: 1;">
-                    <div class="jsx-7f4bbfca36e2b46d paper rounded dark elevation">
-                      <ul class="jsx-1197472906 menu">
-                        <li class="jsx-b36d90661a4541a5"><a class="jsx-b36d90661a4541a5 d-header" href="{% url 'remanga:profile' user.id %}">
-                            <div class="Avatar_avatar__hG0bH Avatar_colorDefault__MHL29">
-                              {% if user.avatar %}
-                                <img class="profile-pic" src="{{ user.avatar.url }}" style="width: 100%;">
-                              {% else %}
-                                <svg
-                                  class="SvgIcon_root__n_a0S Avatar_fallback__BjY1i" focusable="false" viewBox="0 0 24 24"
-                                  aria-hidden="true">
-                                  <path
-                                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z">
-                                  </path>
-                                </svg>
-                              {% endif %}
-                              </div>
-                            <div class="jsx-b36d90661a4541a5 dh-content">
-                              <h6 class="Typography_subtitle1__q3JIz Typography_lineClamp-1__ijYgf Typography_lineClamp__Pa1wi">
-                                {{ user.username }}</h6>
-                            </div>
-                          </a></li>
-                        <li class="jsx-c04de9397f0cc963"><a href="{% url 'remanga:logout' %}">
-                          <div class="jsx-c04de9397f0cc963 item"><span> Выйти </span> <svg class="SvgIcon_root__n_a0S" focusable="false"
-                              viewBox="0 0 24 24" aria-hidden="true">
-                              <path
-                                d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
-                              </path>
-                            </svg></div>
-                        </a></li>
-                      </ul><span data-popper-arrow="true" class="jsx-382f76e64360a72b jsx-3732695578 "
-                        style="position: absolute; left: 0px; transform: translate(273px, 0px);"></span>
-                    </div>
-                    </div>
-                  </div>
-                `);
-          }
-        </script>
-
         {% else %}
         <button
           class="Button_button__JOS9_ Button_button__JOS9_ Button_contained__C0zVd Button_contained-primary__ZtvzA hidden-xsDown"
@@ -770,8 +714,8 @@
     }
 
     .Avatar_avatar__hG0bH {
-      width: 40px;
-      height: 40px;
+      width: 35px;
+      height: 35px;
       display: flex;
       overflow: hidden;
       position: relative;
@@ -782,7 +726,7 @@
       -webkit-user-select: none;
       -moz-user-select: none;
       user-select: none;
-      border-radius: 50%;
+      border-radius: 25%;
       justify-content: center;
     }
 
@@ -899,6 +843,16 @@
       font-weight: 600;
       line-height: 1.2;
     }
+
+  .Horizontal_title_info {
+    position: absolute;
+    z-index: 100;
+    padding: 2px 10px;
+    bottom: 8px;
+    background-color: #2b2b2b54;
+    color: #fff;
+    width: 100%;
+  }    
   </style>
 
   {% endblock %} 
@@ -906,20 +860,100 @@
   <div id="__next">
     <main class="jsx-b26231077db42c90 jsx-1886084869">
       <div class="jsx-1025e0387f6b8ad7 slim">
-        <div class="jsx-5da9c2067ceba581 jsx-1114600478 grid-container Catalog_header__tW23H">
-          <div class="Catalog_headerLeft__CWszN">
-            <h2 class="Typography_h1__8JOO9">Каталог</h2>
-          </div>
-          <button class="Button_button__JOS9_ Button_button__JOS9_ Button_outlined__9C9gp hidden-smUp" tabindex="0"
-            type="button">
-            <span class="Button_label__py8bK">Фильтры<span
-                class="Button_endIcon__n8Bpv Button_icon-size-medium__SLolh"><svg class="SvgIcon_root__keb_Y"
-                  focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
-                </svg></span></span>
-          </button>
-        </div>
         <div class="jsx-5da9c2067ceba581 jsx-1899100546 grid-container">
+          <div class="Catalog_aside__vQ_6h">
+            <div class="flex items-center justify-between mb8">
+              <h4 class="Typography_h6__crs2H" style="margin-bottom: 6px">
+                Фильтры
+              </h4>
+            </div>
+            <div class="Catalog_filters__Udj_N">
+              <div>
+                <div tabindex="0" color="#0074D9" class="jsx-d338f3d1a4c6e9b5 Input_outlined__QwLf6 Input_root__4qYWz container">
+                  <div class="jsx-df39090361a5f2e4">
+                    <input tabindex="-1" size="4" placeholder="Типы" type="text" class="jsx-1d2861d85dfb4f6f false" value="" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div tabindex="0" color="#0074D9" class="jsx-d338f3d1a4c6e9b5 Input_outlined__QwLf6 Input_root__4qYWz container">
+                  <div class="jsx-df39090361a5f2e4">
+                    <input tabindex="-1" placeholder="Жанры" type="text" class="jsx-1d2861d85dfb4f6f false" value="" size="5" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div tabindex="0" color="#0074D9" class="jsx-d338f3d1a4c6e9b5 Input_outlined__QwLf6 Input_root__4qYWz container">
+                  <div class="jsx-df39090361a5f2e4">
+                    <input tabindex="-1" size="4" placeholder="Теги" type="text" class="jsx-1d2861d85dfb4f6f false" value="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h4 class="Typography_h6__crs2H Typography_paragraph__f4zP4">
+              Год выпуска
+            </h4>
+            <div class="flex justify-between mb-4">
+              <div class="Input_root__4qYWz Input_outlined__QwLf6 Catalog_filterItem__jJdBa" style="width: calc(50% - 8px)">
+                <input placeholder="От" type="number" class="Input_input__F9Zao" value="" />
+              </div>
+              <div class="Input_root__4qYWz Input_outlined__QwLf6 Catalog_filterItem__jJdBa">
+                <input placeholder="До" type="number" class="Input_input__F9Zao" value="" />
+              </div>
+            </div>
+            <h4 class="Typography_h6__crs2H Typography_paragraph__f4zP4">
+              Оценка произведения
+            </h4>
+            <div class="flex justify-between mb-4">
+              <div class="Input_root__4qYWz Input_outlined__QwLf6 Catalog_filterItem__jJdBa">
+                <input placeholder="От" type="number" class="Input_input__F9Zao" value="" />
+              </div>
+              <div class="Input_root__4qYWz Input_outlined__QwLf6 Catalog_filterItem__jJdBa">
+                <input placeholder="До" type="number" class="Input_input__F9Zao" value="" />
+              </div>
+            </div>
+            <h4 class="Typography_h6__crs2H Typography_paragraph__f4zP4">
+              Количество глав
+            </h4>
+            <div class="mb-4 mt-2">
+              <span class="Chip_chip__cpsxK Chip_gray__uE26d Chip_dense__YGNFU Chip_withAction__cYU4U Catalog_chip__1Fs8C">
+                <!-- -->&lt;50<!-- --> </span><span
+                class="Chip_chip__cpsxK Chip_gray__uE26d Chip_dense__YGNFU Chip_withAction__cYU4U Catalog_chip__1Fs8C">
+                <!-- -->50-100<!-- --> </span><span
+                class="Chip_chip__cpsxK Chip_gray__uE26d Chip_dense__YGNFU Chip_withAction__cYU4U Catalog_chip__1Fs8C">
+                <!-- -->100-200<!-- --> </span><span
+                class="Chip_chip__cpsxK Chip_gray__uE26d Chip_dense__YGNFU Chip_withAction__cYU4U Catalog_chip__1Fs8C">
+                <!-- -->&gt;200<!-- -->
+              </span>
+            </div>
+            <h4 class="Typography_h6__crs2H Typography_paragraph__f4zP4">
+              Исключить
+            </h4>
+            <div class="Catalog_filters__Udj_N">
+              <div>
+                <div tabindex="0" color="#0074D9" class="jsx-d338f3d1a4c6e9b5 Input_outlined__QwLf6 Input_root__4qYWz container">
+                  <div class="jsx-df39090361a5f2e4">
+                    <input tabindex="-1" size="4" placeholder="Типы" type="text" class="jsx-1d2861d85dfb4f6f false" value="" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div tabindex="0" color="#0074D9" class="jsx-d338f3d1a4c6e9b5 Input_outlined__QwLf6 Input_root__4qYWz container">
+                  <div class="jsx-df39090361a5f2e4">
+                    <input tabindex="-1" size="5" placeholder="Жанры" type="text" class="jsx-1d2861d85dfb4f6f false" value="" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div tabindex="0" color="#0074D9" class="jsx-d338f3d1a4c6e9b5 Input_outlined__QwLf6 Input_root__4qYWz container">
+                  <div class="jsx-df39090361a5f2e4">
+                    <input tabindex="-1" size="4" placeholder="Теги" type="text" class="jsx-1d2861d85dfb4f6f false" value="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
           <div class="flex1 w-full">
             <!--$-->
             <div class="grid">
@@ -939,13 +973,15 @@
                     <div class="Vertical_rating__nY5Rc">
                       {{ title.avg_rating|floatformat:1 }}
                     </div>
+                    <div class="Horizontal_title_info">
+                      <p class="Typography_caption__yY5RL">
+                        {{ title.manga_type }}
+                      </p>
+                      <h4 class="Typography_h6__crs2H Typography_lineClamp-2__4Ampt Typography_lineClamp__92oq_">
+                        {{ title.rus_name }}
+                      </h4>
+                    </div>
                   </div>
-                  <p class="Typography_caption__yY5RL Typography_color-textSecondary__gCJWS">
-                    {{ title.manga_type }}
-                  </p>
-                  <h4 class="Typography_h6__crs2H Typography_lineClamp-2__4Ampt Typography_lineClamp__92oq_">
-                    {{ title.rus_name }}
-                  </h4>
                 </a>
               </div>
 
@@ -961,7 +997,7 @@
               <div class="gridPlaceholder"></div>
               <style>
                 .gridItem {
-                  padding: 8px;
+                  padding: 10px;
                 }
               </style>
               <style>
@@ -1004,154 +1040,6 @@
                   }
                 }
               </style>
-            </div>
-          </div>
-          <div class="Catalog_aside__vQ_6h">
-            <div class="flex items-center justify-between mb8">
-              <h4 class="Typography_h6__crs2H" style="margin-bottom: 6px">
-                Фильтры
-              </h4>
-            </div>
-            <div class="Catalog_filters__Udj_N">
-              <div>
-                <div tabindex="0" color="#0074D9"
-                  class="jsx-d338f3d1a4c6e9b5 Input_outlined__QwLf6 Input_root__4qYWz container">
-                  <div class="jsx-df39090361a5f2e4">
-                    <input tabindex="-1" size="4" placeholder="Типы" type="text" class="jsx-1d2861d85dfb4f6f false"
-                      value="" />
-                  </div>
-                  <div tabindex="-1" color="#0074D9" class="jsx-fa7d13d22ba89f27 jsx-3290910636">
-                    <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-fa7d13d22ba89f27 jsx-3290910636">
-                      <path
-                        d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                        class="jsx-fa7d13d22ba89f27 jsx-3290910636"></path>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div tabindex="0" color="#0074D9"
-                  class="jsx-d338f3d1a4c6e9b5 Input_outlined__QwLf6 Input_root__4qYWz container">
-                  <div class="jsx-df39090361a5f2e4">
-                    <input tabindex="-1" placeholder="Жанры" type="text" class="jsx-1d2861d85dfb4f6f false" value=""
-                      size="5" />
-                  </div>
-                  <div tabindex="-1" color="#0074D9" class="jsx-fa7d13d22ba89f27 jsx-3290910636">
-                    <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-fa7d13d22ba89f27 jsx-3290910636">
-                      <path
-                        d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                        class="jsx-fa7d13d22ba89f27 jsx-3290910636"></path>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div tabindex="0" color="#0074D9"
-                  class="jsx-d338f3d1a4c6e9b5 Input_outlined__QwLf6 Input_root__4qYWz container">
-                  <div class="jsx-df39090361a5f2e4">
-                    <input tabindex="-1" size="4" placeholder="Теги" type="text" class="jsx-1d2861d85dfb4f6f false"
-                      value="" />
-                  </div>
-                  <div tabindex="-1" color="#0074D9" class="jsx-fa7d13d22ba89f27 jsx-3290910636">
-                    <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-fa7d13d22ba89f27 jsx-3290910636">
-                      <path
-                        d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                        class="jsx-fa7d13d22ba89f27 jsx-3290910636"></path>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <h4 class="Typography_h6__crs2H Typography_paragraph__f4zP4">
-              Год выпуска
-            </h4>
-            <div class="flex justify-between mb-4">
-              <div class="Input_root__4qYWz Input_outlined__QwLf6 Catalog_filterItem__jJdBa"
-                style="width: calc(50% - 8px)">
-                <input placeholder="От" type="number" class="Input_input__F9Zao" value="" />
-              </div>
-              <div class="Input_root__4qYWz Input_outlined__QwLf6 Catalog_filterItem__jJdBa">
-                <input placeholder="До" type="number" class="Input_input__F9Zao" value="" />
-              </div>
-            </div>
-            <h4 class="Typography_h6__crs2H Typography_paragraph__f4zP4">
-              Оценка произведения
-            </h4>
-            <div class="flex justify-between mb-4">
-              <div class="Input_root__4qYWz Input_outlined__QwLf6 Catalog_filterItem__jJdBa">
-                <input placeholder="От" type="number" class="Input_input__F9Zao" value="" />
-              </div>
-              <div class="Input_root__4qYWz Input_outlined__QwLf6 Catalog_filterItem__jJdBa">
-                <input placeholder="До" type="number" class="Input_input__F9Zao" value="" />
-              </div>
-            </div>
-            <h4 class="Typography_h6__crs2H Typography_paragraph__f4zP4">
-              Количество глав
-            </h4>
-            <div class="mb-4 mt-2">
-              <span
-                class="Chip_chip__cpsxK Chip_gray__uE26d Chip_dense__YGNFU Chip_withAction__cYU4U Catalog_chip__1Fs8C">
-                <!-- -->&lt;50<!-- --> </span><span
-                class="Chip_chip__cpsxK Chip_gray__uE26d Chip_dense__YGNFU Chip_withAction__cYU4U Catalog_chip__1Fs8C">
-                <!-- -->50-100<!-- --> </span><span
-                class="Chip_chip__cpsxK Chip_gray__uE26d Chip_dense__YGNFU Chip_withAction__cYU4U Catalog_chip__1Fs8C">
-                <!-- -->100-200<!-- --> </span><span
-                class="Chip_chip__cpsxK Chip_gray__uE26d Chip_dense__YGNFU Chip_withAction__cYU4U Catalog_chip__1Fs8C">
-                <!-- -->&gt;200<!-- -->
-              </span>
-            </div>
-            <h4 class="Typography_h6__crs2H Typography_paragraph__f4zP4">
-              Исключить
-            </h4>
-            <div class="Catalog_filters__Udj_N">
-              <div>
-                <div tabindex="0" color="#0074D9"
-                  class="jsx-d338f3d1a4c6e9b5 Input_outlined__QwLf6 Input_root__4qYWz container">
-                  <div class="jsx-df39090361a5f2e4">
-                    <input tabindex="-1" size="4" placeholder="Типы" type="text" class="jsx-1d2861d85dfb4f6f false"
-                      value="" />
-                  </div>
-                  <div tabindex="-1" color="#0074D9" class="jsx-fa7d13d22ba89f27 jsx-3290910636">
-                    <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-fa7d13d22ba89f27 jsx-3290910636">
-                      <path
-                        d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                        class="jsx-fa7d13d22ba89f27 jsx-3290910636"></path>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div tabindex="0" color="#0074D9"
-                  class="jsx-d338f3d1a4c6e9b5 Input_outlined__QwLf6 Input_root__4qYWz container">
-                  <div class="jsx-df39090361a5f2e4">
-                    <input tabindex="-1" size="5" placeholder="Жанры" type="text" class="jsx-1d2861d85dfb4f6f false"
-                      value="" />
-                  </div>
-                  <div tabindex="-1" color="#0074D9" class="jsx-fa7d13d22ba89f27 jsx-3290910636">
-                    <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-fa7d13d22ba89f27 jsx-3290910636">
-                      <path
-                        d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                        class="jsx-fa7d13d22ba89f27 jsx-3290910636"></path>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div tabindex="0" color="#0074D9"
-                  class="jsx-d338f3d1a4c6e9b5 Input_outlined__QwLf6 Input_root__4qYWz container">
-                  <div class="jsx-df39090361a5f2e4">
-                    <input tabindex="-1" size="4" placeholder="Теги" type="text" class="jsx-1d2861d85dfb4f6f false"
-                      value="" />
-                  </div>
-                  <div tabindex="-1" color="#0074D9" class="jsx-fa7d13d22ba89f27 jsx-3290910636">
-                    <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-fa7d13d22ba89f27 jsx-3290910636">
-                      <path
-                        d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                        class="jsx-fa7d13d22ba89f27 jsx-3290910636"></path>
-                    </svg>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -1207,7 +1095,7 @@
           white-space: nowrap;
           overflow-wrap: normal;
         ">
-      Каталог манги онлайн на русском - ReManga
+      Каталог
     </p>
   </next-route-announcer>
   {% endblock %}

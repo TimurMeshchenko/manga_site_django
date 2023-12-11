@@ -1,6 +1,2 @@
 Пароль у акков fsafsafzcx
-
-fastapi + mongodb? + redis + restapi, asyncio, закинуть в docker, 
-изучить команды PostgreSQL
-
 from remanga.models import *

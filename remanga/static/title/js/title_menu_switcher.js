@@ -45,13 +45,11 @@ class Title_menu_switcher {
     }
 
     highlight_chapter_button(chapters_buttons, button_selected_class, is_description_button_highlighted) {
-        const underline_element = document.querySelector(".jsx-f8919b3175e5971e");
         const index_button_highlight = is_description_button_highlighted ? 1 : 0;
         const index_button_unhighlight = is_description_button_highlighted ? 0 : 1;
 
         chapters_buttons[index_button_highlight].classList.add(button_selected_class);
         chapters_buttons[index_button_unhighlight].classList.remove(button_selected_class);
-        underline_element.style.left = underline_element.style.left  == "0px" ? underline_element.style.width : "0px";
     }    
 
     toggle_rating_menu(event) {

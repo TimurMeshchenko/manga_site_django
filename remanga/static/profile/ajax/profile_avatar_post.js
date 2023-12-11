@@ -27,9 +27,17 @@ class Profile_avatar_post extends Ajax_post {
 
     update_data() {
         const imgs_avatar = document.querySelectorAll(".profile-pic");
-        const have_not_avatar = imgs_avatar.length == 0;
+        const have_not_avatar = imgs_avatar[0].src.includes('no_avatar');
 
-        if (have_not_avatar) location.reload(true); 
+        if (have_not_avatar) {
+            const url_splited = window.location.href.split("/");
+            const user_id = url_splited[url_splited.length -2]
+
+            for (const img_avatar of imgs_avatar) 
+                img_avatar.src = img_avatar.src.split("no_avatar")[0] + user_id + '.jpg';
+            
+            return
+        } 
 
         const timestamp = new Date().getTime();
 

@@ -86,7 +86,7 @@ class Remanga_parser():
         dir_name: str = url.rsplit('/')[-2]
         file_name: str = url.rsplit('/')[-1]
 
-        img_dir: str = rf'remanga_site\remanga\media\titles\{dir_name}'
+        img_dir: str = rf'remanga\media\titles\{dir_name}'
         file_path: str = os.path.join(img_dir, file_name)
 
         if not os.path.exists(img_dir):

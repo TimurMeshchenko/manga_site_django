@@ -14,9 +14,9 @@ class Bookmark_post extends Ajax_post {
     
     update_data(response) {
         if (response['is_bookmark_added'])
-            this.bookmark_button.innerHTML = "Удалить из закладок";
+            this.bookmark_button.innerHTML = "Убрать из списка";
         else
-            this.bookmark_button.innerHTML = "Добавить в закладки";
+            this.bookmark_button.innerHTML = "Добавить в список";
 
         this.title_count_bookmarks.innerHTML = response['title_count_bookmarks'];
     }
