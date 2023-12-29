@@ -7,7 +7,7 @@ from django.conf import settings
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.core.paginator import Paginator
 
-from typing import Union, Any
+from typing import Union, Any, Optional
 import json
 import os
 
@@ -199,25 +199,35 @@ class TitleView(generic.ListView):
     def get_context_data(self, **kwargs):        
         context = super().get_context_data(**kwargs)
         dir_name = self.kwargs.get('dir_name')  
-
         title = Title.objects.get(dir_name=dir_name)
-
-        if not Title_comments_ratings.objects.filter(title_id=title.id).exists():
-            Title_comments_ratings.objects.create(title_id=title.id)
-        
+       
         context['title'] = title
         context['comments'] = title.comments.all().order_by('-created_at')
 
         if not self.request.user.is_authenticated: return context
 
-        is_bookmark_added = self.request.user.titles.filter(id=title.id).exists()
-        title_rating = self.request.user.ratings.filter(title_id=title.id)
+        title_rating = self.get_title_rating(title)
 
-        context['is_bookmark_added'] = is_bookmark_added
-        context['title_rating'] = title_rating[0].rating if title_rating.exists() else None
-        context['title_comments_ratings'] = self.request.user.titles_comments_ratings.get_or_create(title_id=title.id)[0]
+        context['is_bookmark_added'] = self.request.user.bookmarks.filter(id=title.id).exists()
+        context['title_rating'] = title_rating.rating if title_rating else title_rating
+        context['user_title_comments_ratings'] = self.get_user_title_comments_ratings_dict(title)
         
         return context 
+
+    def get_title_rating(self, title: Title) -> Optional[Title_rating]:
+        return Title_rating.objects.filter(user=self.request.user, title=title).first()
+
+    def get_user_title_comments_ratings_dict(self, title: Title) -> dict:
+        """
+        Get user-rated comments for a title in a dictionary to get a comment in O(1) in template
+        """    
+        comments_ratings = dict()
+        user_title_comments_ratings = Comment_rating.objects.filter(user=self.request.user, title=title).all()
+
+        for comment_rating in user_title_comments_ratings:
+            comments_ratings[comment_rating.comment.id] = comment_rating.is_liked
+
+        return comments_ratings
 
     def post(self, request, **kwargs):   
         if not self.request.user.is_authenticated: 
@@ -236,7 +246,7 @@ class TitleView(generic.ListView):
 
         return JsonResponse(response_data)
 
-    def init_post_forms_methods(self):
+    def init_post_forms_methods(self) -> dict[str, Any]:
         return \
         {
             'bookmark': self.change_bookmark,
@@ -245,109 +255,110 @@ class TitleView(generic.ListView):
             'like': self.rating_comment,
         }
 
-    def change_bookmark(self, title, form_name, response_data):
-        is_bookmark_added = self.request.user.titles.filter(id=title.id).exists()
+    def change_bookmark(self, title: Title, form_name: str, response_data: dict):
+        is_bookmark_added = self.request.user.bookmarks.filter(id=title.id).exists()
 
         if is_bookmark_added: 
-            self.request.user.titles.remove(title.id)
+            self.request.user.bookmarks.remove(title.id)
             title.count_bookmarks -= 1
         else: 
-            self.request.user.titles.add(title)
+            self.request.user.bookmarks.add(title)
             title.count_bookmarks += 1
 
-        response_data['is_bookmark_added'] = self.request.user.titles.filter(id=title.id).exists()
+        response_data['is_bookmark_added'] = self.request.user.bookmarks.filter(id=title.id).exists()
         response_data['title_count_bookmarks'] = title.count_bookmarks
 
-    def change_rating(self, title, form_name, response_data):
+    def change_rating(self, title: Title, form_name: str, response_data: dict) -> None:
+        """
+        Change the rating of a title by deleting or adding a new rating
+        """         
         rating_str = [letter for letter in form_name if letter.isdigit()]
         rating = int("".join(rating_str)) 
         
-        is_same_title_rating_exists = self.request.user.ratings.filter(title_id=title.id, rating=rating).exists()
+        title_rating = self.get_title_rating(title)
+        is_same_title_rating_exists = title_rating.rating == rating if title_rating else False 
 
-        self.remove_rating(title)
+        self.remove_rating(title, title_rating)
         self.add_rating(title, rating, is_same_title_rating_exists)
         
-        title_rating = self.request.user.ratings.filter(title_id=title.id)
+        title_rating = self.get_title_rating(title)
 
         response_data['avg_rating'] = title.avg_rating
         response_data['count_rating'] = title.count_rating
-        response_data['title_rating'] = title_rating[0].rating if title_rating.exists() else "None"
+        response_data['title_rating'] = title_rating.rating if title_rating else "None"
 
-    def remove_rating(self, title):
-        title_rating = self.request.user.ratings.filter(title_id=title.id)
-        
-        if not title_rating.exists(): return
+    def remove_rating(self, title: Title, title_rating: Title_rating) -> None:
+        if not title_rating: return
 
         count_rating_except_current = title.count_rating - 1 if title.count_rating > 1 else 1
-        title.avg_rating = (title.avg_rating * title.count_rating - title_rating[0].rating) / count_rating_except_current
+        title.avg_rating = (title.avg_rating * title.count_rating - title_rating.rating) / count_rating_except_current
         title.count_rating -= 1
 
-        self.request.user.ratings.remove(title_rating[0])
+        title_rating.delete()
 
-    def add_rating(self, title, rating, is_same_title_rating_exists):
+    def add_rating(self, title: Title, rating: int, is_same_title_rating_exists: bool) -> None:
         if (is_same_title_rating_exists): return
 
-        rating_object, is_created = Rating.objects.get_or_create(title_id=title.id, rating=rating)
         title.avg_rating = (title.avg_rating * title.count_rating + rating) / (title.count_rating + 1)
         title.count_rating += 1
-        self.request.user.ratings.add(rating_object)
+        title_rating_object = Title_rating(user=self.request.user, title=title, rating=rating)
 
-    def post_comment(self, title, form_name, response_data):
-        comment = Comment.objects.create(author=self.request.user, content=self.request.POST['text'])
-        title.comments.add(comment)
+        title_rating_object.save()
+
+    def post_comment(self, title: Title, form_name: str, response_data: dict):
+        comment = Comment.objects.create(author=self.request.user, title=title, content=self.request.POST['text'])
+        comment.save()
 
         response_data["comment_id"] = comment.id
 
-    def rating_comment(self, title, form_name, response_data):
+    def rating_comment(self, title: Title, form_name: str, response_data: dict):
         comment_rating_str = [letter for letter in form_name if letter.isdigit()]
         comment_rating = int("".join(comment_rating_str)) 
-        comment = title.comments.get(id=comment_rating)
+        comment = Comment.objects.get(id=comment_rating)
         
-        self.title_comments_ratings = self.request.user.titles_comments_ratings.filter(title_id=title.id)
+        comment_rating_object = Comment_rating.objects.filter(user=self.request.user, 
+            title=comment.title, comment=comment).first()    
 
-        is_same_comment_rating_exists, is_comment_rating_exists, is_comment_liked = \
-        self.get_comment_rating_properties(comment, form_name)
+        is_same_comment_rating = self.is_same_comment_rating_exists(comment_rating_object, form_name)
 
-        self.remove_comment_rating(comment, is_comment_rating_exists, is_comment_liked)
-        self.add_comment_rating(comment, form_name, is_same_comment_rating_exists)
+        self.remove_comment_rating(comment, comment_rating_object)
+        self.add_comment_rating(comment, form_name, is_same_comment_rating)
 
         comment.save()
 
         response_data['comment_likes'] = comment.likes
-        response_data['comment_rating'] = None if is_same_comment_rating_exists else form_name
+        response_data['comment_rating'] = None if is_same_comment_rating else form_name
 
-    def get_comment_rating_properties(self, comment, form_name):
-        is_comment_liked = self.title_comments_ratings.filter(comments_likes=comment).exists()
-        is_comment_disliked = self.title_comments_ratings.filter(comments_dislikes=comment).exists()
-        is_comment_rating_exists = is_comment_liked or is_comment_disliked
-        is_same_comment_rating_exists = bool()
-
-        if 'dislike' in form_name:
-            is_same_comment_rating_exists = is_comment_disliked
-        else:
-            is_same_comment_rating_exists = is_comment_liked
-                        
-        return is_same_comment_rating_exists, is_comment_rating_exists, is_comment_liked
-
-    def remove_comment_rating(self, comment, is_comment_rating_exists, is_comment_liked):    
-        if not is_comment_rating_exists: return
+    def is_same_comment_rating_exists(self, comment_rating_object: Comment_rating, form_name: str) -> bool:
+        if comment_rating_object:
+            return not comment_rating_object.is_liked if 'dislike' in form_name else comment_rating_object.is_liked
         
-        if is_comment_liked:
+        return False
+
+    def remove_comment_rating(self, comment: Comment, comment_rating_object: Comment_rating) -> None:    
+        if not comment_rating_object: return
+            
+        if comment_rating_object.is_liked:
             comment.likes -= 1
-            self.title_comments_ratings[0].comments_likes.remove(comment)
         else:
             comment.likes += 1
-            self.title_comments_ratings[0].comments_dislikes.remove(comment)
 
-    def add_comment_rating(self, comment, form_name, is_same_comment_rating_exists):
-        if (is_same_comment_rating_exists): return
-        
+        comment_rating_object.delete()    
+
+    def add_comment_rating(self, comment: Comment, form_name: str, is_same_comment_rating: bool) -> None:
+        if (is_same_comment_rating): return
+
+        is_liked = False
+
         if 'dislike' in form_name:
             comment.likes -= 1
-            self.title_comments_ratings[0].comments_dislikes.add(comment)
         else:
             comment.likes += 1
-            self.title_comments_ratings[0].comments_likes.add(comment)       
+            is_liked = True   
+        
+        comment_rating_object = Comment_rating(user=self.request.user, title=comment.title, comment=comment, is_liked=is_liked)
+
+        comment_rating_object.save()
 
 class SearchView(generic.ListView):
     template_name = "search.html"
@@ -464,8 +475,7 @@ class BookmarksView(generic.ListView):
     context_object_name = "titles"
 
     def get_queryset(self):
-        return self.request.user.titles.all()
-        
+        return self.request.user.bookmarks.all()
     
     def get(self, request, *args, **kwargs):
         if not self.request.user.is_authenticated:

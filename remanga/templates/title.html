@@ -1,5 +1,6 @@
 {% extends "catalog.html" %}
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}
 <title>{{ title.rus_name }}</title>
@@ -1023,38 +1024,41 @@
                               <form method="post" class="comment_like_form">
                                   {% csrf_token %}
                                   <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="like_{{ comment.id }}" style="background-color: transparent;border: none;padding: 0;">
-                                    {% if comment in title_comments_ratings.comments_likes.all %}
-                                      <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t SvgIcon_color-primary__TnNB7 Svg_rating">
+                                    {% if user_title_comments_ratings|get_item:comment.id %}
+                                      <svg fill="currentColor" viewBox="0 0 40 40"
+                                        class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t SvgIcon_color-primary__TnNB7 Svg_rating">
                                         <path
                                           d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
                                           class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
                                       </svg>
                                       {% else %}
-                                      <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating">
+                                      <svg fill="currentColor" viewBox="0 0 40 40"
+                                        class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating">
                                         <path
                                           d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
                                           class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
                                       </svg>
-                                    {% endif %}        
+                                      {% endif %}
                                   </button>
                                 <span class="Comments_score__fxIQG"> {{ comment.likes }} </span>
                                 <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="dislike_{{ comment.id }}"
                                 style="background-color: transparent;border: none;padding: 0;">
-                                {% if comment in title_comments_ratings.comments_dislikes.all %}
-                                  <svg fill="currentColor" viewBox="0 0 40 40"
-                                    class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t SvgIcon_color-secondary__OvK95 Svg_rating"
-                                    style="transform: rotate(180deg);">
-                                    <path
-                                      d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                                      class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
-                                  </svg>
-                                    {% else %}                                    
-                                  <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating"
-                                    style="transform: rotate(180deg);">
-                                    <path
-                                      d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                                      class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
-                                  </svg>
+                                {% if comment.id in user_title_comments_ratings and not user_title_comments_ratings|get_item:comment.id %}
+                                <svg fill="currentColor" viewBox="0 0 40 40"
+                                  class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t SvgIcon_color-secondary__OvK95 Svg_rating"
+                                  style="transform: rotate(180deg);">
+                                  <path
+                                    d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
+                                    class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
+                                </svg>
+                                {% else %}
+                                <svg fill="currentColor" viewBox="0 0 40 40"
+                                  class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating"
+                                  style="transform: rotate(180deg);">
+                                  <path
+                                    d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
+                                    class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
+                                </svg>
                                 {% endif %}
                                 </button>
                               </form>
