@@ -63,7 +63,7 @@ class Drop_menu_stylization {
     const url_part_name = url_part.replace(`=${url_part_value}`, String());
     this.index_url_part_name = url_params.indexOf(url_part_name);
 
-    if (!url_part_name || this.index_url_part_name == -1) {
+    if (!url_part_name || this.index_url_part_name == -1 || !url_part_value) {
       return;
     };
 
@@ -75,7 +75,9 @@ class Drop_menu_stylization {
       
     if (all_existing_labels.length < max_count_labels) {
       const label_name = this.get_label_name(data_array, url_part_value);
-      this.insert_label_html(div_label, label_name)
+      
+      if (label_name)
+        this.insert_label_html(div_label, label_name)
     }
   }
 
@@ -91,6 +93,9 @@ class Drop_menu_stylization {
     const data = data_array[total_index_url_part_name];
     let value_key = Object.keys(data[0]);
     value_key = value_key[value_key.length - 1];
+
+    if (url_part_value >= data.length) return
+
     const label_name = data[url_part_value][value_key];
 
     return label_name

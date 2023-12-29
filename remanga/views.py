@@ -4,43 +4,48 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.conf import settings
-from django.http import JsonResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.core.paginator import Paginator
+
+from typing import Union, Any
+import json
+import os
 
 from .models import *
 from .forms import UserCreationForm
-
-import json
-import os
 
 class CatalogView(generic.ListView):
     template_name = "catalog.html"
     filters = Q()
     count_titles_on_page = 30
 
-    def get_queryset(self):
+    def get_queryset(self) -> None:
         return
     
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args, **kwargs) -> Union[HttpResponse, JsonResponse]:
         self.create_filters(request)
         
-        if (not 'next_page' in request.GET):
-            return super().get(request, *args, **kwargs)
+        if ('next_page' in request.GET):
+            return JsonResponse(self.get_next_page_data(request))
         
-        return JsonResponse(self.get_next_page_data(request))
-
-    def create_filters(self, request):
+        return super().get(request, *args, **kwargs)
+        
+    def create_filters(self, request: HttpRequest) -> None:
+        """
+        Iterate each query param and for different query params combine with a condition "and"
+        """ 
         self.init_filters_variables()
         
         for query_key in list(request.GET.keys()): 
             query_values = self.request.GET.getlist(query_key)
-            
-            if (''.join(query_values) == str() or query_key == 'next_page'): continue
+            query_param_exception = self.is_query_param_exception(query_key, query_values)
+
+            if (query_param_exception): continue
             
             self.create_query_key_filters(query_key, query_values)        
             self.filters &= self.query_key_filters
 
-    def init_filters_variables(self):
+    def init_filters_variables(self) -> None:
         self.query_keys_adapted_for_table = {
             'types': 'manga_type',
             'rating': 'avg_rating',
@@ -49,23 +54,32 @@ class CatalogView(generic.ListView):
             "exclude_": "",
         }
 
-        self.database_tables = {
-            'manga_type': None,
+        self.title_table_columns = {
+            'manga_type': Title.objects.values_list("manga_type", flat=True).distinct(),
             'genres': Genres.objects.all(),
             'categories': Categories.objects.all(),
         }
 
-    def create_query_key_filters(self, query_key, query_values):
-        query_key_adapted = self.get_query_key_adapted(query_key)
-        self.query_key_filters = Q()
-        
-        for query_value_str in query_values:
-            query_value = float(query_value_str) if '.' in query_value_str else int(query_value_str)
+        self.title_table_columns_ranges = {
+            'issue_year': None,
+            'avg_rating': None,
+            'count_chapters': None,
+        }        
 
-            self.add_range_filters(query_key, query_key_adapted, query_value)
-            self.add_filter(query_key, query_key_adapted, query_value)
-    
-    def get_query_key_adapted(self, query_key):
+    def is_query_param_exception(self, query_key: str, query_values: list[str]) -> bool:
+        for query_value in query_values:
+            is_query_values_empty = query_value == str()
+           
+            if is_query_values_empty: break
+
+        query_key_adapted = self.get_query_key_adapted(query_key)
+
+        query_key_exists = query_key_adapted in self.title_table_columns \
+        or query_key_adapted in self.title_table_columns_ranges
+
+        return is_query_values_empty or not query_key_exists
+
+    def get_query_key_adapted(self, query_key: str) -> str:
         query_key_adapted = query_key
 
         for query_key_for_adapte in self.query_keys_adapted_for_table:
@@ -82,18 +96,57 @@ class CatalogView(generic.ListView):
 
         return query_key_adapted
 
-    def add_range_filters(self, query_key, query_key_adapted, query_value):
-        for range_argument in ["lte", "gte"]:
-            if range_argument in query_key:
-                self.query_key_filters |= Q(**{f"{query_key_adapted}__{range_argument}": query_value})
-
-    def add_filter(self, query_key, query_key_adapted, query_value):
-        if not query_key_adapted in self.database_tables: return
+    def create_query_key_filters(self, query_key: str, query_values: list[str]) -> None:
+        """
+        Create filters for all values in query param
+        """  
+        query_key_adapted = self.get_query_key_adapted(query_key)
+        self.query_key_filters = Q()
         
-        if query_key_adapted == "manga_type": 
-            filtered_data = Title.objects.values(query_key_adapted).distinct()[query_value][query_key_adapted]
-        else:
-            filtered_data = self.database_tables[query_key_adapted][query_value]
+        for query_value_str in query_values:
+            valid_query_value = self.is_valid_query_value(query_value_str)
+
+            if not valid_query_value: continue
+
+            query_value = float(query_value_str) if '.' in query_value_str else int(query_value_str)
+
+            if query_key_adapted in self.title_table_columns_ranges:
+                self.add_range_filters(query_key, query_key_adapted, query_value)
+            elif type(query_value) == int:
+                self.add_filter(query_key, query_key_adapted, query_value)
+
+    def is_valid_query_value(self, query_value_str: str) -> bool:
+        have_point = False
+
+        for char in query_value_str:
+            if char == '.' and not have_point: 
+                have_point = True
+            elif not char.isdigit():
+                return False
+            
+        return True
+
+    def add_range_filters(self, query_key: str, query_key_adapted: str, query_value: Union[float, int]) -> None:        
+        """
+        Filters ranging from to
+        """  
+        if 'lte' in query_key:
+            range_argument = 'lte'
+        elif 'gte' in query_key:
+            range_argument = 'gte'
+        else: 
+            return
+        
+        self.query_key_filters |= Q(**{f"{query_key_adapted}__{range_argument}": query_value})
+
+    def add_filter(self, query_key: str, query_key_adapted: str, query_value: Union[float, int]) -> None:                
+        """
+        Other filters except ranging from to
+        """          
+        if query_value >= len(self.title_table_columns[query_key_adapted]):
+            return
+
+        filtered_data = self.title_table_columns[query_key_adapted][query_value]
 
         Q_filter = Q(**{ query_key_adapted: filtered_data })        
 
@@ -102,7 +155,7 @@ class CatalogView(generic.ListView):
         else:
             self.query_key_filters |= Q_filter
 
-    def get_next_page_data(self, request):
+    def get_next_page_data(self, request: HttpRequest) -> dict[str, str]:
         filtered_titles = Title.objects.order_by('-count_rating').filter(self.filters).distinct()
         
         paginator = Paginator(filtered_titles, self.count_titles_on_page)
@@ -115,7 +168,7 @@ class CatalogView(generic.ListView):
 
         return next_page_data
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
 
         database_tables_data = {
@@ -249,6 +302,7 @@ class TitleView(generic.ListView):
         comment_rating_str = [letter for letter in form_name if letter.isdigit()]
         comment_rating = int("".join(comment_rating_str)) 
         comment = title.comments.get(id=comment_rating)
+        
         self.title_comments_ratings = self.request.user.titles_comments_ratings.filter(title_id=title.id)
 
         is_same_comment_rating_exists, is_comment_rating_exists, is_comment_liked = \
@@ -297,7 +351,7 @@ class TitleView(generic.ListView):
 
 class SearchView(generic.ListView):
     template_name = "search.html"
-    
+
     def get_queryset(self):
         return
     
@@ -325,9 +379,9 @@ class SignupView(generic.View):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('/')
-        context = { 'form': form }
-        return render(request, self.template_name, context)
+            return JsonResponse({'message': 'registered success'})
+        
+        return JsonResponse({'detail': form.errors})
 
 class SigninView(generic.ListView):
     template_name = "signin.html"
@@ -349,9 +403,9 @@ class SigninView(generic.ListView):
             
             if user is not None:
                 login(request, user)
-                return redirect('/')
+                return JsonResponse({'message': 'authenticated success'})
 
-        return render(request, self.template_name, {'form': form })
+        return JsonResponse({'detail': form.errors})
 
 class LogutView(generic.ListView):
     def get(self, request):
@@ -387,13 +441,9 @@ class ProfileView(generic.ListView):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)                    
-            return redirect(request.path)
+            return JsonResponse({'message': 'Password changed'})
         
-        user_id = self.kwargs.get('user_id')  
-        profile = User.objects.filter(id=user_id)[0]
-        context = { 'form': form, "profile": profile }
-
-        return render(request, self.template_name, context)
+        return JsonResponse({'detail': form.errors})
 
     def change_avatar(self, request):
         avatar = request.FILES['avatar']

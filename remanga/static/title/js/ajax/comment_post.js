@@ -1,8 +1,8 @@
 class Comment_post extends Ajax_post {
-    constructor(comment_rating_post, user) {
+    constructor() {
         super();
         
-        this.comment_rating_post = comment_rating_post;
+        this.comment_rating_post = new Comment_rating_post();
         this.textarea_comment_post = document.querySelector(".Input_inputAdornedEnd__5xGz7");
 
         const update_data_callback = (response) => {
@@ -25,6 +25,8 @@ class Comment_post extends Ajax_post {
         comment_counter.innerText = comment_counter_separeted_text[0] + " " + updated_comments_count
 
         this.add_new_comment_rating_listeners(comment_created, response);
+        
+        this.textarea_comment_post.value = '';
     }
 
     add_new_comment_rating_listeners(comment_created, response) {

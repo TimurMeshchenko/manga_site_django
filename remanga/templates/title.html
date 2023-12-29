@@ -6,11 +6,11 @@
 {% endblock %}
 
 {% block css %}
-<link rel="preload" href="{% static 'title/5689d52a5bc7437e.css' %}" as="style" />
-<link rel="stylesheet" href="{% static 'title/5689d52a5bc7437e.css' %}" data-n-p="" />
-<link rel="preload" href="{% static 'title/f246e387903032ed.css' %}" as="style" />
-<link rel="stylesheet" href="{% static 'title/f246e387903032ed.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'title/8910bb6d49cf84aa.css' %}" />
+<link rel="preload" href="{% static 'title/css/5689d52a5bc7437e.css' %}" as="style" />
+<link rel="stylesheet" href="{% static 'title/css/5689d52a5bc7437e.css' %}" data-n-p="" />
+<link rel="preload" href="{% static 'title/css/f246e387903032ed.css' %}" as="style" />
+<link rel="stylesheet" href="{% static 'title/css/f246e387903032ed.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'title/css/8910bb6d49cf84aa.css' %}" />
 {% endblock %}
 
 {% block styles %}
@@ -1071,52 +1071,10 @@
           </div>
         </div>
       </div>
-      <!--/$--><!--/$-->
     </div>
   </main>
 </div>
 </div>
-<script id="__NEXT_DATA__" type="application/json">
-    </script>
-<script>
-  (function (m, e, t, r, i, k, a) {
-    m[i] =
-      m[i] ||
-      function () {
-        (m[i].a = m[i].a || []).push(arguments);
-      };
-    m[i].l = 1 * new Date();
-    (k = e.createElement(t)),
-      (a = e.getElementsByTagName(t)[0]),
-      (k.async = 1),
-      (k.src = r),
-      a.parentNode.insertBefore(k, a);
-  })(
-    window,
-    document,
-    "script",
-    "https://mc.yandex.ru/metrika/tag.js",
-    "ym"
-  );
-  ym(43900324, "init", {
-    clickmap: true,
-    trackLinks: true,
-    accurateTrackBounce: true,
-    webvisor: true,
-  });
-</script>
-<noscript>
-  <div>
-    <img src="https://mc.yandex.ru/watch/43900324" style="position: absolute; left: -9999px" alt="" />
-  </div>
-</noscript>
-<script>
-  <!-- -->
-</script>
-<script>
-  window.yaContextCb = window.yaContextCb || [];
-</script>
-
 <next-route-announcer>
   <p aria-live="assertive" id="__next-route-announcer__" role="alert" style="
           border: 0px;
@@ -1142,6 +1100,7 @@
 <script src="{% static 'title/js/title_menu_switcher.js' %}"></script> 
 
 <script>
+  const csrf_token = '{% csrf_token %}'
   const title_menu_switcher = new Title_menu_switcher("{{ title_rating }}", "{{ user.is_authenticated }}", 
   "{% url 'remanga:signin' %}");
 
@@ -1168,79 +1127,14 @@
     `);
   }
 
-  function add_rating_menu() {
-    document.querySelector("body").insertAdjacentHTML('beforeend', `
-    <div data-mui-test="Modal" role="presentation" class="jsx-24297ecd4e1681b6 jsx-3374786578 modal Dialog_root__IWQvZ">
-      <div data-test="Backdrop" aria-hidden="true" class="jsx-abc0dc1e74fa3514 jsx-24297ecd4e1681b6 jsx-3374786578 "
-        style="background-color: rgba(0, 0, 0, 0.667);"></div>
-      <div tabindex="0" data-test="sentinelStart"></div>
-      <div class="Dialog_container___8sF_ Dialog_scroll-body__nSP8j" tabindex="-1" style="opacity: 1;">
-        <div
-          class="jsx-7f4bbfca36e2b46d Dialog_paper__JNmkA Dialog_paperWidth-sm__1kKlh Dialog_paper-scroll-body__eos89 paper rounded">
-          <div class="jsx-b4198a5461045988 root">
-            <form method="post" class="form_title_rating">
-              {% csrf_token %}
-            <button class="transparent jsx-b4198a5461045988 item" type="submit">
-                <span class="jsx-b4198a5461045988">10</span>
-                <span class="jsx-b4198a5461045988">Эпик вин</span>
-            </button>
-
-            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_9">
-              <span class="jsx-b4198a5461045988">9</span>
-              <span class="jsx-b4198a5461045988">Великолепно</span>
-            </button>
-            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_8">
-              <span class="jsx-b4198a5461045988">8</span> 
-              <span class="jsx-b4198a5461045988">Отлично</span>
-            </button>
-            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_7">
-              <span class="jsx-b4198a5461045988">7</span>
-              <span class="jsx-b4198a5461045988">Хорошо</span>
-            </button>
-            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_6">
-              <span class="jsx-b4198a5461045988">6</span>
-              <span class="jsx-b4198a5461045988">Нормально</span>
-            </button>
-            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_5">
-              <span class="jsx-b4198a5461045988">5</span>
-              <span class="jsx-b4198a5461045988">Более-менее</span>
-            </button>
-            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_4">
-              <span class="jsx-b4198a5461045988">4</span>
-              <span class="jsx-b4198a5461045988">Плохо</span>
-            </button>
-            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_3">
-              <span class="jsx-b4198a5461045988">3</span>
-              <span class="jsx-b4198a5461045988">Очень плохо</span>
-            </button>
-            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_2">
-              <span class="jsx-b4198a5461045988">2</span>
-              <span class="jsx-b4198a5461045988">Ужасно</span>
-            </button>
-            <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_1">
-              <span class="jsx-b4198a5461045988">1</span>
-              <span class="jsx-b4198a5461045988">Хуже некуда</span>
-            </button>
-            </form>
-          </div>
-        </div>
-      </div>
-      <div tabindex="0" data-test="sentinelEnd"></div>
-    </div>
-    `)
-  }
-
 </script>
 <script>
   new Comment_input_stylization();
 </script>
-
 <script>
   if ('{{ user.is_authenticated }}' == "True")
-  {
-    const comment_rating_post = new Comment_rating_post(); 
-    
-    new Comment_post(comment_rating_post);
+  {    
+    new Comment_post();
     new Bookmark_post();
   }
 

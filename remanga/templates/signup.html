@@ -49,12 +49,7 @@
             autocomplete="new-password" required="" id="id_password2" /></div>
         <p class="Input_formHelperText__EwCsr"></p>
       </div>
-      {% for field in form %}
-      {% for error in field.errors %}
-      <p style="color: red">{{ error }}
-        {% endfor %}
-        {% endfor %}
-        <br />
+        <p class="exceptions" style="color: red"></p>
         <button
           class="Button_button___CisL Button_button___CisL Button_contained__8_KFk Button_contained-primary__IViyX Button_contained-size-large__HCqRj Button_fullWidth__Dgoqh after_form"
           tabindex="0" type="submit"><span class="Button_label__jamx3">Регистрация</span>
@@ -71,4 +66,10 @@
     </p>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'title/js/ajax/ajax_post.js' %}"></script>
+<script src="{% static 'signup/js/signup_post.js' %}"></script>
+<script>
+  new Signup_post()
+</script>
 {% endblock %}

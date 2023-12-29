@@ -697,11 +697,13 @@
           </a>
         </div>
         {% else %}
-        <button
-          class="Button_button__JOS9_ Button_button__JOS9_ Button_contained__C0zVd Button_contained-primary__ZtvzA hidden-xsDown"
-          tabindex="0" type="button" style="margin-left: 8px">
-          <a class="Button_label__py8bK" href="{% url 'remanga:signin' %}">Войти</a>
-        </button>
+        <a href="{% url 'remanga:signin' %}">
+          <button
+            class="Button_button__JOS9_ Button_button__JOS9_ Button_contained__C0zVd Button_contained-primary__ZtvzA hidden-xsDown"
+            tabindex="0" type="button" style="margin-left: 8px">
+            <span class="Button_label__py8bK">Войти</span>
+          </button>
+        </a>
         {% endif %}
       </div>
     </nav>
@@ -1077,9 +1079,9 @@
 
     new Filters().main(data_array)
   </script>
-
   <script>
-    new Endless_scroll("{{ num_pages }}");
+    const pages_count = "{{ num_pages }}";
+    new Endless_scroll();
   </script>
 
   <next-route-announcer>

@@ -6,13 +6,13 @@
 {% endblock %}
 
 {% block css %}
-  <link rel="preload" href="{% static 'signin/cb4f8de50573f9d5.css' %}" as="style" />
-  <link rel="stylesheet" href="{% static 'signin/cb4f8de50573f9d5.css' %}" data-n-g="" />
-  <link rel="stylesheet" type="text/css" href="{% static 'signin/843ea9ec36d246ae.css' %}" />
-  <link rel="stylesheet" type="text/css" href="{% static 'signin/920c959cc716ad46.css' %}" />
-  <link rel="stylesheet" type="text/css" href="{% static 'signin/029ac71e4e31b456.css' %}" />
-  <link rel="stylesheet" type="text/css" href="{% static 'signin/09e4f43c14f4840f.css' %}" />
-  <link rel="stylesheet" type="text/css" href="{% static 'signin/9dd15375466b1de0.css' %}" />
+  <link rel="preload" href="{% static 'signin/css/cb4f8de50573f9d5.css' %}" as="style" />
+  <link rel="stylesheet" href="{% static 'signin/css/cb4f8de50573f9d5.css' %}" data-n-g="" />
+  <link rel="stylesheet" type="text/css" href="{% static 'signin/css/843ea9ec36d246ae.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'signin/css/920c959cc716ad46.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'signin/css/029ac71e4e31b456.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'signin/css/09e4f43c14f4840f.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'signin/css/9dd15375466b1de0.css' %}" />
 {% endblock %}
   
 {% block styles %}
@@ -121,7 +121,7 @@
         {%csrf_token %}
         <div class="jsx-261496919888b024 root fullWidth Input_formControl__B11lU">
           <div class="Input_root___0KQ3 Input_outlined__GjuSL"><input aria-invalid="false" name="username"
-              placeholder="*Логин/почта" rows="1" type="text" class="Input_input___YBKm" value="" autofocus=""
+              placeholder="*Логин" rows="1" type="text" class="Input_input___YBKm" value="" autofocus=""
               autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username"></div>
           <p class="Input_formHelperText__EwCsr"></p>
         </div>
@@ -132,9 +132,7 @@
           <p class="Input_formHelperText__EwCsr"></p>
         </div>
     </div>
-
-    {{ form.non_field_errors }}
-
+    <p class="exceptions" style="color: red"></p>
     <button
       class="Button_button___CisL Button_button___CisL Button_contained__8_KFk Button_contained-primary__IViyX Button_contained-size-large__HCqRj Button_fullWidth__Dgoqh"
       tabindex="0" type="submit"><span class="Button_label__jamx3">Войти</span></button>
@@ -146,4 +144,10 @@
     </p>
   </div>
   </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'title/js/ajax/ajax_post.js' %}"></script>
+<script src="{% static 'signin/js/signin_post.js' %}"></script>
+<script>
+  new Signin_post()
+</script>
 {% endblock %}

@@ -4950,6 +4950,7 @@
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                 <script src="{% static 'title/js/ajax/ajax_post.js' %}"></script>
                 <script src="{% static 'profile/ajax/profile_avatar_post.js' %}"></script>
+                <script src="{% static 'profile/ajax/password_post.js' %}"></script>
 
                 <script>
                   new Profile_avatar_post();            
@@ -4994,16 +4995,13 @@
               </div>
               <p class="Input_formHelperText__EwCsr"></p>
             </div>
-            {% for field in form %}
-            {% for error in field.errors %}
-            <p style="color: red">{{ error }}
-              {% endfor %}
-              {% endfor %}
-
+                <p class="exceptions" style="color: red"></p>
+                <p class="success" style="color: green"></p>
               <button
                 class="Button_button___CisL Button_button___CisL Button_contained__8_KFk Button_contained-primary__IViyX"
-                tabindex="0" type="submit" style="color: rgb(255, 255, 255);"><span class="Button_label__jamx3">Сменить
-                  пароль</span></button>
+                tabindex="0" type="submit" style="color: rgb(255, 255, 255);">
+                <span class="Button_label__jamx3">Сменить пароль</span>
+              </button>
           </form>
         </div>
         <a href="{% url 'remanga:logout' %}"><button class="Button_button___CisL Button_button___CisL Button_contained__8_KFk Button_contained-primary__IViyX">Выход</button></a>
@@ -5012,4 +5010,7 @@
     </div>
   </main>
 </div>
+<script>
+  new Password_post()
+</script>
 {% endblock %}

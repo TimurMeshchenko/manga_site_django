@@ -65,7 +65,7 @@ class Title_menu_switcher {
             if (this.user_is_authenticated == "False")
                 return window.location.href = this.signin_url;
             
-            add_rating_menu();
+            this.add_rating_menu();
             this.highlight_active_rating();
             this.body.style.overflow = "hidden";
         }
@@ -76,6 +76,68 @@ class Title_menu_switcher {
 
         modal_window.remove();
         this.body.style.overflow = null;
+    }
+
+    add_rating_menu() {
+        document.querySelector("body").insertAdjacentHTML('beforeend', `
+        <div data-mui-test="Modal" role="presentation" class="jsx-24297ecd4e1681b6 jsx-3374786578 modal Dialog_root__IWQvZ">
+        <div data-test="Backdrop" aria-hidden="true" class="jsx-abc0dc1e74fa3514 jsx-24297ecd4e1681b6 jsx-3374786578 "
+            style="background-color: rgba(0, 0, 0, 0.667);"></div>
+        <div tabindex="0" data-test="sentinelStart"></div>
+        <div class="Dialog_container___8sF_ Dialog_scroll-body__nSP8j" tabindex="-1" style="opacity: 1;">
+            <div
+            class="jsx-7f4bbfca36e2b46d Dialog_paper__JNmkA Dialog_paperWidth-sm__1kKlh Dialog_paper-scroll-body__eos89 paper rounded">
+            <div class="jsx-b4198a5461045988 root">
+                <form method="post" class="form_title_rating">
+                ${csrf_token}
+                <button class="transparent jsx-b4198a5461045988 item" type="submit">
+                    <span class="jsx-b4198a5461045988">10</span>
+                    <span class="jsx-b4198a5461045988">Эпик вин</span>
+                </button>
+
+                <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_9">
+                <span class="jsx-b4198a5461045988">9</span>
+                <span class="jsx-b4198a5461045988">Великолепно</span>
+                </button>
+                <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_8">
+                <span class="jsx-b4198a5461045988">8</span> 
+                <span class="jsx-b4198a5461045988">Отлично</span>
+                </button>
+                <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_7">
+                <span class="jsx-b4198a5461045988">7</span>
+                <span class="jsx-b4198a5461045988">Хорошо</span>
+                </button>
+                <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_6">
+                <span class="jsx-b4198a5461045988">6</span>
+                <span class="jsx-b4198a5461045988">Нормально</span>
+                </button>
+                <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_5">
+                <span class="jsx-b4198a5461045988">5</span>
+                <span class="jsx-b4198a5461045988">Более-менее</span>
+                </button>
+                <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_4">
+                <span class="jsx-b4198a5461045988">4</span>
+                <span class="jsx-b4198a5461045988">Плохо</span>
+                </button>
+                <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_3">
+                <span class="jsx-b4198a5461045988">3</span>
+                <span class="jsx-b4198a5461045988">Очень плохо</span>
+                </button>
+                <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_2">
+                <span class="jsx-b4198a5461045988">2</span>
+                <span class="jsx-b4198a5461045988">Ужасно</span>
+                </button>
+                <button class="transparent jsx-b4198a5461045988 item" type="submit" name="form_name" value="rating_1">
+                <span class="jsx-b4198a5461045988">1</span>
+                <span class="jsx-b4198a5461045988">Хуже некуда</span>
+                </button>
+                </form>
+            </div>
+            </div>
+        </div>
+        <div tabindex="0" data-test="sentinelEnd"></div>
+        </div>
+        `)
     }
 
     highlight_active_rating() {
