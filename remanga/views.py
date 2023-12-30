@@ -2,7 +2,7 @@ from django.views import generic
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.conf import settings
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.core.paginator import Paginator
@@ -13,9 +13,11 @@ from django.contrib.auth.tokens import default_token_generator
 from typing import Union, Any, Optional
 import json
 import os
+from django.conf import settings
 
 from .models import *
 from .forms import UserCreationForm, CustomPasswordResetForm
+from .tasks import send_async_email
 
 class CatalogView(generic.ListView):
     template_name = "catalog.html"
@@ -406,7 +408,6 @@ class SigninView(generic.ListView):
 
     def send_email(self, to_mail):
         subject = "Manga password recovery"
-        from_email = 'fawwa2515af@outlook.com'
         recipient_list = [to_mail]
         template_name = 'reset_password_letter.html'
         
@@ -416,8 +417,10 @@ class SigninView(generic.ListView):
         context = {'user': user, 'token': token, 'domain': "http://localhost:8000"}
         message = render_to_string(template_name, context)
 
-        # print(message)
-        send_mail(subject, message, from_email, recipient_list, html_message=message)
+        if settings.USE_REDIS:
+            send_async_email.delay(subject, message, settings.EMAIL_HOST_USER, recipient_list)
+        else:
+            send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list, html_message=message)
 
     def get_signin_response(self, request):
         form = AuthenticationForm(request, data=request.POST)
@@ -431,7 +434,7 @@ class SigninView(generic.ListView):
                 login(request, user)
                 return JsonResponse({'message': 'authenticated success'})
 
-        return JsonResponse({'detail': form.errors})
+        return JsonResponse({'detail': form.errors})    
 
 class LogutView(generic.ListView):
     def get(self, request):

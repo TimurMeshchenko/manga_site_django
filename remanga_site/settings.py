@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import socket
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -120,3 +121,18 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'fawwa2515af@outlook.com'  
 EMAIL_HOST_PASSWORD = 'fGJsS(Q.PP#95r#'  
+
+REDIS_HOST = "localhost"
+REDIS_PORT = 6379
+
+CELERY_BROKER_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
+CELERY_RESULT_BACKEND = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
+
+def is_redis_enabled():
+    try:
+        with socket.create_connection((REDIS_HOST, REDIS_PORT), timeout=1):
+            return True
+    except (socket.timeout, ConnectionRefusedError):
+        return False
+    
+USE_REDIS = is_redis_enabled()

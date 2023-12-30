@@ -1,5 +1,5 @@
-с redis celery, 
-асинхронно отправлять email, подключать redis
+config передалать у fastapi
+use_redis = is_redis_available()
 
 -------------------------------------------
 
@@ -23,15 +23,15 @@ python -m pytest -v -s
 
 -------------------------------------------
 
-gitflow через gunicorn
+посмотреть структуру директорий других проектов, наверно нужно сделать все не в одном файле,
+а как в fastapi для каждого своя директория
 
 -------------------------------------------
 
-django запускается раньше бд, нужно взять скрипт с гайдов, чтобы ждал
-Создать .env config как в fastapi и удалить команду по переименовании бд, брать из .env
+docker как в fastapi
+Запускать через gunicorn, если раньше бд, то взять скрипт с гайдов, чтобы ждал бд
 
 дописать к django docker redis celery
-Запустить на gunicorn 
 
 -------------------------------------------
 
@@ -52,11 +52,7 @@ await ожидает выполнения
 
 -------------------------------------------
 
-django github actions добавить тест парсера
-
--------------------------------------------
-
-Дописать тесты для parser в тестовой бд
+Дописать тесты для parser в бд
 
 -------------------------------------------
 
@@ -70,3 +66,6 @@ redis-cli
 from remanga.models import *
 
 python -m uvicorn remanga_site.asgi:application --reload
+
+Windows. python -m celery -A remanga_site worker --pool=solo -l info
+Linux. python celery -A remanga_site worker -l INFO
