@@ -133,6 +133,7 @@
         </div>
     </div>
     <p class="exceptions" style="color: red"></p>
+    <p class="success" style="color: green"></p>
     <button
       class="Button_button___CisL Button_button___CisL Button_contained__8_KFk Button_contained-primary__IViyX Button_contained-size-large__HCqRj Button_fullWidth__Dgoqh"
       tabindex="0" type="submit"><span class="Button_label__jamx3">Войти</span></button>
@@ -142,12 +143,23 @@
       <a href="{% url 'remanga:signup' %}" class="jsx-4c4906b68fb5f50a"
         style="color: var(--primary-light);">Зарегистрироваться</a>
     </p>
+    <p
+      class="Typography_body2__piveF Typography_color-primary__xoN6_ Typography_bold__SKyBL Typography_align-center__j_M0w">
+      <a class="jsx-4c4906b68fb5f50a Reset_password" style="color: var(--primary-light); cursor: pointer;">Восстановить
+        пароль</a>
+    </p>
   </div>
   </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'title/js/ajax/ajax_post.js' %}"></script>
 <script src="{% static 'signin/js/signin_post.js' %}"></script>
+<script src="{% static 'signin/js/reset_password.js' %}"></script>
 <script>
+  const ajax_post = new Ajax_post();
+  const exceptions_element = document.querySelector(".exceptions");
+  const success_element = document.querySelector(".success");
+
   new Signin_post()
+  listen_reset_password_link();
 </script>
 {% endblock %}

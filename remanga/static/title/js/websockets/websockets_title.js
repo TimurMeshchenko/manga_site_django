@@ -32,7 +32,8 @@ class Websockets_title {
     }
 
     send_websocket(websoket_data) {
-        if (!user_id) return window.location.href = "/signin";
+        if (user_id == "None") 
+            return window.location.href = "/signin";
 
         ws.send(websoket_data)
     }

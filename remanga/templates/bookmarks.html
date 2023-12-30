@@ -2824,4 +2824,16 @@
         </div>
     </main>
 </div>
+<script src="{% static 'title/js/websockets/websockets_title.js' %}"></script>
+<script src="{% static 'bookmarks/websockets_bookmarks.js' %}"></script>
+<script>
+    const user_id = "{{ user.id }}";
+    const url_title_empty = "{% url 'remanga:title' dir_name=0 %}"; 
+    const title_id = "0";
+
+    const session_id = Websockets_title.generate_session_id();
+    const ws = new WebSocket(`ws://${window.location.host}/ws/${session_id}`);
+
+    listen_websocket_response();
+</script>
 {% endblock %}

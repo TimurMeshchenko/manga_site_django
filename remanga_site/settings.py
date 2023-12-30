@@ -113,3 +113,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR / "remanga", 'media')
 MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp-mail.outlook.com' 
+EMAIL_PORT = 587 
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'fawwa2515af@outlook.com'  
+EMAIL_HOST_PASSWORD = 'fGJsS(Q.PP#95r#'  

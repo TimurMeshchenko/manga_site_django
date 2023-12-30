@@ -2,17 +2,20 @@ from django.views import generic
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm
 from django.conf import settings
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.core.paginator import Paginator
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.contrib.auth.tokens import default_token_generator
 
 from typing import Union, Any, Optional
 import json
 import os
 
 from .models import *
-from .forms import UserCreationForm
+from .forms import UserCreationForm, CustomPasswordResetForm
 
 class CatalogView(generic.ListView):
     template_name = "catalog.html"
@@ -383,6 +386,40 @@ class SigninView(generic.ListView):
         return render(request, self.template_name, context)
 
     def post(self, request):
+        is_email = 'email' in request.POST
+
+        if is_email: 
+            return self.get_send_email_response(request)
+
+        return self.get_signin_response(request)
+
+    def get_send_email_response(self, request):
+        email = request.POST['email']
+        is_email_exists = User.objects.filter(email=email).exists()
+        
+        if not is_email_exists:
+            return JsonResponse({'detail': 'User with this email does not exist'})
+
+        self.send_email(email)
+
+        return JsonResponse({'message': 'Sent to email'})
+
+    def send_email(self, to_mail):
+        subject = "Manga password recovery"
+        from_email = 'fawwa2515af@outlook.com'
+        recipient_list = [to_mail]
+        template_name = 'reset_password_letter.html'
+        
+        user = User.objects.get(email=to_mail)
+        token = default_token_generator.make_token(user)
+
+        context = {'user': user, 'token': token, 'domain': "http://localhost:8000"}
+        message = render_to_string(template_name, context)
+
+        # print(message)
+        send_mail(subject, message, from_email, recipient_list, html_message=message)
+
+    def get_signin_response(self, request):
         form = AuthenticationForm(request, data=request.POST)
         
         if form.is_valid():
@@ -400,6 +437,41 @@ class LogutView(generic.ListView):
     def get(self, request):
         logout(request)
         return redirect('/')
+
+class ResetPasswordView(generic.ListView):
+    template_name = "reset_password.html"
+
+    def get_queryset(self) -> None:
+        return
+    
+    def get(self, request, **kwargs):
+        user_id = kwargs['uidb64']
+        user = User.objects.get(id=user_id)
+        is_valid_token = default_token_generator.check_token(user, kwargs['token'])
+
+        if not is_valid_token:
+            return HttpResponse('Invalid token')
+        
+        context = { 'form': CustomPasswordResetForm() }
+        return render(request, self.template_name, context)
+
+    def post(self, request, **kwargs):
+        form = CustomPasswordResetForm(request.POST)
+
+        if form.is_valid():            
+            user_id = kwargs['uidb64']
+            user = User.objects.get(id=user_id)            
+            password = form.cleaned_data.get('password1')
+
+            user.set_password(password)
+            user.save()
+            
+            user = authenticate(username=user.username, password=password)
+            login(request, user)     
+            
+            return JsonResponse({'message': 'Password changed'})
+            
+        return JsonResponse({'detail': form.errors})
 
 class ProfileView(generic.ListView):
     template_name = "profile.html"
