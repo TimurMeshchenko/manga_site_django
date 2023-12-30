@@ -1,5 +1,8 @@
 Django Channels WebSokets
 
+Если не авторизирован перенаправлять при клике на ws
+Для bookmarks слушать ws
+
 -------------------------------------------
 
 отправка email,
@@ -67,3 +70,5 @@ redis-cli
 
 Пароль у акков fsafsafzcx
 from remanga.models import *
+
+python -m uvicorn remanga_site.asgi:application --reload

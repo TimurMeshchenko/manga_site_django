@@ -857,8 +857,8 @@
                   <form method="post" class="form_bookmark">
                     {%csrf_token%}
                     <button
-                      class="Button_button__JOS9_ Button_button__JOS9_ Button_contained__C0zVd Button_contained-primary__ZtvzA Button_fullWidth__iQYat"
-                      tabindex="0" type="submit" style="font-weight: 600; border-radius: 8px" name="form_name"
+                      class="Button_button__JOS9_ Button_button__JOS9_ Button_contained__C0zVd Button_contained-primary__ZtvzA Button_fullWidth__iQYat Button_bookmark"
+                      tabindex="0" type="button" style="font-weight: 600; border-radius: 8px" name="form_name"
                       value="bookmark">
                       <span class="Button_label__py8bK"><span
                           class="Button_startIcon__LY2Am Button_icon-size-medium__SLolh"><span style="width: 16px"
@@ -1024,7 +1024,7 @@
                               <form method="post" class="comment_like_form">
                                   {% csrf_token %}
                                   <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="like_{{ comment.id }}" style="background-color: transparent;border: none;padding: 0;">
-                                    {% if user_title_comments_ratings|get_item:comment.id %}
+                                    {% if user_title_comments_ratings and user_title_comments_ratings|get_item:comment.id %}
                                       <svg fill="currentColor" viewBox="0 0 40 40"
                                         class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t SvgIcon_color-primary__TnNB7 Svg_rating">
                                         <path
@@ -1096,13 +1096,15 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'title/js/ajax/ajax_post.js' %}"></script>
 <script src="{% static 'title/js/ajax/title_rating_post.js' %}"></script>
-<script src="{% static 'title/js/ajax/bookmark_post.js' %}"></script>
 <script src="{% static 'title/js/ajax/comment_rating_post.js' %}"></script>
-<script src="{% static 'title/js/ajax/comment_post.js' %}"></script>
 
 <script src="{% static 'title/js/comment_input_stylization.js' %}"></script> 
 <script src="{% static 'title/js/title_menu_switcher.js' %}"></script> 
 
+
+<script src="{% static 'title/js/websockets/websockets_title.js' %}"></script> 
+<script src="{% static 'title/js/websockets/websockets_comment.js' %}"></script> 
+<script src="{% static 'title/js/websockets/websockets_bookmark.js' %}"></script> 
 <script>
   const csrf_token = '{% csrf_token %}'
   const title_menu_switcher = new Title_menu_switcher("{{ title_rating }}", "{{ user.is_authenticated }}", 
@@ -1136,65 +1138,20 @@
   new Comment_input_stylization();
 </script>
 <script>
-  if ('{{ user.is_authenticated }}' == "True")
-  {    
-    new Comment_post();
-    new Bookmark_post();
-  }
+  const user_id = "{{ user }}" ? "{{ user.id }}" : "";
+  const title_id = "{{ title.id }}";
+  const title_dir_name = "{{ title.dir_name }}";
 
-  function add_empty_comment() {
-    document.querySelector(".Comments_wrap__7NbKY").insertAdjacentHTML('afterbegin', `
-      {% if user.is_authenticated %}
-        <div class="jsx-3914328852 Comments_media__5h5tS">
-          <a href="{% url 'remanga:profile' user.id %}">
-            {% if user.avatar %}
-            <img src="{{ user.avatar.url }}" alt="..."
-            class="jsx-3914328852 Comments_mediaAvatar__IuIbH" />
-            {% else %}
-            <img src="/media/users_avatars/no_avatar.jpg" alt="..." 
-            class="jsx-3914328852 Comments_mediaAvatar__IuIbH" />
-            {% endif %}
-          </a>
-        <div class="jsx-3914328852 Comments_mediaBody__d6xxB">
-            <div class="jsx-3914328852 Comments_mediaContent__KYew0 scoreBorder">
-            <div class="jsx-3914328852 Comments_mediaHeading___sytl flex items-center">
-                <a class="Comments_username__BIt0K"
-                href="{% url 'remanga:profile' user.id %}">{{ user.username }}
-                </a><small class="jsx-3914328852">· 0 minutes</small>
-                <div class="jsx-3914328852 ml-auto flex items-center">
-                </div>
-            </div>
-            <div class="jsx-918629f30f833e0">
-            </div>
-            </div>
-            <div class="jsx-3914328852 Comments_footer__4u_24 flex items-center">
-            <form method="post" class="comment_like_form">
-                {% csrf_token %}
-                <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="like_" style="background-color: transparent;border: none;padding: 0;">
-                  <svg fill="currentColor" viewBox="0 0 40 40"
-                    class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating">
-                    <path
-                      d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                      class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
-                  </svg>
-                </button>
-                <span class="Comments_score__fxIQG"> 0 </span>
-                <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="dislike_"
-                style="background-color: transparent;border: none;padding: 0;">
-                  <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating"
-                    style="transform: rotate(180deg);">
-                    <path
-                      d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                      class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
-                  </svg>
-                </button>
-            </form>
-            </div>
-        </div>
-        </div>
-      {% endif %}
-    `);
-  }  
+  const websockets_title = new Websockets_title();
+  const websockets_types = {
+    "bookmark": new Websockets_bookmark(),
+    "comment": new Websockets_comment()
+  };
+
+  const session_id = Websockets_title.generate_session_id();
+  const ws = new WebSocket(`ws://${window.location.host}/ws/${session_id}`);
+
+  websockets_title.handler_websocket_response();
+  websockets_title.listen_websocket_close();
 </script>
-
 {% endblock %}

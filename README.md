@@ -2,10 +2,16 @@
 
 ![](https://lh3.googleusercontent.com/fife/AK0iWDxZYW5um9yXHTXYIpCDH4wN8BumOJEra9Xvl8Oqt5Vpxn40GYw-el49xr6zXofGSI2ax1Ajckcx59y3LbnKzyQsjJTkBAf6CZBykqEahBToWbrR9MZM6UinU74DkwgzGzCzO3Gt-6Owwu-tHycX3lPZ7paZ4s4lOrAI9J24_1fWjqwrQNFmLwQtCtiKyRf-P1jxjcvT70-I_cRjuUP-3hnsSgXvxzxBtcJLuGflni1aOulX4PW_YTrhSO7YPvPe7RPuUi3FjyiTG-tMv-wMtZyolzuTDSCQwZC3SPhQv5U1VD-TY9sP_SuXDwgl_82uf7AEGRKmVWYsesF0aNP9mJ4UjlEJHHhgekiSGXU70uOM6_g3ceDD8OUVQ-wIYnmG8qp5eWswa8MN2Y8bMriWhaKj7sdq40Yk47M-3s-3chibjIadMrkXspM0RqFahd7ucGfEW4An_yGsi6k8cl4Ys0mh-8n9gtM4PIp-6H5qrEyp-eIX7mu53Ost-DV5o-l-B-V4jcHSJBjxZfAlMKlm8sMl5NE-gcjMf_Lf_u5j2b3BPZe4tDkBvQVBF22XNZ2s5qR9blD9GxtnM_HQI-gBGxgxgtemVGIQdsUPdfouSb-CUPzQSyA0X7FqDUil0RROgUoHl3eG3zjXgj9s1sBP6HDYmpQ_BMV1jekxyPWhSPpVVaH1gejdIScwuJnL_wVo195oHWAJYUWe1wCfZ95VAtxvbkt6oA2m_013k6AWINknCdHa_j6Zu7SuGPNZp_WgRMts4ZjLCK8RPcp8ZElexIhrBgX_ukzN_d1mATYCSV6ROS97VoEm7y1DGAqQsXvmI5wKSkz4eCyxkYj_QwhF3Zu5AfgMePAiZ_wbwUKX83Gg-WH-wsZIafBgfHk6zkzPupQT0zWckRTSXT_6wy6ykpMV1X-cavxEH0j166Kdwv6KvHCRv_za_LRQlb-EYIRqKwvfSibmDH92bTrh-oHwBXqegwwii7XjBVJUkToshUWQ9p2zSBdsN0sxv839QA6-bhNZe2kWZS2wgMjWF7gjVeeKPvIiGmDBklTD_FBSXzdE9jZ3NNE8Wv0MtTvAB2vGvF4ujDPkPlCltW5iYVtNoighBY7HWht3aKJ0asavvdE6OamnQ4N-oqkbWcKp5dGDj_hWCDlB4EUdG4ZUqNPmvYv511Pl-VJwfWhnbC7rkWqBLpSkINwEP_m9nh6kFqDMaDRaBobcbhCiL5xTsIOg3uvTDpa07oFZHhJ5hX4ePVXEgAqdm_zDEEGnkLPrD5ne-gvvDA2MLWT3DYaqLh2-ZJtD-qawO3PbFT9jrdTWwB-5l3b6ADMBA-igM4sCZlbOE3u9ZBn4FQ3j7SKmJtmKixF1e_uRYP3mY20ROLfyKti0C7AllioptIe68ZtgkDViK3kaC495KCYLrSPzJ_y9ERRVRuifbhU-WexbSJZ1xKTqymaAx6UUOcugAEkHzd58PxrL1DnzxHQzPmlL_otjRbDjAausXL9w5bXV69lMYNIax2530o33RoXjsDlLKZGbPP0=w1284-h919)
 
+Есть версия на fastapi без сайта [manga_site_fastapi](https://github.com/TimurMeshchenko/manga_site_fastapi)
 
-В разделе "о проекте" указан демонстрационный сайт реализующий данный проект и технологии которые используются.
+**Основные отличия от fastapi версии:**
 
-Хостинг бесплатный, поэтому бывают проблемы с прогрузкой css, тогда нужно обновить страницу.
+* Redis используется только для celery
+* Через celery отправляются письма для восстановления пароля
+* Регистрация, авторизация основаны на сессиях
+* Вместо fetch ajax
+
+Сайт указанный в проекте демонстрационный на бесплатном хостинге, поэтому там нет websockets, redis, celery, smtp.
 
 Сайт создан в учебных целях, источник дизайна и данных для базы данных [remanga](https://remanga.org/),  
 (js написан с нуля).  
@@ -13,22 +19,29 @@
 ## Реализованный функционал: 
 
 **Каталог тайтлов:**
-    Infinity scroll (тайтлы загружаются при прокрутке вниз)
-    Фильтрация тайтлов.
+* Infinity scroll (тайтлы загружаются при прокрутке вниз). Когда пользователь скролит до последнего тайтла, отправляется fetch запрос на получение новых тайтлов.
+* Фильтрация тайтлов через параметры запроса.
 
 **Страница с тайтлом:**
-    Оценка тайтла (под названием тайтла нажать на звезду).
-    Сохранение тайтла в закладки. (сделал без WebSocket, чтобы не увеличивать зависимости)
-    Комментарии и их оценка, ещё переход по профилю.
+
+* Оценка тайтла (под названием тайтла нажать на звезду) ajax.
+* Сохранение тайтла в закладки. Реализовано с помощью **websockets**, 
+при добавлении тайтла в закладки, он появляется в закладках и обновляется 
+информация о тайтле у всех сессий пользователя.
+* Комментарии. Реализовано с помощью **websockets**, при отправлении добавляется
+у всех пользователей, которые сейчас находятся на той же странице.
+* Оценка комментариев и переход по профилю автора ajax.
 
 **Профиль:**
-    Изменение аватарки и пароля.
+Изменение аватарки и пароля ajax.
 
 **Поиск.** Infinity scroll
-**Закладки.**
+
+**Закладки.** Обновляются в режиме реального времени с помощью websockets
+
 **Регистрация, авторизация, выход.** Основаны на сессиях, обновляются с помощью ajax.
 
-**Парсер**, чтобы вручную не заполнять бд.
+**Парсер**, получение данных со стороней страницы и автоматическое добавление в бд.
 
 ## Установка
 
@@ -59,19 +72,17 @@ DATABASES = {
 }
 ```
 
-Создать таблицы в базе данных. 
-```bash
-python manage.py migrate
-```
-
 Для запуска с данными нужно импортировать PostgreSQL backup в директории database_backups. 
 ```bash
-psql -d remanga -f database_backups/PostgreSQL.sql
+psql -U DB_USER -d DB_NAME -f database_backups/release_plain.sql
+
+Ex. psql -U postgres -d remanga -f database_backups/release_plain.sql
 ```
 
 Запустить проект. 
 ```bash
-python manage.py runserver
+Windows. python -m uvicorn remanga_site.asgi:application --reload
+Linux. uvicorn remanga_site.asgi:application --reload
 ```
 
 ### Также присутствует docker версия. 

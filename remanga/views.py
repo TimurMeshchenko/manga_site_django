@@ -247,26 +247,10 @@ class TitleView(generic.ListView):
         return JsonResponse(response_data)
 
     def init_post_forms_methods(self) -> dict[str, Any]:
-        return \
-        {
-            'bookmark': self.change_bookmark,
+        return {
             'rating': self.change_rating,
-            'comment': self.post_comment,
             'like': self.rating_comment,
         }
-
-    def change_bookmark(self, title: Title, form_name: str, response_data: dict):
-        is_bookmark_added = self.request.user.bookmarks.filter(id=title.id).exists()
-
-        if is_bookmark_added: 
-            self.request.user.bookmarks.remove(title.id)
-            title.count_bookmarks -= 1
-        else: 
-            self.request.user.bookmarks.add(title)
-            title.count_bookmarks += 1
-
-        response_data['is_bookmark_added'] = self.request.user.bookmarks.filter(id=title.id).exists()
-        response_data['title_count_bookmarks'] = title.count_bookmarks
 
     def change_rating(self, title: Title, form_name: str, response_data: dict) -> None:
         """
@@ -304,12 +288,6 @@ class TitleView(generic.ListView):
         title_rating_object = Title_rating(user=self.request.user, title=title, rating=rating)
 
         title_rating_object.save()
-
-    def post_comment(self, title: Title, form_name: str, response_data: dict):
-        comment = Comment.objects.create(author=self.request.user, title=title, content=self.request.POST['text'])
-        comment.save()
-
-        response_data["comment_id"] = comment.id
 
     def rating_comment(self, title: Title, form_name: str, response_data: dict):
         comment_rating_str = [letter for letter in form_name if letter.isdigit()]

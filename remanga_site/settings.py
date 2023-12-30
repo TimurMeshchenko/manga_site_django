@@ -22,6 +22,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    'channels',
     "remanga.apps.RemangaConfig",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,6 +31,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+ASGI_APPLICATION = 'remanga_site.asgi.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 AUTH_USER_MODEL = 'remanga.User'
 
@@ -97,7 +106,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR / "remanga", 'static')
+
 MEDIA_ROOT = os.path.join(BASE_DIR / "remanga", 'media')
 MEDIA_URL = '/media/'
 
