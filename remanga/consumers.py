@@ -4,6 +4,7 @@ import os
 from django import setup
 from channels.db import database_sync_to_async
 from secrets import token_hex
+from typing import Optional
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'remanga_site.settings')
 setup()
@@ -13,7 +14,7 @@ from remanga.models import User, Comment, Title
 class WebsocketConsumer(AsyncWebsocketConsumer):
     connections = dict()
 
-    async def connect(self):
+    async def connect(self) -> None:
         self.session_id = self.scope['url_route']['kwargs']['session_id']
         
         self.handlers_websockets = {
@@ -34,10 +35,10 @@ class WebsocketConsumer(AsyncWebsocketConsumer):
     async def generate_csrf_token(self) -> str:
         return token_hex(32)
 
-    async def disconnect(self, close_code):
+    async def disconnect(self, close_code) -> None:
         del self.connections[self.session_id]
         
-    async def receive(self, text_data):
+    async def receive(self, text_data) -> None:
         data = json.loads(text_data)
         is_valid_websocket_csrf = await self.is_valid_websocket_csrf(data)
         
@@ -48,7 +49,7 @@ class WebsocketConsumer(AsyncWebsocketConsumer):
         if websocket_type in self.handlers_websockets:
             await self.handlers_websockets[websocket_type](data)
     
-    async def is_valid_websocket_csrf(self, data) -> bool:
+    async def is_valid_websocket_csrf(self, data: dict) -> bool:
         received_websockets_csrf_token = data['websockets_csrf_token']
         stored_websockets_csrf_token = self.scope.get('websockets_csrf_token', 'default_value')
 
@@ -75,7 +76,7 @@ class WebsocketConsumer(AsyncWebsocketConsumer):
         await self.one_user_broadcast(response, user.id)
 
     @database_sync_to_async    
-    def change_bookmark_in_db(self, data):
+    def change_bookmark_in_db(self, data: dict) -> tuple[Optional[User], Optional[Title], bool]:
         user = User.objects.filter(id=data["user_id"]).first()
         title = Title.objects.filter(id=data["title_id"]).first()        
         is_bookmark_added = user.bookmarks.filter(id=title.id).exists()
@@ -96,7 +97,7 @@ class WebsocketConsumer(AsyncWebsocketConsumer):
             if session_id.split("-")[0] == str(user_id):
                 await self.connections[session_id].send(json.dumps(response))
 
-    async def handler_websockets_comment(self, data: dict):
+    async def handler_websockets_comment(self, data: dict) -> None:
         """
         Update title comments for all sessions that are on the title
         """    
@@ -114,7 +115,7 @@ class WebsocketConsumer(AsyncWebsocketConsumer):
         await self.title_broadcast(response, title.id)
     
     @database_sync_to_async    
-    def create_comment_in_db(self, data):
+    def create_comment_in_db(self, data: dict) -> tuple[Optional[User], Optional[Title], Comment]:
         user = User.objects.filter(id=data["user_id"]).first()
         title = Title.objects.filter(id=data["title_id"]).first()
 

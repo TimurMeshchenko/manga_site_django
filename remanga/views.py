@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.conf import settings
-from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.core.paginator import Paginator
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -144,7 +144,7 @@ class CatalogView(generic.ListView):
         
         self.query_key_filters |= Q(**{f"{query_key_adapted}__{range_argument}": query_value})
 
-    def add_filter(self, query_key: str, query_key_adapted: str, query_value: Union[float, int]) -> None:                
+    def add_filter(self, query_key: str, query_key_adapted: str, query_value: int) -> None:                
         """
         Other filters except ranging from to
         """          
@@ -198,10 +198,10 @@ class CatalogView(generic.ListView):
 class TitleView(generic.ListView):
     template_name = "title.html"
 
-    def get_queryset(self):
+    def get_queryset(self) -> None:
         return
 
-    def get_context_data(self, **kwargs):        
+    def get_context_data(self, **kwargs) -> dict[str, Any]:        
         context = super().get_context_data(**kwargs)
         dir_name = self.kwargs.get('dir_name')  
         title = Title.objects.get(dir_name=dir_name)
@@ -234,7 +234,7 @@ class TitleView(generic.ListView):
 
         return comments_ratings
 
-    def post(self, request, **kwargs):   
+    def post(self, request: Any, **kwargs) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect, JsonResponse]:   
         if not self.request.user.is_authenticated: 
             return redirect("remanga:signin")
 
@@ -244,26 +244,29 @@ class TitleView(generic.ListView):
         form_name_key = form_name.split("_")[0].replace("dis", "")
         response_data = {}
         
-        post_forms_methods = self.init_post_forms_methods()
+        post_forms_methods = {'rating': self.change_rating, 'like': self.rating_comment}
+
+        if not form_name_key in post_forms_methods: 
+            return JsonResponse({"detail": "Invalid form name"})
+
         post_forms_methods[form_name_key](title, form_name, response_data)
 
         title.save()
 
         return JsonResponse(response_data)
 
-    def init_post_forms_methods(self) -> dict[str, Any]:
-        return {
-            'rating': self.change_rating,
-            'like': self.rating_comment,
-        }
-
     def change_rating(self, title: Title, form_name: str, response_data: dict) -> None:
         """
         Change the rating of a title by deleting or adding a new rating
         """         
         rating_str = [letter for letter in form_name if letter.isdigit()]
+        
+        if not rating_str: return
+        
         rating = int("".join(rating_str)) 
         
+        if (rating < 1 or rating > 10): return
+
         title_rating = self.get_title_rating(title)
         is_same_title_rating_exists = title_rating.rating == rating if title_rating else False 
 
@@ -296,9 +299,14 @@ class TitleView(generic.ListView):
 
     def rating_comment(self, title: Title, form_name: str, response_data: dict):
         comment_rating_str = [letter for letter in form_name if letter.isdigit()]
+
+        if not comment_rating_str: return
+
         comment_rating = int("".join(comment_rating_str)) 
-        comment = Comment.objects.get(id=comment_rating)
-        
+        comment = Comment.objects.filter(id=comment_rating).first()
+
+        if comment is None: return
+
         comment_rating_object = Comment_rating.objects.filter(user=self.request.user, 
             title=comment.title, comment=comment).first()    
 
@@ -346,25 +354,25 @@ class TitleView(generic.ListView):
 class SearchView(generic.ListView):
     template_name = "search.html"
 
-    def get_queryset(self):
+    def get_queryset(self) -> None:
         return
     
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["json_data"] = json.dumps(list(Title.objects.values())).replace('\'', '\\\'')
         return context
     
 class SignupView(generic.View):
     template_name = 'signup.html'
-
-    def get(self, request):
+ 
+    def get(self, request: HttpRequest) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponse]: 
         if self.request.user.is_authenticated:
             return redirect('/')
         
         context = { 'form': UserCreationForm() }
         return render(request, self.template_name, context)
 
-    def post(self, request):
+    def post(self, request: Any) -> None:
         form = UserCreationForm(request.POST)
 
         if form.is_valid():
@@ -380,14 +388,14 @@ class SignupView(generic.View):
 class SigninView(generic.ListView):
     template_name = "signin.html"
     
-    def get(self, request):
+    def get(self, request: HttpRequest) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponse]:
         if self.request.user.is_authenticated:
             return redirect('/')
         
         context = { 'form': AuthenticationForm() }
         return render(request, self.template_name, context)
 
-    def post(self, request):
+    def post(self, request: Any) -> JsonResponse:
         is_email = 'email' in request.POST
 
         if is_email: 
@@ -395,7 +403,7 @@ class SigninView(generic.ListView):
 
         return self.get_signin_response(request)
 
-    def get_send_email_response(self, request):
+    def get_send_email_response(self, request: Any) -> JsonResponse:
         email = request.POST['email']
         is_email_exists = User.objects.filter(email=email).exists()
         
@@ -406,7 +414,7 @@ class SigninView(generic.ListView):
 
         return JsonResponse({'message': 'Sent to email'})
 
-    def send_email(self, to_mail):
+    def send_email(self, to_mail: str) -> None:
         subject = "Manga password recovery"
         recipient_list = [to_mail]
         template_name = 'reset_password_letter.html'
@@ -422,7 +430,7 @@ class SigninView(generic.ListView):
         else:
             send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list, html_message=message)
 
-    def get_signin_response(self, request):
+    def get_signin_response(self, request: Any) -> JsonResponse:
         form = AuthenticationForm(request, data=request.POST)
         
         if form.is_valid():
@@ -437,7 +445,7 @@ class SigninView(generic.ListView):
         return JsonResponse({'detail': form.errors})    
 
 class LogutView(generic.ListView):
-    def get(self, request):
+    def get(self, request: HttpRequest) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect]:
         logout(request)
         return redirect('/')
 
@@ -447,7 +455,7 @@ class ResetPasswordView(generic.ListView):
     def get_queryset(self) -> None:
         return
     
-    def get(self, request, **kwargs):
+    def get(self, request: HttpRequest, **kwargs) -> HttpResponse:
         user_id = kwargs['uidb64']
         user = User.objects.get(id=user_id)
         is_valid_token = default_token_generator.check_token(user, kwargs['token'])
@@ -458,7 +466,7 @@ class ResetPasswordView(generic.ListView):
         context = { 'form': CustomPasswordResetForm() }
         return render(request, self.template_name, context)
 
-    def post(self, request, **kwargs):
+    def post(self, request, **kwargs) -> JsonResponse:
         form = CustomPasswordResetForm(request.POST)
 
         if form.is_valid():            
@@ -479,10 +487,10 @@ class ResetPasswordView(generic.ListView):
 class ProfileView(generic.ListView):
     template_name = "profile.html"
     
-    def get_queryset(self):
+    def get_queryset(self) -> None:
         return
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
 
         user_id = self.kwargs.get('user_id')  
@@ -493,13 +501,13 @@ class ProfileView(generic.ListView):
 
         return context 
 
-    def post(self, request, **kwargs):
+    def post(self, request: Any, **kwargs) -> JsonResponse:
         if ('old_password' in request.POST):
             return self.change_password(request)
         
         return self.change_avatar(request)
     
-    def change_password(self, request):
+    def change_password(self, request: Any) -> JsonResponse:
         form = PasswordChangeForm(request.user, request.POST)
             
         if form.is_valid():
@@ -509,7 +517,7 @@ class ProfileView(generic.ListView):
         
         return JsonResponse({'detail': form.errors})
 
-    def change_avatar(self, request):
+    def change_avatar(self, request: Any) -> JsonResponse:
         avatar = request.FILES['avatar']
         avatar.name = f"{self.request.user.id}.jpg"
         response_data = {}       
@@ -527,10 +535,10 @@ class BookmarksView(generic.ListView):
     template_name = "bookmarks.html"
     context_object_name = "titles"
 
-    def get_queryset(self):
+    def get_queryset(self) -> Any:
         return self.request.user.bookmarks.all()
-    
-    def get(self, request, *args, **kwargs):
+     
+    def get(self, request: HttpRequest, *args, **kwargs) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponse]:
         if not self.request.user.is_authenticated:
             return redirect('/')
         

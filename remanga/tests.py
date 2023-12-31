@@ -1,130 +1,209 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.db.models import Q
 
 from remanga.models import *
-from .forms import UserCreationForm
+from remanga.views import CatalogView
 
 
-def create_titles():
-    Title.objects.create(manga_type = 'Западный комикс', avg_rating = 8.8 , dir_name = "the_beginning_after_the_end", 
-                        rus_name = "Начало после конца", 
-                        description = "<p>Король Грей обладает непревзойденной силой, богатством и престижем в мире", 
-                        img_url = "the_beginning_after_the_end/high_cover.jpg", count_bookmarks = 199119, 
-                        count_chapters = 179, issue_year = 2018, count_rating = 28986)
+def create_test_db_data():
+    test_data = ['a', 'b']
+
+    Title.objects.create(
+        manga_type = 'Западный комикс', 
+        avg_rating = 8.8 , 
+        dir_name = "the_beginning_after_the_end",      
+        rus_name = "Начало после конца", 
+        description = "<p>Король Грей обладает непревзойденной силой, богатством и престижем в мире", 
+        img_url = "the_beginning_after_the_end/high_cover.jpg", 
+        count_bookmarks = 199119, 
+        count_chapters = 179, 
+        issue_year = 2018, 
+        count_rating = 28986
+    )
+
+    Title.objects.create(
+        manga_type = 'b', 
+        avg_rating = 8.8 , 
+        dir_name = "b",      
+        rus_name = "b", 
+        description = "<p>Король Грей обладает непревзойденной силой, богатством и престижем в мире", 
+        img_url = "the_beginning_after_the_end/high_cover.jpg", 
+        count_bookmarks = 199119, 
+        count_chapters = 179, 
+        issue_year = 2018, 
+        count_rating = 28986
+    )
     
-    Title.objects.create(manga_type = "Манхва", avg_rating = 6 , dir_name = "omniscient-reader", 
-                        rus_name = "Всеведущий читатель", 
-                        description = "<p>&laquo;Я знаю то, что сейчас произойдёт", 
-                        img_url = "", count_bookmarks = 1, 
-                        count_chapters = 157, issue_year = 2020, count_rating = 3)
-    
-    Title.objects.create(manga_type = "Маньхуа", avg_rating = 5.3 , dir_name = "martial_peak", 
-                        rus_name = "Пик боевых искусств", 
-                        description = "<p>На основе одноименного романа. Путь на вершину боевых искусств", 
-                        img_url = "", count_bookmarks = 1, 
-                        count_chapters = 3248, issue_year = 2019, count_rating = 3)
+    for i in test_data:
+        Genres.objects.create(name = i)
+        Categories.objects.create(name = i)
 
 class CatalogViewTests(TestCase): 
-    def test_titles_filters(self):    
-        create_titles()
+    catalogView = CatalogView()
 
-        response = self.client.get("")
-        titles_count = len(response.context["titles_list"])
+    def setUp(self):
+        create_test_db_data()
+        self.catalogView.init_filters_variables()
 
-        self.assertGreater(titles_count, 0)
+    def test_query_params_exceptions(self) -> None:        
+        query_params_exceptions = [
+            'types=', 'random_query_key=0', 'types=random_query_value',
+            'types=0.0', 'issue_year_gte=0.0.0', 'types_gte=0',
+            'issue_year_exclude=0', 'types=999999999'
+        ]
+        
+        for query_param in query_params_exceptions:
+            response = self.client.get(f"/?{query_param}")
 
-        self.apply_filters(titles_count)
+            self.assertEqual(response.status_code, 200)    
+
+    def test_create_manga_types_filters(self) -> None:
+        query_values = ['0', '1']
+
+        self.catalogView.create_query_key_filters('manga_type', query_values)
+        expected_manga_types_filters = self.get_expected_filters(self.catalogView, 'manga_type', query_values) 
+
+        self.assertEqual(self.catalogView.query_key_filters, expected_manga_types_filters)
+
+    def get_expected_filters(self, catalogView: CatalogView, query_key: str, query_values: list[str]) -> Q:
+        expected_filters = Q()
+        query_key_adapted = catalogView.get_query_key_adapted(query_key)
+        title_table_column_data = catalogView.title_table_columns[query_key_adapted]
+
+        for query_value in query_values:
+            Q_filter = Q(**{ query_key_adapted: title_table_column_data[int(query_value)] })
+
+            if "exclude" in query_key:
+                expected_filters &= ~Q_filter
+            else:
+                expected_filters |= Q_filter
+
+        return expected_filters
     
-    def apply_filters(self, titles_count):
-        response = self.client.get("/?issue_year_gte=2020&issue_year_lte=2020&count_chapters_gte=100&count_chapters_lte=200&exclude_types=0&rating_gte=1&rating_lte=9")
+    def test_create_greater_range_filters(self) -> None:
+        query_values = ['0']
 
-        filtered_titles_count = len(response.context["titles_list"]);  
+        self.catalogView.create_query_key_filters('issue_year_gte', query_values)
+        expected_greater_range_filter = self.get_expected_range_filter(self.catalogView, 'issue_year_gte', query_values) 
         
-        self.assertLess(filtered_titles_count, titles_count)
-        self.assertGreater(filtered_titles_count, 0)
+        self.assertEqual(self.catalogView.query_key_filters, expected_greater_range_filter)
 
-class TitleViewTests(TestCase):     
-    def init(self):
-        create_titles()
-        self.userCreationForm()
-
-        first_title_dir_name = Title.objects.all()[0].dir_name
-        self.url = reverse("remanga:title", args=[first_title_dir_name])
-        response = self.client.get(self.url) 
-        self.title = response.context['title']
+    def get_expected_range_filter(self, catalogView: CatalogView, query_key: str, query_values: list[str]) -> Q:        
+        query_key_adapted = catalogView.get_query_key_adapted(query_key)
+        query_value = int(query_values[0])
+        range_argument = 'lte' if 'lte' in query_key else 'gte'
         
-        self.assertEquals(response.status_code, 200)
+        expected_range_filter = Q(**{f"{query_key_adapted}__{range_argument}": query_value})        
 
-    def test_title_post(self):
-        self.init()
-        self.bookmark_post()
-        self.title_rating_post()
-        self.comment_post()
-        self.like_comment()
-        self.dislike_comment()
+        return expected_range_filter
 
-    def userCreationForm(self):
+    def test_create_less_range_filters(self) -> None:
+        query_values = ['0']
+
+        self.catalogView.create_query_key_filters('issue_year_lte', query_values)
+        expected_less_range_filter = self.get_expected_range_filter(self.catalogView, 'issue_year_lte', query_values) 
+        
+        self.assertEqual(self.catalogView.query_key_filters, expected_less_range_filter)
+
+    def test_create_other_filters(self) -> None:
+        """
+        Drop menu filters except manga types
+        """  
+        query_values = ['0', '1']
+
+        self.catalogView.create_query_key_filters('genres', query_values)
+        expected_genres_filters = self.get_expected_filters(self.catalogView, 'genres', query_values) 
+
+        self.assertEqual(self.catalogView.query_key_filters, expected_genres_filters)
+
+    def test_create_filter_manga_types_exclude(self) -> None:
+        query_values = ['0', '1']
+
+        self.catalogView.create_query_key_filters('exclude_manga_type', query_values)
+        expected_manga_types_filters = self.get_expected_filters(self.catalogView, 'exclude_manga_type', query_values) 
+
+        self.assertEqual(self.catalogView.query_key_filters, expected_manga_types_filters)
+
+class TitleViewTests(TestCase):   
+    test_title = None
+    url = None
+
+    def setUp(self) -> None:
+        create_test_db_data()
+        self.create_user()
+
+        self.test_title = Title.objects.all().first()
+        self.url = reverse("remanga:title", args=[self.test_title.dir_name])
+
+    def create_user(self) -> None:
         data = {'username': 'testuser', 'password1': 'testpassword', 'password2': 'testpassword', 'email': 'abc@mail.ru'}
-        form = UserCreationForm(data)
         url = reverse("remanga:signup")
-
-        self.assertTrue(form.is_valid())
             
-        self.client.post(url, data)  
-    
-    def bookmark_post(self):
-        data = { 'form_name': 'bookmark' }
-        previous_count_bookmarks = self.title.count_bookmarks
+        self.client.post(url, data)      
+
+    def test_title_post_exceptions(self) -> None:
+        data = { 'form_name': 'random_form_name'}
         
         response = self.client.post(self.url, data).json()
-    
-        self.assertTrue(response['is_bookmark_added'])
-        self.assertEquals(response['title_count_bookmarks'], previous_count_bookmarks + 1)
+        
+        self.assertTrue('detail' in response)
 
-    def title_rating_post(self):
+    def test_title_rating_exceptions(self) -> None:
+        rating_exceptions_values = ['rating_', 'rating_11', 'rating_a']
+        
+        for rating_exception_value in rating_exceptions_values:
+            data = { 'form_name': rating_exception_value}
+            response = self.client.post(self.url, data).json()
+        
+            self.assertFalse(response)
+
+    def test_add_title_rating(self) -> None:
         data = { 'form_name': 'rating_5' }
-        previous_avg_rating = self.title.avg_rating
-        previous_count_rating = self.title.count_rating
+        previous_count_rating = self.test_title.count_rating
 
         response = self.client.post(self.url, data).json()
     
         self.assertEquals(response['count_rating'], previous_count_rating + 1)
-        self.assertNotEquals(response['avg_rating'], previous_avg_rating)
-        self.assertNotEquals(response['title_rating'], "None")
 
-        self.title_remove_rating_post(data, previous_count_rating, previous_avg_rating)
+    def test_remove_title_rating(self) -> None:
+        data = { 'form_name': 'rating_5' }
+        title_count_rating = self.test_title.count_rating
 
-    def title_remove_rating_post(self, data, previous_count_rating, previous_avg_rating):
+        self.client.post(self.url, data).json()
         response = self.client.post(self.url, data).json()
-
-        self.assertEquals(response['count_rating'], previous_count_rating)
-        self.assertEquals(response['avg_rating'], previous_avg_rating)
-        self.assertEquals(response['title_rating'], "None")        
-
-    def comment_post(self):
-        title_comments_count = self.title.comments.count()
-        data = { 'form_name': 'comment', 'text': '' }
+    
+        self.assertEquals(response['count_rating'], title_count_rating)
         
-        self.client.post(self.url, data)
+    def test_rating_comment_exceptions(self) -> None:
+        rating_comment_exceptions_values = ['like_', 'like_999', 'like_a']
 
-        self.assertEquals(self.title.comments.count(), title_comments_count + 1)
-
-    def like_comment(self):
-        self.comment_post()
-
-        created_comment = self.title.comments.last()
-        data = { 'form_name': f'like_{created_comment.id}' }
+        for rating_exception_value in rating_comment_exceptions_values:
+            data = { 'form_name': rating_exception_value}
+            response = self.client.post(self.url, data).json()
         
-        response = self.client.post(self.url, data).json()
+            self.assertFalse(response) 
 
-        self.assertEquals(response['comment_likes'], 1)     
-
-    def dislike_comment(self):
-        self.comment_post()
-
-        created_comment = self.title.comments.last()
-        data = { 'form_name': f'dislike_{created_comment.id}' }
+    def test_like_comment(self) -> None:
+        comment = self.create_comment()
+        data = { 'form_name': f'like_{comment.id}' }
         
-        response = self.client.post(self.url, data).json()
+        self.client.post(self.url, data).json()
 
-        self.assertEquals(response['comment_likes'], -1)        
+        self.assertTrue(Comment_rating.objects.all().first().is_liked)     
+
+    def create_comment(self) -> Comment:
+        user = User.objects.all().first()
+        comment = Comment.objects.create(author=user, title=self.test_title, content="comment_content")
+
+        comment.save()
+
+        return comment
+
+    def test_dislike_comment(self) -> None:
+        comment = self.create_comment()
+        data = { 'form_name': f'dislike_{comment.id}' }
+        
+        self.client.post(self.url, data).json()
+
+        self.assertFalse(Comment_rating.objects.all().first().is_liked)
