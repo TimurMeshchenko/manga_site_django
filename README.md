@@ -58,7 +58,7 @@ myenv/Scripts/activate
 pip install -r requirements.txt
 ```
 
-1. Заменить данные для подключения бд на свои в файле .env.dev
+2. Заменить данные для подключения бд на свои в файле .env.dev
 
 Для запуска с данными нужно импортировать PostgreSQL backup в директории database_backups для бд указанной в .env.dev 
 ```bash
@@ -67,7 +67,7 @@ psql -U DB_USER -d DB_NAME -f database_backups/release_plain.sql
 Ex. psql -U postgres -d remanga -f database_backups/release_plain.sql
 ```
 
-1. Запустить проект. 
+3. Запустить проект. 
 ```bash
 python -m uvicorn remanga_site.asgi:application --reload
 ```
