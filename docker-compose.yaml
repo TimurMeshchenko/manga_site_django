@@ -5,21 +5,38 @@ services:
     container_name: postgresdb
     image: postgres:alpine
     restart: always
-    environment:
-      - POSTGRES_DB=remanga
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=Qewads
     ports:
       - 5432:5432
+    env_file:
+      - .env.prod      
     volumes:
-      - ./database_data:/var/lib/postgresql/data
       - ./database_backups:/database_backups
   
+  redis:
+    container_name: redis
+    image: redis:alpine
+    restart: always
+    ports:
+      - '6379:6379'
+
   web:
     container_name: remanga
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn remanga_site.asgi:application -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
     ports:
       - '8000:8000'
+    env_file:
+      - .env.prod         
     depends_on:
       - db
+      - redis
+
+  celery:
+    container_name: celery
+    build: .
+    command: celery -A remanga_site worker -l INFO
+    env_file:
+      - .env.prod
+    depends_on:
+      - db
+      - redis

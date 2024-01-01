@@ -3,14 +3,17 @@ FROM python:3.9
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
-WORKDIR /remanga
+WORKDIR /remanga_django
 
-COPY requirements.txt /remanga
-COPY remanga_site /remanga
+COPY requirements.txt .
+COPY manage.py .
+COPY remanga /remanga_django/remanga
+COPY remanga_site /remanga_django/remanga_site
+COPY docker .
 
-# replacing database host to serivce name
+RUN apt-get update && apt-get install -y netcat-openbsd
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN sed -i 's/"HOST": .*/"HOST": "db",/' ./remanga_site/settings.py
+RUN chmod +x /remanga_django/entrypoint.sh
 
-RUN pip install -r requirements.txt
-
+ENTRYPOINT ["/remanga_django/entrypoint.sh"]

@@ -1,160 +1,191 @@
-import requests
 import json
 import urllib.request
 import os 
 import psycopg2
+from dotenv import load_dotenv
+from pathlib import Path
+from typing import Any, Optional
+import aiohttp
+import asyncio
 
 class Remanga_parser():
     def __init__(self):
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        
+        env_path = BASE_DIR / '.env.dev'
+        load_dotenv(dotenv_path=env_path)
+
+        self.title_data_keys = ['rus_name','dir', 'cover_high', 'type', 'issue_year', 'categories', 'genres']
+        self.title_detailed_data_keys = ['description', 'count_chapters']
         self.connect_to_database()
-        self.cursor = self.db_connection.cursor()
-         
+        self.cursor = self.db_connection.cursor()        
+
         os.chdir('../') 
 
     def connect_to_database(self) -> None:
         self.db_connection = psycopg2.connect(
-            database="remanga",
-            user="postgres",
-            password="Qewads",
-            host="127.0.0.1",
-            port='5432'
+            database=os.getenv("DB_NAME"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASS"),
+            host=os.getenv("DB_HOST"),
+            port=os.getenv("DB_PORT")
         )
 
-    def add_titles_to_database(self) -> None:
-        title_data_keys: list[str] = ['rus_name','dir', 'cover_high', 'type', 'issue_year', 'categories', 'genres']
-        # catalog_url: str = "https://api.remanga.org/api/search/catalog/?count=30&exclude_bookmarks=0&ordering=-rating&page=1"
-        titles_count: int = 30
+    async def add_titles(self) -> None:
+        tasks = list()
+        start_page_parsing = 10
+        end_page_parsing = 11 
+        titles_count = 30
 
-        for titles_page in range(11, 12):
-            catalog_url: str = "https://api.remanga.org/api/search/catalog/?count=30&exclude_bookmarks=0&ordering=-rating&page=" + str(titles_page)
-            
+        for titles_page in range(start_page_parsing, end_page_parsing):
+            catalog_url = "https://api.remanga.org/api/search/catalog/?count=30&exclude_bookmarks=0&ordering=-rating&page=" \
+            + str(titles_page)
+
             for title_number in range(titles_count):
-                self.title_data_values: list = list()
-                self.categories_genres: dict[str, list] = { 'categories': list(), 'genres': list() }
-                
-                self.request_json_data(catalog_url)
-                self.dir_name: str = self.json_data[title_number]['dir']
-                
-                self.collect_title_data(title_data_keys, title_number)
-                self.collect_title_detailed_data(title_number)
-                self.add_title()
+                tasks.append(self.add_title(catalog_url, title_number))
 
-                self.cursor.execute(f"SELECT id FROM remanga_title WHERE dir_name = '{self.dir_name}'")
-                temp_title_id = self.cursor.fetchone()[0]
-
-                self.add_categories_genres(temp_title_id)
-                self.add_chapters(temp_title_id)
+        await asyncio.gather(*tasks)
 
         self.cursor.close()
         self.db_connection.close()
    
-    def request_json_data(self, url: str) -> None:
-        response = requests.get(url)
+    async def add_title(self, catalog_url: str, title_number: int) -> None:
+        title_data_for_db = list()
+        categories_genres = { 'categories': list(), 'genres': list() }
+                
+        title_json_data = await self.get_title_json_data(catalog_url)
+        dir_name = title_json_data[title_number]['dir']
+        await self.collect_title_data(title_json_data, title_data_for_db, categories_genres, title_number)
+                
+        title_url = 'https://api.remanga.org/api/titles/' + dir_name
+        title_detailed_json_data = await self.get_title_json_data(title_url)
+        title_detailed_categories_genres = None
+        await self.collect_title_data(title_detailed_json_data, title_data_for_db, 
+                                      title_detailed_categories_genres, title_number)
 
-        self.json_data = json.loads(response.text)['content']
+        await self.add_title_data_to_db(title_detailed_json_data, title_data_for_db, categories_genres, dir_name)        
 
-    def collect_title_data(self, title_data_keys: list[str], title_number: int) -> None:
-        is_description_request: bool = 'description' in title_data_keys
+    async def get_title_json_data(self, url: str) -> Any:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                response_text = await response.text()
+                title_json_data = json.loads(response_text)['content']
+                return title_json_data
+
+    async def collect_title_data(self, title_json_data: Any, title_data_for_db: list, categories_genres: Optional[dict[str, list]], 
+            title_number: int) -> None:
+        title_data_keys = self.title_detailed_data_keys if categories_genres is None else self.title_data_keys
+        is_description_request = 'description' in title_data_keys
         
         for title_data_key in title_data_keys:
-            title_data: str = self.get_title_data(title_data_key, title_number, is_description_request)
+            title_data = await self.get_title_data_from_json(title_json_data, title_data_key, title_number, 
+                                                             is_description_request)
 
             if title_data_key == 'cover_high':
-                self.download_cover(title_data)  
+                dir_name = title_json_data[title_number]['dir']
+                await self.download_cover(title_data, dir_name)  
                 title_data = title_data.replace('titles/', '')
 
             elif title_data_key in ['categories', 'genres']:
-                self.collect_categories_or_genres(title_data, title_data_key)
+                await self.collect_categories_or_genres(title_data, categories_genres, title_data_key)
                 continue
 
-            self.title_data_values.append(title_data)
+            title_data_for_db.append(title_data)
                         
-    def get_title_data(self, title_data_key: str, title_number: int, is_description_request: bool) -> None:
+    async def get_title_data_from_json(self, title_json_data: Any, title_data_key: str, 
+                                 title_number: int, is_description_request: bool) -> None:
         if is_description_request:
-            title_data = self.json_data[title_data_key]
+            title_data = title_json_data[title_data_key]
         else:
-            title_data = self.json_data[title_number][title_data_key]
+            title_data = title_json_data[title_number][title_data_key]
         
         return title_data
 
-    def collect_categories_or_genres(self, title_data: str, title_data_key: str) -> None:
+    async def collect_categories_or_genres(self, title_data: str, categories_genres: dict[str, list], 
+                                     title_data_key: str) -> None:
         for name_id in range(len(title_data)):
-            self.categories_genres[title_data_key].append(title_data[name_id]['name'])
+            categories_genres[title_data_key].append(title_data[name_id]['name'])
 
-    def download_cover(self, title_data: str) -> None:
-        url: str = f'https://remanga.org/media/{str(title_data)}'
-        dir_name: str = url.rsplit('/')[-2]
-        file_name: str = url.rsplit('/')[-1]
+    async def download_cover(self, title_data: str, dir_name: str) -> None:
+        url = f'https://remanga.org/media/{str(title_data)}'
+        dir_name = url.rsplit('/')[-2]
+        file_name = url.rsplit('/')[-1]
 
-        img_dir: str = rf'remanga\media\titles\{dir_name}'
-        file_path: str = os.path.join(img_dir, file_name)
+        img_dir = rf'remanga\media\titles\{dir_name}'
+        file_path = os.path.join(img_dir, file_name)
 
         if not os.path.exists(img_dir):
             os.mkdir(img_dir)
 
         urllib.request.urlretrieve(url, file_path)        
 
-    def collect_title_detailed_data(self, title_number: int) -> None:    
-        url: str = 'https://api.remanga.org/api/titles/' + str(self.dir_name)
-        title_detailed_data_keys: list[str] = ['description', 'count_chapters']
+    async def add_title_data_to_db(self, title_detailed_json_data: Any, title_data_for_db: list, 
+                             categories_genres: dict[str, list], dir_name: str) -> None:
+        await self.add_title_to_db(title_data_for_db)
 
-        self.request_json_data(url)
-        self.collect_title_data(title_detailed_data_keys, title_number)
+        self.cursor.execute(f"SELECT id FROM remanga_title WHERE dir_name = '{dir_name}'")
+        title_id = self.cursor.fetchone()[0]
 
-    def add_title(self) -> None:
-        self.cursor.execute("INSERT INTO remanga_title (rus_name, dir_name, img_url, manga_type, issue_year, \
-                            description, count_chapters) VALUES (%s, %s, %s, %s, %s, %s, %s)", 
-                            tuple(self.title_data_values))
+        await self.add_categories_genres(categories_genres, title_id)
+        await self.add_chapters(title_detailed_json_data, title_id)        
+
+    async def add_title_to_db(self, title_data_for_db: list) -> None:
+        last_columns_values = [0, 0, 0]
+
+        title_data_for_db.extend(last_columns_values)
+        
+        self.cursor.execute(
+            "INSERT INTO remanga_title (rus_name, dir_name, img_url, manga_type, issue_year, \
+            description, count_chapters, avg_rating, count_rating, count_bookmarks) \
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", tuple(title_data_for_db))
         
         self.db_connection.commit()
 
-    def add_categories_genres(self, temp_title_id) -> None:
-        for key in self.categories_genres:
-            for data in self.categories_genres[key]:
+    async def add_categories_genres(self, categories_genres: dict[str, list], title_id: int) -> None:
+        for key in categories_genres:
+            for data in categories_genres[key]:
                 self.cursor.execute(f"SELECT id FROM remanga_{key} WHERE name = '{data}'")
-                temp_category_genre_id = self.cursor.fetchone()[0]
+
+                category_genre = self.cursor.fetchone()
+
+                if category_genre:
+                    category_genre_id = category_genre[0]
+                else:
+                    self.cursor.execute(f"INSERT INTO remanga_{key} (name) VALUES ('{data}') RETURNING id")
+                    category_genre_id = self.cursor.fetchone()[0]
 
                 self.cursor.execute(f"INSERT INTO remanga_title_{key} (title_id, {key}_id) VALUES (%s, %s)", 
-                                    (temp_title_id, temp_category_genre_id))
+                                    (title_id, category_genre_id))
 
         self.db_connection.commit()
 
-    def add_chapters(self, temp_title_id) -> None:
-        branches_id: str = self.json_data['branches'][0]['id']   
+    async def add_chapters(self, title_detailed_json_data: Any, title_id: int) -> None:
+        branches_id = title_detailed_json_data['branches'][0]['id']   
         default_count_chapters_in_page = count_chapters_in_page = 40
-        number_page: int = 1
+        number_page = 1
 
         while (count_chapters_in_page == default_count_chapters_in_page):
-            url: str = f'https://api.remanga.org/api/titles/chapters/?branch_id={branches_id}&ordering=-index&user_data=1&count=40&page={number_page}'
-            self.request_json_data(url)
-            count_chapters_in_page = len(self.json_data)
+            chapters_url = f'https://api.remanga.org/api/titles/chapters/?branch_id={branches_id}&ordering=-index&user_data=1&count=40&page={number_page}'
+            title_chapters_json_data = await self.get_title_json_data(chapters_url)
+            count_chapters_in_page = len(title_chapters_json_data)
  
-            for index in range(count_chapters_in_page):
-                chapter: str = self.json_data[index]['chapter']
-                tome: str = self.json_data[index]['tome']
+            for i in range(count_chapters_in_page):
+                chapter = title_chapters_json_data[i]['chapter']
+                tome = title_chapters_json_data[i]['tome']
             
-                self.add_chapter(temp_title_id, chapter, tome)
+                await self.add_chapter(title_id, chapter, tome)
             
             number_page += 1
 
-    def add_chapter(self, temp_title_id, chapter: str, tome: str) -> None:
+    async def add_chapter(self, title_id: int, chapter: str, tome: int) -> None:
         if '.' in chapter: return
 
-        self.cursor.execute(f"SELECT id FROM remanga_chapters WHERE chapter = '{chapter}' AND tome = {tome}")
-        
-        row = self.cursor.fetchone()
-        
-        if row:
-            chapter_id: str = row[0]
-        else:
-            self.cursor.execute(f"INSERT INTO remanga_chapters (chapter, tome) VALUES ('{chapter}', {tome}) RETURNING id")
-            chapter_id: str = self.cursor.fetchone()[0]
-
-        self.cursor.execute("INSERT INTO remanga_title_chapters (title_id, chapters_id) VALUES (%s, %s)", 
-                            (temp_title_id, chapter_id))
+        self.cursor.execute(
+            "INSERT INTO remanga_title_chapters (title_id, chapter, tome) VALUES (%s, %s, %s)", (title_id, chapter, tome)
+        )
 
         self.db_connection.commit()
 
 if __name__ == "__main__":
-    Remanga_parser().add_titles_to_database()     
-
+    remanga_parser = Remanga_parser()
+    asyncio.run(remanga_parser.add_titles())    

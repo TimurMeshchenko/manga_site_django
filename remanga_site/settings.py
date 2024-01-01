@@ -13,8 +13,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import socket
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env_path = BASE_DIR / '.env.dev'
+load_dotenv(dotenv_path=env_path)
 
 SECRET_KEY = 'django-insecure-z-vq&e%_2yx$4uzf=uzuhb@8yy&+_+c-h2q(hw-x53l3(+m7+l'
 
@@ -76,11 +80,11 @@ WSGI_APPLICATION = 'remanga_site.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "remanga",
-        "USER": "postgres",
-        "PASSWORD": "Qewads",
-        "HOST": "127.0.0.1",
-        'PORT': '5432',
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASS"),
+        "HOST": os.getenv("DB_HOST"),
+        'PORT': os.getenv("DB_PORT"),
     }
 }
 
@@ -119,11 +123,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp-mail.outlook.com' 
 EMAIL_PORT = 587 
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'fawwa2515af@outlook.com'  
-EMAIL_HOST_PASSWORD = 'fGJsS(Q.PP#95r#'  
+EMAIL_HOST_USER = os.getenv("SMTP_USER") 
+EMAIL_HOST_PASSWORD = os.getenv("SMTP_PASSWORD") 
 
-REDIS_HOST = "localhost"
-REDIS_PORT = 6379
+REDIS_HOST = os.getenv("REDIS_HOST")
+REDIS_PORT = os.getenv("REDIS_PORT")
 
 CELERY_BROKER_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
 CELERY_RESULT_BACKEND = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"

@@ -1,39 +1,47 @@
+import pytest
 from remanga_parser import *
 
 class Test_Remanga_parser():
+    pytestmark = pytest.mark.asyncio
+
     remanga_parser = Remanga_parser()
-    catalog_url: str = "https://api.remanga.org/api/search/catalog/?count=30&exclude_bookmarks=0&ordering=-rating&page=1"
-    title_data_keys: list[str] = ['rus_name','dir', 'cover_high', 'type', 'issue_year', 'categories', 'genres']
-    title_number: int = 1
-
-    def test_request_json_data(self):
-        self.remanga_parser.request_json_data(self.catalog_url)
-
-        assert len(self.remanga_parser.json_data) > 0
+    catalog_url = "https://api.remanga.org/api/search/catalog/?count=30&exclude_bookmarks=0&ordering=-rating&page=1"
+    title_number = 1
     
-    def test_collect_title_data(self) -> None:
-        self.remanga_parser.title_data_values = list()
-        self.remanga_parser.categories_genres: dict[str, list] = { 'categories': list(), 'genres': list() }
+    async def test_get_title_json_data(self) -> None:
+        title_json_data = await self.remanga_parser.get_title_json_data(self.catalog_url)
 
-        self.remanga_parser.request_json_data(self.catalog_url)
-        self.remanga_parser.collect_title_data(self.title_data_keys, self.title_number)
+        assert len(title_json_data) > 0
+    
+    async def test_collect_title_data(self) -> None:
+        title_data_for_db = list()
+        categories_genres = { 'categories': list(), 'genres': list() }
+        title_json_data = await self.remanga_parser.get_title_json_data(self.catalog_url)
 
-        assert len(self.remanga_parser.title_data_values) + len(self.remanga_parser.categories_genres) \
-        == len(self.title_data_keys)
+        await self.remanga_parser.collect_title_data(title_json_data, title_data_for_db, categories_genres, self.title_number)
 
-    def test_get_title_data(self) -> None:
-        is_description_request: bool = False
+        assert len(title_data_for_db) + len(categories_genres) == len(self.remanga_parser.title_data_keys)
 
-        title_data: str = self.remanga_parser.get_title_data(self.title_data_keys[0] , self.title_number, is_description_request)        
+    async def test_get_title_data(self) -> None:
+        title_json_data = await self.remanga_parser.get_title_json_data(self.catalog_url)
+        is_description_request = False
+
+        title_data = await self.remanga_parser.get_title_data_from_json(title_json_data, 
+            self.remanga_parser.title_data_keys[0] , self.title_number, is_description_request)        
         
         assert len(title_data) > 0
     
-    def test_collect_title_detailed_data(self):
-        title_detailed_data_keys: list[str] = ['description', 'count_chapters']
-        self.remanga_parser.title_data_values = list()
+    async def test_collect_title_detailed_data(self) -> None:
+        """
+        Data that is used only on the page with the title
+        """
+        title_data_for_db = list()
+        title_json_data = await self.remanga_parser.get_title_json_data(self.catalog_url)
+        dir_name = title_json_data[self.title_number]['dir']
+        title_url = 'https://api.remanga.org/api/titles/' + dir_name
+        title_detailed_json_data = await self.remanga_parser.get_title_json_data(title_url)        
+        title_detailed_categories_genres = None
 
-        self.remanga_parser.request_json_data(self.catalog_url)
-        self.remanga_parser.dir_name = self.remanga_parser.json_data[self.title_number]['dir']
-        self.remanga_parser.collect_title_detailed_data(self.title_number)
+        await self.remanga_parser.collect_title_data(title_detailed_json_data, title_data_for_db, title_detailed_categories_genres, self.title_number)
 
-        assert len(self.remanga_parser.title_data_values) == len(title_detailed_data_keys)
+        assert len(title_data_for_db) == len(self.remanga_parser.title_detailed_data_keys)

@@ -3,8 +3,7 @@ from django.urls import reverse
 from django.db.models import Q
 
 from remanga.models import *
-from remanga.views import CatalogView
-
+from remanga.views.catalog_view import CatalogView
 
 def create_test_db_data():
     test_data = ['a', 'b']
