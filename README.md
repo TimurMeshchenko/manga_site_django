@@ -4,6 +4,8 @@
 
 **Есть версия на fastapi без сайта [manga_site_fastapi](https://github.com/TimurMeshchenko/manga_site_fastapi)**
 
+**Обзор всего функционала версии с fastapi, только вместо RabbitMQ Celery** [https://www.youtube.com/watch?v=x2cIkt0P3XQ](https://www.youtube.com/watch?v=x2cIkt0P3XQ)
+
 **Сайт указанный в проекте демонстрационный на бесплатном хостинге, поэтому там нет websockets, redis, celery, smtp.**
 
 **Сайт создан в учебных целях, источник дизайна и данных для базы данных [remanga](https://remanga.org/), (js написан с нуля).**
