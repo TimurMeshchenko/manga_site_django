@@ -65,21 +65,21 @@ class Websockets_comment extends Websockets_title {
               <form method="post" class="comment_like_form">
                   ${csrf_token}
                   <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="like_" style="background-color: transparent;border: none;padding: 0;">
-                    <svg fill="currentColor" viewBox="0 0 40 40"
-                      class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating">
+                    <svg fill="currentColor" viewBox="0 0 469.333 469.333" class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating">
+                      <rect x="0" y="192" width="85.333" height="256" />
                       <path
-                        d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                        class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
+                        d="M469.333,213.333c0-23.573-19.093-42.667-42.667-42.667h-134.72l20.373-97.493c0.427-2.133,0.747-4.373,0.747-6.72 c0-8.853-3.627-16.853-9.387-22.613l-22.72-22.507l-140.48,140.48C132.8,169.6,128,180.267,128,192v213.333 C128,428.907,147.093,448,170.667,448h192c17.707,0,32.853-10.773,39.253-26.027l64.32-150.4 c1.92-4.907,3.093-10.133,3.093-15.573v-40.853l-0.213-0.213L469.333,213.333z" />
                     </svg>
                   </button>
                   <span class="Comments_score__fxIQG"> 0 </span>
                   <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="dislike_"
                   style="background-color: transparent;border: none;padding: 0;">
-                    <svg fill="currentColor" viewBox="0 0 40 40" class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating"
+                    <svg fill="currentColor" viewBox="0 0 469.333 469.333"
+                      class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating"
                       style="transform: rotate(180deg);">
+                      <rect x="0" y="192" width="85.333" height="256" />
                       <path
-                        d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                        class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
+                        d="M469.333,213.333c0-23.573-19.093-42.667-42.667-42.667h-134.72l20.373-97.493c0.427-2.133,0.747-4.373,0.747-6.72 c0-8.853-3.627-16.853-9.387-22.613l-22.72-22.507l-140.48,140.48C132.8,169.6,128,180.267,128,192v213.333 C128,428.907,147.093,448,170.667,448h192c17.707,0,32.853-10.773,39.253-26.027l64.32-150.4 c1.92-4.907,3.093-10.133,3.093-15.573v-40.853l-0.213-0.213L469.333,213.333z" />
                     </svg>
                   </button>
               </form>

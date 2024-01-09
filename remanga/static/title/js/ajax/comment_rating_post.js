@@ -14,11 +14,10 @@ class Comment_rating_post extends Ajax_post {
     }
     
     set_comment_rating_element(event) {
-        let button_comment_rating = event.target.tagName == "path" ? 
+        let button_comment_rating =  ["path", "rect"].includes(event.target.tagName) ? 
             event.target.parentNode.parentNode : event.target.parentNode;
 
         button_comment_rating = event.target.tagName == "BUTTON" ? event.target : button_comment_rating;
-        
         this.comment_rating_element = button_comment_rating;
     }
 

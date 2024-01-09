@@ -125,33 +125,6 @@
     min-width: 0;
   }
 </style>
-<style id="__jsx-2767723650">
-  .grid-item.jsx-2767723650 {
-    flex-grow: 0;
-    max-width: 20%;
-    flex-basis: 20%;
-  }
-
-  @media screen and (min-width: 600px) {
-    .grid-item.jsx-2767723650 {
-      flex-grow: 0;
-      max-width: none;
-      flex-basis: auto;
-    }
-  }
-
-  @media screen and (min-width: 800px) {
-    .grid-item.jsx-2767723650 {}
-  }
-
-  @media screen and (min-width: 1024px) {
-    .grid-item.jsx-2767723650 {}
-  }
-
-  @media screen and (min-width: 1440px) {
-    .grid-item.jsx-2767723650 {}
-  }
-</style>
 <style id="__jsx-b8d4b7781168762e">
   .stat.jsx-b8d4b7781168762e {
     display: -webkit-inline-box;
@@ -363,8 +336,7 @@
   }
 
   .leftRow.jsx-26265f9d7209f510 {
-    width: 325px;
-    height: 450px;
+    width: 300px;
   }
 
   .right.jsx-26265f9d7209f510 {
@@ -823,7 +795,8 @@
       border-radius: 4px;
   }  
 .Svg_rating {
-  width: 25px;padding-bottom: 3px;
+  width: 18px;
+  padding-bottom: 3px;
 }
 </style>
 {% endblock %}
@@ -832,18 +805,7 @@
 <div id="__next">
   <main class="jsx-b26231077db42c90 jsx-2515649928">
     <div itemscope="" itemtype="https://schema.org/CreativeWorkSeries" class="flex w-full justify-center">
-      <!--$--><!--$-->
       <div class="jsx-26265f9d7209f510 root">
-        <div style="top: 0px; display: none; width: 359px" class="jsx-5036979311864256 root">
-          <div class="jsx-5036979311864256 content withHover">
-            <p class="Typography_body1__TZSwE Typography_color-textSecondary__gCJWS">
-              <svg class="SvgIcon_root__keb_Y SvgIcon_fontSize-large__Xgixi" focusable="false" viewBox="0 0 24 24"
-                aria-hidden="true" style="transform: rotate(180deg)">
-                <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
-              </svg>Наверх
-            </p>
-          </div>
-        </div>
         <div class="jsx-5da9c2067ceba581 jsx-289239491 grid-container">
           <div class="jsx-26265f9d7209f510 leftRow">
             <div style="position: sticky; top: 80px">
@@ -949,11 +911,11 @@
                   </div>
                   <div class="jsx-c62bbc403caec98b tags">
                     {% for genre in title.genres.all %}
-                    <a class="Chip_chip__cpsxK Chip_gray__uE26d" title="Манга жанра {{ genre }}" href=""><span
-                        itemprop="genre" data-previewurl="">{{ genre }}</span></a>
+                    <p class="Chip_chip__cpsxK Chip_gray__uE26d" title="Манга жанра {{ genre }}"><span
+                        itemprop="genre" data-previewurl="">{{ genre }}</span></p>
                     {% endfor %} {% for category in title.categories.all %}
-                    <a class="Chip_chip__cpsxK Chip_gray__uE26d" title="Манга жанра {{ category }}" href=""><span
-                        itemprop="genre" data-previewurl="">{{ category }}</span></a>
+                    <p class="Chip_chip__cpsxK Chip_gray__uE26d" title="Манга жанра {{ category }}"><span
+                        itemprop="genre" data-previewurl="">{{ category }}</span></p>
                     {% endfor %}
                   </div>
                   <div class="jsx-7721551bb9cc7c76 container">
@@ -1025,18 +987,17 @@
                                   {% csrf_token %}
                                   <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="like_{{ comment.id }}" style="background-color: transparent;border: none;padding: 0;">
                                     {% if user_title_comments_ratings and user_title_comments_ratings|get_item:comment.id %}
-                                      <svg fill="currentColor" viewBox="0 0 40 40"
-                                        class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t SvgIcon_color-primary__TnNB7 Svg_rating">
+                                      <svg fill="currentColor" viewBox="0 0 469.333 469.333"
+                                        class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating SvgIcon_color-primary__TnNB7">
+                                        <rect x="0" y="192" width="85.333" height="256" />
                                         <path
-                                          d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                                          class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
+                                          d="M469.333,213.333c0-23.573-19.093-42.667-42.667-42.667h-134.72l20.373-97.493c0.427-2.133,0.747-4.373,0.747-6.72 c0-8.853-3.627-16.853-9.387-22.613l-22.72-22.507l-140.48,140.48C132.8,169.6,128,180.267,128,192v213.333 C128,428.907,147.093,448,170.667,448h192c17.707,0,32.853-10.773,39.253-26.027l64.32-150.4 c1.92-4.907,3.093-10.133,3.093-15.573v-40.853l-0.213-0.213L469.333,213.333z" />
                                       </svg>
                                       {% else %}
-                                      <svg fill="currentColor" viewBox="0 0 40 40"
-                                        class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating">
+                                      <svg fill="currentColor" viewBox="0 0 469.333 469.333" class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating">
+                                        <rect x="0" y="192" width="85.333" height="256" />
                                         <path
-                                          d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                                          class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
+                                          d="M469.333,213.333c0-23.573-19.093-42.667-42.667-42.667h-134.72l20.373-97.493c0.427-2.133,0.747-4.373,0.747-6.72 c0-8.853-3.627-16.853-9.387-22.613l-22.72-22.507l-140.48,140.48C132.8,169.6,128,180.267,128,192v213.333 C128,428.907,147.093,448,170.667,448h192c17.707,0,32.853-10.773,39.253-26.027l64.32-150.4 c1.92-4.907,3.093-10.133,3.093-15.573v-40.853l-0.213-0.213L469.333,213.333z" />
                                       </svg>
                                       {% endif %}
                                   </button>
@@ -1044,20 +1005,20 @@
                                 <button class="Comments_iconButton__dwH2e" type="submit" name="form_name" value="dislike_{{ comment.id }}"
                                 style="background-color: transparent;border: none;padding: 0;">
                                 {% if comment.id in user_title_comments_ratings and not user_title_comments_ratings|get_item:comment.id %}
-                                <svg fill="currentColor" viewBox="0 0 40 40"
-                                  class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t SvgIcon_color-secondary__OvK95 Svg_rating"
+                                <svg fill="currentColor" viewBox="0 0 469.333 469.333"
+                                  class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating SvgIcon_color-secondary__OvK95"
                                   style="transform: rotate(180deg);">
+                                  <rect x="0" y="192" width="85.333" height="256" />
                                   <path
-                                    d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                                    class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
+                                    d="M469.333,213.333c0-23.573-19.093-42.667-42.667-42.667h-134.72l20.373-97.493c0.427-2.133,0.747-4.373,0.747-6.72 c0-8.853-3.627-16.853-9.387-22.613l-22.72-22.507l-140.48,140.48C132.8,169.6,128,180.267,128,192v213.333 C128,428.907,147.093,448,170.667,448h192c17.707,0,32.853-10.773,39.253-26.027l64.32-150.4 c1.92-4.907,3.093-10.133,3.093-15.573v-40.853l-0.213-0.213L469.333,213.333z" />
                                 </svg>
                                 {% else %}
-                                <svg fill="currentColor" viewBox="0 0 40 40"
+                                <svg fill="currentColor" viewBox="0 0 469.333 469.333"
                                   class="jsx-83d2bca1a5644a9 jsx-2719031823 SvgIcon_fontSize-small__i__5t Svg_rating"
                                   style="transform: rotate(180deg);">
+                                  <rect x="0" y="192" width="85.333" height="256" />
                                   <path
-                                    d="M31 26.4q0 .3-.2.5l-1.1 1.2q-.3.2-.6.2t-.5-.2l-8.7-8.8-8.8 8.8q-.2.2-.5.2t-.5-.2l-1.2-1.2q-.2-.2-.2-.5t.2-.5l10.4-10.4q.3-.2.6-.2t.5.2l10.4 10.4q.2.2.2.5z"
-                                    class="jsx-83d2bca1a5644a9 jsx-2719031823"></path>
+                                    d="M469.333,213.333c0-23.573-19.093-42.667-42.667-42.667h-134.72l20.373-97.493c0.427-2.133,0.747-4.373,0.747-6.72 c0-8.853-3.627-16.853-9.387-22.613l-22.72-22.507l-140.48,140.48C132.8,169.6,128,180.267,128,192v213.333 C128,428.907,147.093,448,170.667,448h192c17.707,0,32.853-10.773,39.253-26.027l64.32-150.4 c1.92-4.907,3.093-10.133,3.093-15.573v-40.853l-0.213-0.213L469.333,213.333z" />
                                 </svg>
                                 {% endif %}
                                 </button>

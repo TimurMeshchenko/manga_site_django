@@ -555,12 +555,13 @@
       -moz-box-shadow: var(--shadow-elevation);
       box-shadow: var(--shadow-elevation);
     }
+  
   </style>
   <style type="text/css" data-styled-jsx="">
     div.jsx-2945355907 {
       top: 47px;
       left: 0;
-      width: 250px;
+      width: 100%;
       max-height: 300px;
     }
   </style>
@@ -665,24 +666,51 @@
   <header class="Header_header__dv3q5 ui-fixed">
     <nav class="jsx-2a8f39a92d173359 Header_nav__V78KK">
       <div class="jsx-2a8f39a92d173359 Header_navContainer__3fCGy flexAuto">
-        <div style="max-width: 300px" class="jsx-2a8f39a92d173359 hidden-smDown Header_navContainer__3fCGy ml16">
-          <a class="Button_button__JOS9_ Header_headerLink__EvjUK hidden-mdDown" tabindex="0" role="button"
+        <div style="max-width: 300px" class="jsx-2a8f39a92d173359 Header_navContainer__3fCGy ml16">
+          <a class="Button_button__JOS9_ Header_headerLink__EvjUK" tabindex="0" role="button"
             href="{% url 'remanga:search' %}">
             Поиск</a>
+          <a href="{% url 'remanga:search' %}">
+            <svg class='Header_svg' fill="currentColor"
+              viewBox="0 0 512 512">
+              <path
+                d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z" />
+            </svg>
+          </a>
           <a class="Button_button__JOS9_ Header_headerLink__EvjUK" tabindex="0" role="button"
-            href="{% url 'remanga:catalog' %}">Каталог</a>
+          href="{% url 'remanga:catalog' %}">Каталог
+          </a>
+          <a style="margin-left: 20px;" href="{% url 'remanga:catalog' %}">
+            <svg class='Header_svg'style="color: white" width="512" height="512" viewBox="0 0 24 24" fill="none">
+              <path d="M2 13L11.293 3.70697C11.6835 3.31659 12.3165 3.31659 12.707 3.70697L22 13H20V21C20 21.5523 19.5523 22 19 22H14V15H10V22H5C4.44772 22 4 21.5523 4 21V13H2Z" fill="white"></path>
+            </svg>
+          </a>
         </div>
       </div>
       <div class="jsx-2a8f39a92d173359 Header_navContainer__3fCGy"></div>
       <div class="jsx-2a8f39a92d173359 Header_navContainer__3fCGy justify-end flexAuto">
-        <div class="hidden-xsDown Header_navContainer__3fCGy">
+        <div class="Header_navContainer__3fCGy">
           {% if user.is_authenticated %}
-          <a class="Button_button__JOS9_ Header_headerLink__EvjUK hidden-mdDown" tabindex="0" role="button"
+          <a class="Button_button__JOS9_ Header_headerLink__EvjUK" tabindex="0" role="button"
             href="{% url 'remanga:bookmarks' %}">Закладки
           </a>
+          <a href="{% url 'remanga:bookmarks' %}">
+            <svg  class='Header_svg' width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M7.7002 3H16.3002C17.4052 3 18.3002 3.895 18.3002 5V21L12.0082 17.727L5.7002 21V5C5.7002 3.895 6.5952 3 7.7002 3Z"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </a>
           {% else %}
-          <a class="Button_button__JOS9_ Header_headerLink__EvjUK hidden-mdDown" tabindex="0" role="button"
+          <a class="Button_button__JOS9_ Header_headerLink__EvjUK" tabindex="0" role="button"
             href="{% url 'remanga:signin' %}">Закладки
+          </a>
+          <a href="{% url 'remanga:signin' %}">
+          <svg class='Header_svg' width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M7.7002 3H16.3002C17.4052 3 18.3002 3.895 18.3002 5V21L12.0082 17.727L5.7002 21V5C5.7002 3.895 6.5952 3 7.7002 3Z"
+              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
           </a>
           {% endif %}
         </div>
@@ -699,7 +727,7 @@
         {% else %}
         <a href="{% url 'remanga:signin' %}">
           <button
-            class="Button_button__JOS9_ Button_button__JOS9_ Button_contained__C0zVd Button_contained-primary__ZtvzA hidden-xsDown"
+            class="Button_button__JOS9_ Button_button__JOS9_ Button_contained__C0zVd Button_contained-primary__ZtvzA"
             tabindex="0" type="button" style="margin-left: 8px">
             <span class="Button_label__py8bK">Войти</span>
           </button>
@@ -854,7 +882,12 @@
     background-color: #2b2b2b54;
     color: #fff;
     width: 100%;
-  }    
+  } 
+  
+  .Header_svg {
+    width: 20px; 
+    height: 20px; 
+  }
   </style>
 
   {% endblock %} 
@@ -1102,7 +1135,8 @@
   </next-route-announcer>
   {% endblock %}
   <footer class="Footer_footer__aYlrA">
-    <p style="font-size: 20px;">Сайт создан в учебных целях, источник дизайна и данных для базы данных 
+    <p style="font-size: 20px;">
+      Сайт создан в учебных целях. Источник дизайна и данных для базы данных - 
       <a href="https://remanga.org/" style="text-decoration: revert;">remanga.org</a>
     </p>
   </footer>
