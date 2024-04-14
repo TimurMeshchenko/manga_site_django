@@ -1054,6 +1054,10 @@
           overflow-wrap: normal;
         "></p>
 </next-route-announcer>
+<script>
+  const user_id = "{{ user }}" ? "{{ user.id }}" : "";
+</script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'title/js/ajax/ajax_post.js' %}"></script>
 <script src="{% static 'title/js/ajax/title_rating_post.js' %}"></script>
@@ -1099,7 +1103,6 @@
   new Comment_input_stylization();
 </script>
 <script>
-  const user_id = "{{ user }}" ? "{{ user.id }}" : "";
   const title_id = "{{ title.id }}";
   const title_dir_name = "{{ title.dir_name }}";
 

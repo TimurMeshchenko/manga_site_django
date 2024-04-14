@@ -102,13 +102,13 @@ class WebsocketConsumer(AsyncWebsocketConsumer):
         Update title comments for all sessions that are on the title
         """    
         user, title, comment = await self.create_comment_in_db(data)
-
+        user_avatar = "" if not user.avatar else user.avatar.url
         response = {
             "type": data["type"],
             "content": comment.content,
             "user_id": user.id,
             "user_name": user.username,
-            "user_avatar": user.avatar.url,
+            "user_avatar": user_avatar,
             "comment_id": comment.id
         }                
 

@@ -1,23 +1,4 @@
 # manga_site_django
-
-![](https://lh3.googleusercontent.com/fife/AK0iWDxZYW5um9yXHTXYIpCDH4wN8BumOJEra9Xvl8Oqt5Vpxn40GYw-el49xr6zXofGSI2ax1Ajckcx59y3LbnKzyQsjJTkBAf6CZBykqEahBToWbrR9MZM6UinU74DkwgzGzCzO3Gt-6Owwu-tHycX3lPZ7paZ4s4lOrAI9J24_1fWjqwrQNFmLwQtCtiKyRf-P1jxjcvT70-I_cRjuUP-3hnsSgXvxzxBtcJLuGflni1aOulX4PW_YTrhSO7YPvPe7RPuUi3FjyiTG-tMv-wMtZyolzuTDSCQwZC3SPhQv5U1VD-TY9sP_SuXDwgl_82uf7AEGRKmVWYsesF0aNP9mJ4UjlEJHHhgekiSGXU70uOM6_g3ceDD8OUVQ-wIYnmG8qp5eWswa8MN2Y8bMriWhaKj7sdq40Yk47M-3s-3chibjIadMrkXspM0RqFahd7ucGfEW4An_yGsi6k8cl4Ys0mh-8n9gtM4PIp-6H5qrEyp-eIX7mu53Ost-DV5o-l-B-V4jcHSJBjxZfAlMKlm8sMl5NE-gcjMf_Lf_u5j2b3BPZe4tDkBvQVBF22XNZ2s5qR9blD9GxtnM_HQI-gBGxgxgtemVGIQdsUPdfouSb-CUPzQSyA0X7FqDUil0RROgUoHl3eG3zjXgj9s1sBP6HDYmpQ_BMV1jekxyPWhSPpVVaH1gejdIScwuJnL_wVo195oHWAJYUWe1wCfZ95VAtxvbkt6oA2m_013k6AWINknCdHa_j6Zu7SuGPNZp_WgRMts4ZjLCK8RPcp8ZElexIhrBgX_ukzN_d1mATYCSV6ROS97VoEm7y1DGAqQsXvmI5wKSkz4eCyxkYj_QwhF3Zu5AfgMePAiZ_wbwUKX83Gg-WH-wsZIafBgfHk6zkzPupQT0zWckRTSXT_6wy6ykpMV1X-cavxEH0j166Kdwv6KvHCRv_za_LRQlb-EYIRqKwvfSibmDH92bTrh-oHwBXqegwwii7XjBVJUkToshUWQ9p2zSBdsN0sxv839QA6-bhNZe2kWZS2wgMjWF7gjVeeKPvIiGmDBklTD_FBSXzdE9jZ3NNE8Wv0MtTvAB2vGvF4ujDPkPlCltW5iYVtNoighBY7HWht3aKJ0asavvdE6OamnQ4N-oqkbWcKp5dGDj_hWCDlB4EUdG4ZUqNPmvYv511Pl-VJwfWhnbC7rkWqBLpSkINwEP_m9nh6kFqDMaDRaBobcbhCiL5xTsIOg3uvTDpa07oFZHhJ5hX4ePVXEgAqdm_zDEEGnkLPrD5ne-gvvDA2MLWT3DYaqLh2-ZJtD-qawO3PbFT9jrdTWwB-5l3b6ADMBA-igM4sCZlbOE3u9ZBn4FQ3j7SKmJtmKixF1e_uRYP3mY20ROLfyKti0C7AllioptIe68ZtgkDViK3kaC495KCYLrSPzJ_y9ERRVRuifbhU-WexbSJZ1xKTqymaAx6UUOcugAEkHzd58PxrL1DnzxHQzPmlL_otjRbDjAausXL9w5bXV69lMYNIax2530o33RoXjsDlLKZGbPP0=w1284-h919)
-
-**Есть версия на FastAPI без сайта [https://github.com/TimurMeshchenko/manga_site_fastapi](https://github.com/TimurMeshchenko/manga_site_fastapi)**
-
-**Обзор всего функционала версии с FastAPI, только вместо RabbitMQ Celery** [https://www.youtube.com/watch?v=x2cIkt0P3XQ](https://www.youtube.com/watch?v=x2cIkt0P3XQ)
-
-**Сайт, реализующий проект** [https://gwaawwa2.pythonanywhere.com/](https://gwaawwa2.pythonanywhere.com/)
-
-**Сайт, демонстрационный на бесплатном хостинге, поэтому там нет WebSockets, Redis, Celery, SMTP.**
-
-**Сайт создан в учебных целях. Источник дизайна и данных для базы данных [remanga](https://remanga.org/), (JavaScript написан с нуля).**
-
-**Основные отличия от FastAPI версии:**
-
-* Redis используется только для Celery.
-* Через Celery, а не RabbitMQ, отправляются письма для восстановления пароля.
-* Регистрация, авторизация основаны на сессиях.
-* Вместо Fetch Ajax.
  
 ## Реализованный функционал: 
 
@@ -48,6 +29,15 @@
 
 **Парсер**, асинхронное с помощью asyncio получение данных с сайта remanga и автоматическое добавление в БД.
 
+**Есть версия на FastAPI [https://github.com/TimurMeshchenko/manga_site_fastapi](https://github.com/TimurMeshchenko/manga_site_fastapi)**
+
+**Основные отличия от FastAPI версии:**
+
+* Redis используется только для Celery.
+* Через Celery, а не RabbitMQ, отправляются письма для восстановления пароля.
+* Регистрация, авторизация основаны на сессиях.
+* Вместо Fetch Ajax.
+
 ## Установка
 
 ### Docker версия. 
@@ -66,30 +56,25 @@ psql -U postgres -d postgres -f /database_backups/release_plain.sql
 
 ### Без Docker
 
-1. Активировать виртуальное окружение. 
+### Настройка postgresql
+
 ```bash
-myenv/Scripts/activate
+sudo -u postgres psql
+create database remanga;
+sudo -u postgres psql -d remanga -f database_backups/release_plain.sql
 ```
 
-Или
+### Запуск
 
-Установить Django и его зависимости. 
 ```bash
-pip install -r requirements.txt
+sudo poetry install
+sudo poetry run python -m uvicorn remanga_site.asgi:application --reload
 ```
 
-2. Заменить данные для подключения БД на свои в файле .env.dev
+### Для возможности восстанавливать пароль по почте
 
-Для запуска с данными нужно импортировать PostgreSQL backup в директории database_backups для БД, указанной в .env.dev 
 ```bash
-psql -U DB_USER -d DB_NAME -f database_backups/release_plain.sql
-
-Ex. psql -U postgres -d remanga -f database_backups/release_plain.sql
-```
-
-3. Запустить проект. 
-```bash
-python -m uvicorn remanga_site.asgi:application --reload
+sudo poetry run python -m celery -A remanga_site worker --pool=solo -l info
 ```
 
 ## (Если нужно больше данных) Настройка парсера.
@@ -104,7 +89,7 @@ start_page_parsing = 11
 end_page_parsing = 12 
 ```
 
-**Запуск**
+**Запуск парсера**
 
 ```bash
 cd parser
