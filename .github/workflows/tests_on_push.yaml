@@ -6,13 +6,20 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-  
+    
+    env:
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_NAME: remanga
+      DB_USER: postgres
+      DB_PASS: postgres
+
     services:
       postgres:
         image: postgres:15
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: Qewads
+          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: remanga
         ports:
           - 5432:5432
@@ -30,12 +37,6 @@ jobs:
 
       - name: Run database migrations
         run: python manage.py migrate
-        env:
-          DB_HOST: localhost
-          DB_PORT: 5432
-          DB_NAME: remanga
-          DB_USER: postgres
-          DB_PASS: Qewads
 
       - name: Tests
         run: python manage.py test
