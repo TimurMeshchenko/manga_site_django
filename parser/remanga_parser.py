@@ -9,11 +9,8 @@ import aiohttp
 import asyncio
 
 class Remanga_parser():
-    def __init__(self):
-        BASE_DIR = Path(__file__).resolve().parent.parent
-        
-        env_path = BASE_DIR / '.env.dev'
-        load_dotenv(dotenv_path=env_path)
+    def __init__(self):        
+        load_dotenv()
 
         self.title_data_keys = ['rus_name','dir', 'cover_high', 'type', 'issue_year', 'categories', 'genres']
         self.title_detailed_data_keys = ['description', 'count_chapters']
