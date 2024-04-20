@@ -30,12 +30,12 @@ jobs:
 
       - name: Run database migrations
         run: python manage.py migrate
-      env:
-        DB_HOST: localhost
-        DB_PORT: 5432
-        DB_NAME: remanga
-        DB_USER: postgres
-        DB_PASS: Qewads
+        env:
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_NAME: remanga
+          DB_USER: postgres
+          DB_PASS: Qewads
 
       - name: Tests
         run: python manage.py test
