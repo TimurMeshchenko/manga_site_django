@@ -138,4 +138,4 @@ def is_redis_enabled():
     except (socket.timeout, ConnectionRefusedError):
         return False
     
-# USE_REDIS = is_redis_enabled()
+USE_REDIS = is_redis_enabled()

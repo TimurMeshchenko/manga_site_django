@@ -13,6 +13,9 @@ jobs:
       DB_NAME: remanga
       DB_USER: postgres
       DB_PASS: postgres
+      SECRET_KEY: django-insecure-z-vq&e%_2yx$4uzf=8yutb@9yz&+_+c-h2q(hw-x53l3(+m7+l
+      REDIS_HOST: localhost
+      REDIS_PORT: 6379
 
     services:
       postgres:
