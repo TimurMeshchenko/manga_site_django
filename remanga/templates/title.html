@@ -200,7 +200,7 @@
 </style>
 <style id="__jsx-e268305963073dea">
   .header.jsx-e268305963073dea {
-    padding: 32px 8px 12px 36px;
+    padding: 32px 8px 0px 36px;
   }
 </style>
 <style id="__jsx-dee7f94cda4cd9fa">
@@ -804,7 +804,7 @@
 
 <div id="__next">
   <main class="jsx-b26231077db42c90 jsx-2515649928">
-    <div itemscope="" itemtype="https://schema.org/CreativeWorkSeries" class="flex w-full justify-center">
+    <div class="flex w-full justify-center">
       <div class="jsx-26265f9d7209f510 root">
         <div class="jsx-5da9c2067ceba581 jsx-289239491 grid-container">
           <div class="jsx-26265f9d7209f510 leftRow">
@@ -822,9 +822,7 @@
                       class="Button_button__JOS9_ Button_button__JOS9_ Button_contained__C0zVd Button_contained-primary__ZtvzA Button_fullWidth__iQYat Button_bookmark"
                       tabindex="0" type="button" style="font-weight: 600; border-radius: 8px" name="form_name"
                       value="bookmark">
-                      <span class="Button_label__py8bK"><span
-                          class="Button_startIcon__LY2Am Button_icon-size-medium__SLolh"><span style="width: 16px"
-                            class="jsx-525f9ca96b40a0e6"></span></span>
+                      <span class="Button_label__py8bK">
                         {% if is_bookmark_added %}
                         Убрать из списка
                         {% else %}
@@ -841,16 +839,16 @@
               <h1 class="Typography_h3__xWrmf Typography_gutterBottom__mjtdd" itemprop="name">
                 {{ title.rus_name }}
               </h1>
-              <div itemprop="copyrightYear" class="jsx-b8d4b7781168762e stat">
+              <div itemprop="copyrightYear" class="jsx-b8d4b7781168762e stat" style="padding: 0px 0px 8px 0px;">
                 {{ title.issue_year }}
               </div>
               <div class="jsx-5da9c2067ceba581 jsx-1710873767 grid-container">
-                <div class="Tabs_root__ELKiZ mx-2 mb-2">
+                <div class="Tabs_root__ELKiZ mx-2 mb-2" style="margin-left: 0px;">
                   <div class="Tabs_scroller__CzLOC Tabs_fixed__LrdFy" style="overflow: hidden; margin-bottom: 0">
                     <div class="Tabs_flexContainer__Zbnn6" role="tab-list">
                       <button
                         class="Button_button___CisL Button_button__JOS9_ Tab_root__aAqqc Tab_textColor-primary__1ucBX Tab_selected__952d4"
-                        tabindex="0" type="button" role="tab" aria-selected="true">
+                        tabindex="0" type="button" role="tab" aria-selected="true" style="padding: 0px;justify-content: left;min-width: 55px;">
                         <span class="wrapper">Обзор</span></button><button
                         class="Button_button___CisL Button_button__JOS9_ Tab_root__aAqqc Tab_textColor-primary__1ucBX" tabindex="-1"
                         type="button" role="tab" aria-selected="false">
@@ -859,15 +857,8 @@
                     </div>
                   </div>
                 </div>
-
-                <meta itemprop="typicalAgeRange" content="16+" class="jsx-b8d4b7781168762e" />
                 <div style="padding: 8px 0; font-size: 16px" class="jsx-7324287667afa997 jsx-2767723650 grid-item">
-                  <div itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating"
-                    class="jsx-4f80e21670f66bac rating">
-                    <meta itemprop="itemReviewed" content="Начало после конца" class="jsx-4f80e21670f66bac" />
-                    <meta itemprop="worstRating" content="1" class="jsx-4f80e21670f66bac" />
-                    <meta itemprop="bestRating" content="10" class="jsx-4f80e21670f66bac" />
-                    <meta itemprop="ratingValue" content="9.3" class="jsx-4f80e21670f66bac" />
+                  <div class="jsx-4f80e21670f66bac rating">
                     <svg class="w-5 h-5 hover:scale-125 transition-all duration-75 ease-in-out active:rotate-180 active:scale-150"
                       aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                       <path fill="rgb(216 172 8)"
@@ -882,7 +873,7 @@
                         class="jsx-4f80e21670f66bac ratingCount">{{ title.count_rating }}</span>)</span>
                   </div>
                 </div>
-                <div class="jsx-b8d4b7781168762e stat" aria-label="В закладках у 199032  пользователей">
+                <div class="jsx-b8d4b7781168762e stat">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                       d="M7.7002 3H16.3002C17.4052 3 18.3002 3.895 18.3002 5V21L12.0082 17.727L5.7002 21V5C5.7002 3.895 6.5952 3 7.7002 3Z"
@@ -894,20 +885,13 @@
               </div>
             </div>
             <div class="jsx-5da9c2067ceba581 jsx-2547249553 grid-container">
-              <div class="jsx-7324287667afa997 jsx-2367132066 grid-item">
-                <meta itemprop="numberOfPages" content="179" />
+              <div class="jsx-7324287667afa997 jsx-2367132066 grid-item" style="padding-top: 0px;">
                 <div class="px-4 py-2">
                   <div class="m-1 mb-8">
                     <div class="Typography_body1__TZSwE Typography_lineClamp-4__593mC Typography_lineClamp__92oq_"
                       itemprop="description">
                       {{ title.description | safe }}
                     </div>
-                  </div>
-                  <div class="jsx-dee7f94cda4cd9fa templateWrapper">
-                    Вы находитесь на странице манги Начало после конца/ The
-                    Beginning After the End. Относится к жанрам
-                    экшен,приключения,трагедия,фэнтези. Выпускается с 2018
-                    года, статус манги - заморожен.
                   </div>
                   <div class="jsx-c62bbc403caec98b tags">
                     {% for genre in title.genres.all %}
@@ -933,18 +917,7 @@
 
                             <textarea rows="1" aria-invalid="false" name="text" placeholder="Оставить комментарий..."
                               class="Input_input__F9Zao Input_inputMultiline__J_NsB Input_inputAdornedEnd__5xGz7"
-                              style="height: 45px; overflow: hidden"></textarea><textarea aria-hidden="true"
-                              class="Input_input__F9Zao Input_inputMultiline__J_NsB Input_inputAdornedEnd__5xGz7"
-                              readonly="" tabindex="-1" style="
-                                  visibility: hidden;
-                                  position: absolute;
-                                  overflow: hidden;
-                                  height: 0px;
-                                  top: 0px;
-                                  left: 0px;
-                                  transform: translateZ(0px);
-                                  width: 558px;
-                                "></textarea>
+                              style="height: 45px; overflow: hidden"></textarea>
                             <div class="jsx-c08a448cf846d669 root positionEnd Comments_endAdorment__qKzKK">
                               <button
                                 class="Button_button__JOS9_ Button_button__JOS9_ Button_text__LI0qb Button_text-primary__NSm_C Button_text-size-small__kYaDZ Comments_iconButton__dwH2e"
@@ -954,7 +927,6 @@
                           </form>
                         </div>
                       </div>
-                      <div class="jsx-98e73d71ac525cf0 submenu"></div>
                     </div>
                     <div class="jsx-a1b2d119e625548b">
                       <div class="jsx-a1b2d119e625548b Comments_wrap__7NbKY"> 
@@ -1040,20 +1012,6 @@
   </main>
 </div>
 </div>
-<next-route-announcer>
-  <p aria-live="assertive" id="__next-route-announcer__" role="alert" style="
-          border: 0px;
-          clip: rect(0px, 0px, 0px, 0px);
-          height: 1px;
-          margin: -1px;
-          overflow: hidden;
-          padding: 0px;
-          position: absolute;
-          width: 1px;
-          white-space: nowrap;
-          overflow-wrap: normal;
-        "></p>
-</next-route-announcer>
 <script>
   const user_id = "{{ user }}" ? "{{ user.id }}" : "";
 </script>

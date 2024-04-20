@@ -14,20 +14,10 @@
   <meta property="og:image:width" content="186" />
   <meta property="og:image:height" content="270" />
   <meta property="og:locale" content="ru_RU" />
-  <meta property="keywords"
-    content="читать мангу, читать мангу онлайн на русском, читать манхву, читать манхву онлайн на русском, читать маньхуа, читать маньхуа онлайн на русском" />
-
   {% block title %}
   <title>Каталог</title>
   {% endblock %}
-
   <meta name="robots" content="index,follow" />
-  <meta name="googlebot" content="index,follow" />
-  <meta name="description"
-    content="Здесь вы можете прочитать мангу, манхву, маньхуа на русском. Самая удобная читалка манги в рунете, большой каталог манги. Читайте у нас!" />
-  <meta property="og:title" content="Каталог" />
-  <meta property="og:description"
-    content="Здесь вы можете прочитать мангу, манхву, маньхуа на русском. Самая удобная читалка манги в рунете, большой каталог манги. Читайте у нас!" />
   <meta name="viewport" content="width=device-width" />
   <meta name="next-head-count" content="22" />
   <meta name="msapplication-TileColor" content="#da532c" />
@@ -44,8 +34,6 @@
   <link rel="preload" href="{% static 'catalog/css/9eb715df965d6cf8.css' %}" as="style" />
   <link rel="stylesheet" href="{% static 'catalog/css/9eb715df965d6cf8.css' %}" data-n-p="" />
   {% endblock %}
-
-  <noscript data-n-css=""></noscript>
   <style>
     .flexAuto.jsx-2a8f39a92d173359 {
       -webkit-box-flex: 1;
@@ -660,8 +648,6 @@
 </head>
 
 <body>
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-81J4Q19D6Y" height="0" width="0"
-      style="display: none; visibility: hidden"></iframe></noscript>
   {% block header %}
   <header class="Header_header__dv3q5 ui-fixed">
     <nav class="jsx-2a8f39a92d173359 Header_nav__V78KK">
@@ -952,13 +938,13 @@
             </h4>
             <div class="mb-4 mt-2">
               <span class="Chip_chip__cpsxK Chip_gray__uE26d Chip_dense__YGNFU Chip_withAction__cYU4U Catalog_chip__1Fs8C">
-                <!-- -->&lt;50<!-- --> </span><span
+                &lt;50 </span><span
                 class="Chip_chip__cpsxK Chip_gray__uE26d Chip_dense__YGNFU Chip_withAction__cYU4U Catalog_chip__1Fs8C">
-                <!-- -->50-100<!-- --> </span><span
+                50-100 </span><span
                 class="Chip_chip__cpsxK Chip_gray__uE26d Chip_dense__YGNFU Chip_withAction__cYU4U Catalog_chip__1Fs8C">
-                <!-- -->100-200<!-- --> </span><span
+                100-200 </span><span
                 class="Chip_chip__cpsxK Chip_gray__uE26d Chip_dense__YGNFU Chip_withAction__cYU4U Catalog_chip__1Fs8C">
-                <!-- -->&gt;200<!-- -->
+                &gt;200
               </span>
             </div>
             <h4 class="Typography_h6__crs2H Typography_paragraph__f4zP4">
@@ -990,7 +976,6 @@
           </div>
           
           <div class="flex1 w-full">
-            <!--$-->
             <div class="grid">
               {% for title in titles_list %}
 
@@ -1081,28 +1066,14 @@
       </div>
     </main>
   </div>
-  <noscript>
-    <div>
-      <img src="https://mc.yandex.ru/watch/43900324" style="position: absolute; left: -9999px" alt="" />
-    </div>
-  </noscript>
-  <script>
-    <!-- -->
-  </script>
-  <script>
-    window.yaContextCb = window.yaContextCb || [];
-  </script>
-
   <script src="{% static 'catalog/js/filters/filters.js' %}"></script>
   <script src="{% static 'catalog/js/filters/drop_menu_filters/drop_menu_filters.js' %}"></script>
   <script src="{% static 'catalog/js/filters/drop_menu_filters/drop_menu_url_requests.js' %}"></script>
   <script src="{% static 'catalog/js/filters/drop_menu_filters/drop_menu_stylization.js' %}"></script>
   <script src="{% static 'catalog/js/filters/input_range_filters/input_range_filters.js' %}"></script>
   <script src="{% static 'catalog/js/filters/chapters_filters/chapters_filters.js' %}"></script>
-  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="{% static 'catalog/js/endless_scroll.js' %}"></script>
-  
   <script>
     let data_array = [
       "{{ types_data | escapejs }}",
@@ -1116,29 +1087,8 @@
     const pages_count = "{{ num_pages }}";
     new Endless_scroll();
   </script>
-
-  <next-route-announcer>
-    <p aria-live="assertive" id="__next-route-announcer__" role="alert" style="
-          border: 0px;
-          clip: rect(0px, 0px, 0px, 0px);
-          height: 1px;
-          margin: -1px;
-          overflow: hidden;
-          padding: 0px;
-          position: absolute;
-          width: 1px;
-          white-space: nowrap;
-          overflow-wrap: normal;
-        ">
-      Каталог
-    </p>
-  </next-route-announcer>
   {% endblock %}
   <footer class="Footer_footer__aYlrA">
-    <p style="font-size: 20px;">
-      Сайт создан в учебных целях. Источник дизайна и данных для базы данных - 
-      <a href="https://remanga.org/" style="text-decoration: revert;">remanga.org</a>
-    </p>
   </footer>
 </body>
 

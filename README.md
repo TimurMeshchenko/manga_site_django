@@ -69,6 +69,8 @@ sudo -u postgres psql -d remanga -f database_backups/release_plain.sql
 ```bash
 sudo poetry install
 sudo poetry run python -m uvicorn remanga_site.asgi:application --reload
+
+sudo poetry run ./run_with_reload.sh
 ```
 
 ### Для возможности восстанавливать пароль по почте

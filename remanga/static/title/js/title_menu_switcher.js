@@ -83,7 +83,6 @@ class Title_menu_switcher {
         <div data-mui-test="Modal" role="presentation" class="jsx-24297ecd4e1681b6 jsx-3374786578 modal Dialog_root__IWQvZ">
         <div data-test="Backdrop" aria-hidden="true" class="jsx-abc0dc1e74fa3514 jsx-24297ecd4e1681b6 jsx-3374786578 "
             style="background-color: rgba(0, 0, 0, 0.667);"></div>
-        <div tabindex="0" data-test="sentinelStart"></div>
         <div class="Dialog_container___8sF_ Dialog_scroll-body__nSP8j" tabindex="-1" style="opacity: 1;">
             <div
             class="jsx-7f4bbfca36e2b46d Dialog_paper__JNmkA Dialog_paperWidth-sm__1kKlh Dialog_paper-scroll-body__eos89 paper rounded">
@@ -135,7 +134,6 @@ class Title_menu_switcher {
             </div>
             </div>
         </div>
-        <div tabindex="0" data-test="sentinelEnd"></div>
         </div>
         `)
     }
