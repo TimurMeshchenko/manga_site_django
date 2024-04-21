@@ -36,21 +36,27 @@ function update_endless_scroll_gridPlaceholder() {
 }
 
 function add_title(title) {
-    search_endless_scroll.gridPlaceholder.insertAdjacentHTML("beforebegin", `              
+    search_endless_scroll.gridPlaceholder.insertAdjacentHTML(
+      "beforebegin",
+      `              
       <div class="gridItem">
         <a
-          title="${title['rus_name']}"
+          title="${title["rus_name"]}"
           class="Vertical_card__Sxft_"
-          href="/manga/${title['dir_name']}">
+          href="/manga/${title["dir_name"]}">
           <div class="Vertical_wrapper__eThs_">
             <div
               class="Image_container__NpLCh Image_hover__XbAZP rounded-md Vertical_img__vaURH Image_imagePlaceholder__oa9r1">
               <div
                 class="Image_imgStatic__14_gQ Image_image__HOj0m Image_imgFluid__Men3E Image_lazyLoaded__VDjoe"
-                style="background-image: url('/media/titles/${title["img_url"]}');">
+                style="background-image: url('/manga/media/titles/${
+                  title["img_url"]
+                }');">
               </div>
             </div>
-            <div class="Vertical_rating__nY5Rc">${title["avg_rating"].toFixed(1)}</div>
+            <div class="Vertical_rating__nY5Rc">${title["avg_rating"].toFixed(
+              1
+            )}</div>
             <div class="Horizontal_title_info">
               <p class="Typography_caption__yY5RL">
                 ${title["manga_type"]}

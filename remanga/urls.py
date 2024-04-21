@@ -4,13 +4,13 @@ from remanga.views.auth_views import logut_view, reset_password_view, signin_vie
 
 app_name = "remanga"
 urlpatterns = [
-    path("", catalog_view.CatalogView.as_view(), name="catalog"),
+    path("manga", catalog_view.CatalogView.as_view(), name="catalog"),
+    path("manga/search/", search_view.SearchView.as_view(), name="search"),
+    path("manga/signup/", signup_view.SignupView.as_view(), name="signup"),
+    path("manga/signin/", signin_view.SigninView.as_view(), name="signin"),
+    path("manga/reset_password/<uidb64>/<token>/", reset_password_view.ResetPasswordView.as_view(), name="reset_password"),
+    path("manga/logout/", logut_view.LogutView.as_view(), name="logout"),
+    path("manga/user/<int:user_id>/", profile_view.ProfileView.as_view(), name="profile"),
+    path("manga/bookmarks/", bookmarks_view.BookmarksView.as_view(), name="bookmarks"),
     path("manga/<str:dir_name>/", title_view.TitleView.as_view(), name="title"),
-    path("search/", search_view.SearchView.as_view(), name="search"),
-    path("signup/", signup_view.SignupView.as_view(), name="signup"),
-    path("signin/", signin_view.SigninView.as_view(), name="signin"),
-    path("reset_password/<uidb64>/<token>/", reset_password_view.ResetPasswordView.as_view(), name="reset_password"),
-    path("logout/", logut_view.LogutView.as_view(), name="logout"),
-    path("user/<int:user_id>/", profile_view.ProfileView.as_view(), name="profile"),
-    path("bookmarks/", bookmarks_view.BookmarksView.as_view(), name="bookmarks"),
 ]

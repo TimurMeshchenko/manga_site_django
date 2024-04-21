@@ -7,4 +7,4 @@ from typing import Union
 class LogutView(generic.ListView):
     def get(self, request: HttpRequest) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect]:
         logout(request)
-        return redirect('/')
+        return redirect('/manga')

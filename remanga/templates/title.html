@@ -813,7 +813,7 @@
                 <div class="Image_container__NpLCh rounded-md Image_imagePlaceholder__oa9r1" style="margin: 0px 0 8px">
                   <img alt="Обложка произведения undefined"
                     class="Image_image__HOj0m Image_imgFluid__Men3E Image_lazyLoaded__VDjoe"
-                    src="/media/titles/{{ title.img_url }}" />
+                    src="/manga/media/titles/{{ title.img_url }}" />
                 </div>
                 <div class="jsx-525f9ca96b40a0e6 buttons">
                   <form method="post" class="form_bookmark">
@@ -937,7 +937,7 @@
                             <img src="{{ comment.author.avatar.url }}" alt="..."
                               class="jsx-3914328852 Comments_mediaAvatar__IuIbH" />
                             {% else %}
-                            <img src="/media/users_avatars/no_avatar.jpg" alt="..." 
+                            <img src="/manga/media/users_avatars/no_avatar.jpg" alt="..." 
                             class="jsx-3914328852 Comments_mediaAvatar__IuIbH"/>
                           </a>
                           {% endif %}
@@ -1071,7 +1071,7 @@
   };
 
   const session_id = Websockets_title.generate_session_id();
-  const ws = new WebSocket(`ws://${window.location.host}/ws/${session_id}`);
+  const ws = new WebSocket(`ws://${window.location.host}/manga/ws/${session_id}`);
 
   websockets_title.handler_websocket_response();
   websockets_title.listen_websocket_close();

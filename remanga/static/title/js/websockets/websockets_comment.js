@@ -39,8 +39,10 @@ class Websockets_comment extends Websockets_title {
     }
 
     add_empty_comment(response) {
-      const url_profile = `/user/${response.user_id}` 
-      const user_avatar = response.user_avatar ? response.user_avatar : "/media/users_avatars/no_avatar.jpg";
+      const url_profile = `/manga/user/${response.user_id}`; 
+      const user_avatar = response.user_avatar
+        ? response.user_avatar
+        : "/manga/media/users_avatars/no_avatar.jpg";
       const user_name = response.user_name;
 
       document.querySelector(".Comments_wrap__7NbKY").insertAdjacentHTML('afterbegin', `

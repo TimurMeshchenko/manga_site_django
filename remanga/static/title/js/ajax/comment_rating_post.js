@@ -38,7 +38,7 @@ class Comment_rating_post extends Ajax_post {
 
     update_data(response) {
         if (user_id == "None") {
-            return window.location.href = "/signin";
+            return (window.location.href = "/manga/signin");
         }
 
         const comment_rating_form = this.comment_rating_element.parentNode;

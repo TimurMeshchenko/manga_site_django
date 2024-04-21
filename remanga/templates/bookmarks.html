@@ -2788,7 +2788,7 @@
                                     class="Image_container__z9DC9 Image_hover__3aJFw rounded-sm Library_img__ASP_l Image_imagePlaceholder__7plww">
                                     <div class="Image_imgStatic__qYXY7 Image_image__85Rxf Image_imgFluid__7ygPD Image_lazyLoaded__LVajX"
                                         alt="Обложка произведения {{ title.rus_name }}"
-                                        style="background-image: url('/media/titles/{{ title.img_url }}');">
+                                        style="background-image: url('/manga/media/titles/{{ title.img_url }}');">
                                     </div>
                                 </div>
                             </div>
@@ -2823,7 +2823,7 @@
     const title_id = "0";
 
     const session_id = Websockets_title.generate_session_id();
-    const ws = new WebSocket(`ws://${window.location.host}/ws/${session_id}`);
+    const ws = new WebSocket(`ws://${window.location.host}/manga/ws/${session_id}`);
 
     listen_websocket_response();
 </script>

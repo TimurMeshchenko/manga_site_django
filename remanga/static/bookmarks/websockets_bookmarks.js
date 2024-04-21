@@ -38,7 +38,7 @@ function add_title_html(response) {
                 class="Image_container__z9DC9 Image_hover__3aJFw rounded-sm Library_img__ASP_l Image_imagePlaceholder__7plww">
                 <div class="Image_imgStatic__qYXY7 Image_image__85Rxf Image_imgFluid__7ygPD Image_lazyLoaded__LVajX"
                     alt="Обложка произведения ${response.title_rus_name}"
-                    style="background-image: url('/media/titles/${response.title_img_url}');">
+                    style="background-image: url('/manga/media/titles/${response.title_img_url}');">
                 </div>
             </div>
         </div>
