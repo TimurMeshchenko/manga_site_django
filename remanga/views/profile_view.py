@@ -43,6 +43,8 @@ class ProfileView(generic.ListView):
 
     def change_avatar(self, request: Any) -> JsonResponse:
         avatar = request.FILES['avatar']
+        if not avatar.content_type.startswith('image'):
+            raise ValueError('Only image files are allowed')
         avatar.name = f"{self.request.user.id}.jpg"
         response_data = {}       
         avatar_path = os.path.join(settings.MEDIA_ROOT, "users_avatars", avatar.name)

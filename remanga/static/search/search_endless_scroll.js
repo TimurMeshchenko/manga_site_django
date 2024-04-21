@@ -9,8 +9,10 @@ class Search_endless_scroll extends Endless_scroll {
         const end = start + page_size;
         
         for (let i = start; i < end; i++) {
-            if (i < filtered_titles.length)
+            if (i < filtered_titles.length) {
                 add_title(filtered_titles[i]);
+                this.scroll_processed = false;
+            }
         }
     }
 }

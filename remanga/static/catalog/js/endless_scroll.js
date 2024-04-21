@@ -3,6 +3,7 @@ class Endless_scroll {
         this.page = 1;
         this.grid = document.querySelector(".grid");
         this.gridPlaceholder = this.grid.querySelector(".gridPlaceholder");
+        this.scroll_processed = false;
 
         this.listen_scroll();
     }
@@ -11,8 +12,15 @@ class Endless_scroll {
         window.addEventListener('scroll', () => {
             const is_not_all_titles_loaded = this.page < pages_count;
             
-            if (this.gridPlaceholder && this.is_last_title_scrolled() && is_not_all_titles_loaded)
-                this.load_more_titles_post()
+            if (
+              !this.scroll_processed &&
+              this.gridPlaceholder &&
+              this.is_last_title_scrolled() &&
+              is_not_all_titles_loaded
+            ) {
+              this.scroll_processed = true;
+              this.load_more_titles_post();
+            }
         });
     }
 
@@ -41,6 +49,7 @@ class Endless_scroll {
             },
             success: (response) => {
                 this.gridPlaceholder.insertAdjacentHTML("beforebegin", response.html);
+                this.scroll_processed = false;
             }
         });
     }    
