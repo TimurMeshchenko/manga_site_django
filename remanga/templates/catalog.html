@@ -654,9 +654,9 @@
       <div class="jsx-2a8f39a92d173359 Header_navContainer__3fCGy flexAuto">
         <div style="max-width: 300px" class="jsx-2a8f39a92d173359 Header_navContainer__3fCGy ml16">
           <a class="Button_button__JOS9_ Header_headerLink__EvjUK" tabindex="0" role="button"
-            href="{% url 'remanga:search' %}">
+            href="/manga/search/">
             Поиск</a>
-          <a href="{% url 'remanga:search' %}">
+          <a href="/manga/search/">
             <svg class='Header_svg' fill="currentColor"
               viewBox="0 0 512 512">
               <path
@@ -664,9 +664,9 @@
             </svg>
           </a>
           <a class="Button_button__JOS9_ Header_headerLink__EvjUK" tabindex="0" role="button"
-          href="{% url 'remanga:catalog' %}">Каталог
+          href="/manga/">Каталог
           </a>
-          <a style="margin-left: 20px;" href="{% url 'remanga:catalog' %}">
+          <a style="margin-left: 20px;" href="/manga/">
             <svg class='Header_svg'style="color: white" width="512" height="512" viewBox="0 0 24 24" fill="none">
               <path d="M2 13L11.293 3.70697C11.6835 3.31659 12.3165 3.31659 12.707 3.70697L22 13H20V21C20 21.5523 19.5523 22 19 22H14V15H10V22H5C4.44772 22 4 21.5523 4 21V13H2Z" fill="white"></path>
             </svg>
@@ -678,9 +678,9 @@
         <div class="Header_navContainer__3fCGy">
           {% if user.is_authenticated %}
           <a class="Button_button__JOS9_ Header_headerLink__EvjUK" tabindex="0" role="button"
-            href="{% url 'remanga:bookmarks' %}">Закладки
+            href="/manga/bookmarks/">Закладки
           </a>
-          <a href="{% url 'remanga:bookmarks' %}">
+          <a href="/manga/bookmarks/">
             <svg  class='Header_svg' width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M7.7002 3H16.3002C17.4052 3 18.3002 3.895 18.3002 5V21L12.0082 17.727L5.7002 21V5C5.7002 3.895 6.5952 3 7.7002 3Z"
@@ -689,9 +689,9 @@
           </a>
           {% else %}
           <a class="Button_button__JOS9_ Header_headerLink__EvjUK" tabindex="0" role="button"
-            href="{% url 'remanga:signin' %}">Закладки
+            href="/manga/signin/">Закладки
           </a>
-          <a href="{% url 'remanga:signin' %}">
+          <a href="/manga/signin/">
           <svg class='Header_svg' width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path fill-rule="evenodd" clip-rule="evenodd"
               d="M7.7002 3H16.3002C17.4052 3 18.3002 3.895 18.3002 5V21L12.0082 17.727L5.7002 21V5C5.7002 3.895 6.5952 3 7.7002 3Z"
@@ -702,7 +702,7 @@
         </div>
         {% if user.is_authenticated %}
         <div class="Avatar_avatar__hG0bH Avatar_colorDefault__MHL29 jsx-88620ec3676b2b4a">
-          <a href="{% url 'remanga:profile' user.id %}">
+          <a href="/manga/user/{{ user.id }}/">
             {% if user.avatar %}
             <img class="profile-pic" src="{{ user.avatar.url }}" style="width: 100%;">
             {% else %}
@@ -711,7 +711,7 @@
           </a>
         </div>
         {% else %}
-        <a href="{% url 'remanga:signin' %}">
+        <a href="/manga/signin/">
           <button
             class="Button_button__JOS9_ Button_button__JOS9_ Button_contained__C0zVd Button_contained-primary__ZtvzA"
             tabindex="0" type="button" style="margin-left: 8px">
@@ -981,7 +981,7 @@
 
               <div class="gridItem">
                 <a title="{{ title.rus_name }}" class="Vertical_card__Sxft_"
-                  href="{% url 'remanga:title' title.dir_name %}">
+                  href="/manga/{{ title.dir_name }}/">
                   <div class="Vertical_wrapper__eThs_">
                     <div
                       class="Image_container__NpLCh Image_hover__XbAZP rounded-md Vertical_img__vaURH Image_imagePlaceholder__oa9r1">

@@ -2782,7 +2782,7 @@
                 <div class="Grid_grid__XU5Pz Library_grid__L5DwR">
                     {% for title in titles %}
                     <div class="Grid_gridItem__aPUx1 p-1"><a title="{{ title.rus_name }}" class="Library_card__87Skx"
-                            href="{% url 'remanga:title' title.dir_name %}">
+                            href="/manga/{{ title.dir_name }}/">
                             <div class="Library_wrapper__MWbWz">
                                 <div
                                     class="Image_container__z9DC9 Image_hover__3aJFw rounded-sm Library_img__ASP_l Image_imagePlaceholder__7plww">
@@ -2823,7 +2823,7 @@
     const title_id = "0";
 
     const session_id = Websockets_title.generate_session_id();
-    const ws = new WebSocket(`ws://${window.location.host}/manga/ws/${session_id}`);
+    const ws = new WebSocket(`ws://${window.location.host}:8000/ws/${session_id}`);
 
     listen_websocket_response();
 </script>

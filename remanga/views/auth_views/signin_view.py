@@ -17,7 +17,7 @@ class SigninView(generic.ListView):
     
     def get(self, request: HttpRequest) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponse]:
         if self.request.user.is_authenticated:
-            return redirect('/manga')
+            return redirect('/manga/')
         
         context = { 'form': AuthenticationForm() }
         return render(request, self.template_name, context)

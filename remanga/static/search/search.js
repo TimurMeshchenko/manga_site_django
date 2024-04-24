@@ -43,7 +43,7 @@ function add_title(title) {
         <a
           title="${title["rus_name"]}"
           class="Vertical_card__Sxft_"
-          href="/manga/${title["dir_name"]}">
+          href="/manga/${title["dir_name"]}/">
           <div class="Vertical_wrapper__eThs_">
             <div
               class="Image_container__NpLCh Image_hover__XbAZP rounded-md Vertical_img__vaURH Image_imagePlaceholder__oa9r1">

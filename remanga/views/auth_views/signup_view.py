@@ -11,7 +11,7 @@ class SignupView(generic.View):
  
     def get(self, request: HttpRequest) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponse]: 
         if self.request.user.is_authenticated:
-            return redirect('/manga')
+            return redirect('/manga/')
         
         context = { 'form': UserCreationForm() }
         return render(request, self.template_name, context)

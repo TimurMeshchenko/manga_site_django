@@ -33,7 +33,7 @@ class Websockets_title {
 
     send_websocket(websoket_data) {
         if (user_id == "None") 
-            return (window.location.href = "/manga/signin");
+            return (window.location.href = "/manga/signin/");
 
         ws.send(websoket_data)
     }

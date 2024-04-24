@@ -46,7 +46,7 @@ class TitleView(generic.ListView):
 
     def post(self, request: Any, **kwargs) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect, JsonResponse]:   
         if not self.request.user.is_authenticated: 
-            return redirect("remanga:signin")
+            return redirect("/manga/signin/")
 
         dir_name = self.kwargs.get('dir_name')  
         title = Title.objects.get(dir_name=dir_name)

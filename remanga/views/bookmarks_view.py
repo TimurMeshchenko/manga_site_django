@@ -12,6 +12,6 @@ class BookmarksView(generic.ListView):
      
     def get(self, request: HttpRequest, *args, **kwargs) -> Union[HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponse]:
         if not self.request.user.is_authenticated:
-            return redirect('/manga')
+            return redirect('/manga/')
         
         return super().get(request, *args, **kwargs)

@@ -39,7 +39,7 @@ class Websockets_comment extends Websockets_title {
     }
 
     add_empty_comment(response) {
-      const url_profile = `/manga/user/${response.user_id}`; 
+      const url_profile = `/manga/user/${response.user_id}/`; 
       const user_avatar = response.user_avatar
         ? response.user_avatar
         : "/manga/media/users_avatars/no_avatar.jpg";

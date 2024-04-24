@@ -932,7 +932,7 @@
                       <div class="jsx-a1b2d119e625548b Comments_wrap__7NbKY"> 
                         {% for comment in comments %} 
                         <div class="jsx-3914328852 Comments_media__5h5tS">
-                          <a href="{% url 'remanga:profile' comment.author.id %}">
+                          <a href="/manga/user/{{ comment.author.id }}/">
                             {% if comment.author.avatar %}
                             <img src="{{ comment.author.avatar.url }}" alt="..."
                               class="jsx-3914328852 Comments_mediaAvatar__IuIbH" />
@@ -945,7 +945,7 @@
                             <div class="jsx-3914328852 Comments_mediaContent__KYew0 scoreBorder">
                               <div class="jsx-3914328852 Comments_mediaHeading___sytl flex items-center">
                                 <a class="Comments_username__BIt0K"
-                                  href="{% url 'remanga:profile' comment.author.id %}">{{ comment.author.username }}
+                                  href="/manga/user/{{ comment.author.id }}/">{{ comment.author.username }}
                                 </a><small class="jsx-3914328852">· {{ comment.created_at|timesince }}</small> 
                                 <div class="jsx-3914328852 ml-auto flex items-center">
                                 </div>
@@ -1031,7 +1031,7 @@
 <script>
   const csrf_token = '{% csrf_token %}'
   const title_menu_switcher = new Title_menu_switcher("{{ title_rating }}", "{{ user.is_authenticated }}", 
-  "{% url 'remanga:signin' %}");
+  "/manga/signin/");
 
   function add_chapters_menu(description_element) {
     description_element.parentNode.insertAdjacentHTML('beforeend', `  
@@ -1071,7 +1071,7 @@
   };
 
   const session_id = Websockets_title.generate_session_id();
-  const ws = new WebSocket(`ws://${window.location.host}/manga/ws/${session_id}`);
+  const ws = new WebSocket(`ws://${window.location.host}:8000/ws/${session_id}`);
 
   websockets_title.handler_websocket_response();
   websockets_title.listen_websocket_close();
