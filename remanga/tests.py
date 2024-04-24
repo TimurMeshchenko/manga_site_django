@@ -53,7 +53,7 @@ class CatalogViewTests(TestCase):
         ]
         
         for query_param in query_params_exceptions:
-            response = self.client.get(f"/manga?{query_param}")
+            response = self.client.get(f"/?{query_param}/")
 
             self.assertEqual(response.status_code, 200)    
 
