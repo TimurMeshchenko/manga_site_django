@@ -67,16 +67,16 @@ sudo -u postgres psql -d remanga -f database_backups/release_plain.sql
 ### Запуск
 
 ```bash
-sudo poetry install
-sudo poetry run python -m uvicorn remanga_site.asgi:application --reload
+poetry install
+poetry run python -m uvicorn remanga_site.asgi:application --reload
 
-sudo poetry run ./run_with_reload.sh
+poetry run ./run_with_reload.sh
 ```
 
 ### Для возможности восстанавливать пароль по почте
 
 ```bash
-sudo poetry run python -m celery -A remanga_site worker --pool=solo -l info
+poetry run python -m celery -A remanga_site worker --pool=solo -l info
 ```
 
 ## (Если нужно больше данных) Настройка парсера.
