@@ -57,6 +57,10 @@ psql -U postgres -d postgres -f /database_backups/release_plain.sql
 ### Без Docker
 
 ### Настройка postgresql
+# Запуск postgresql с контейнера
+```bash
+docker run --name postgres -e POSTGRES_PASSWORD=postgres -v ./database_backups:/database_backups -d -p 5432:5432 postgres:16
+```
 
 ```bash
 sudo -u postgres psql
@@ -71,6 +75,12 @@ poetry install
 poetry run python -m uvicorn remanga_site.asgi:application --reload
 
 poetry run ./run_with_reload.sh
+```
+
+MacOS nginx
+```bash
+proxy_pass to /usr/local/etc/nginx/nginx.conf
+brew services restart nginx
 ```
 
 ### Для возможности восстанавливать пароль по почте
