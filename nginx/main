@@ -1,0 +1,107 @@
+server {
+     listen 80 default_server;
+     server_name localhost;
+
+     # Redirect all HTTP requests to HTTPS
+     return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name localhost;
+
+    ssl_certificate cert.crt;
+    ssl_certificate_key key.key;
+
+    limit_conn conn_limit_per_ip 10;
+
+    client_body_timeout 10s;
+    client_header_timeout 10s;
+    keepalive_timeout 5s;
+    send_timeout 10s;
+
+    client_body_buffer_size 1K;
+    client_header_buffer_size 1k;
+    large_client_header_buffers 4 8k;
+
+    location /manga/ {
+        proxy_pass http://127.0.0.1:8000/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /manga/static/ {
+	    alias /etc/nginx/static/manga/;
+    }
+
+    location /manga/media/ {
+	    alias /etc/nginx/media/manga/;
+    }
+
+    location /store/ {
+        proxy_pass http://127.0.0.1:8001/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /store/static/ {
+	    alias /etc/nginx/static/store/;
+    }
+
+    location /store/media/ {
+	    alias /etc/nginx/media/store/;
+    }
+
+    location /forum/ {
+        proxy_pass http://127.0.0.1:8002/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /forum/static/ {
+	    alias /etc/nginx/static/forum/;
+    }
+
+    location /forum/media/ {
+	    alias /etc/nginx/media/forum/;
+    }
+
+    location /messenger/ {
+        proxy_pass http://127.0.0.1:8003/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /messenger/static/ {
+	    alias /etc/nginx/static/messenger/;
+    }
+
+    location /messenger/media/ {
+	    alias /etc/nginx/media/messenger/;
+    }
+ 
+    location /video_hosting/ {
+        proxy_pass http://127.0.0.1:8004/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /video_hosting/static/ {
+	    alias /etc/nginx/static/video_hosting/;
+    }
+
+    location /video_hosting/media/ {
+	    alias /etc/nginx/media/video_hosting/;
+    }
+}
+
