@@ -119,3 +119,15 @@ python remanga_parser.py
 * Проверка исключений всех POST запросов для тайтлов.
 * Проверка оценки тайтла.
 * Проверка оценки комментария тайтла.
+
+# Webpack optimization
+
+docker build -f Dockerfile.webpack -t manga_webpack .
+docker run --name manga_webpack_container -p 8080:8080 -v ./optimized:/app/optimized -v ./webpack.config.js:/app/webpack.config.js -d manga_webpack
+sudo docker exec -it manga_webpack_container bash
+
+npx webpack
+
+sudo docker stop manga_webpack_container
+sudo docker rm manga_webpack_container
+sudo docker rmi manga_webpack

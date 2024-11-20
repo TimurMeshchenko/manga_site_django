@@ -1,0 +1,25 @@
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "description": "A project using Webpack with multiple JS files",
+  "main": "main.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "webpack serve --mode development --open --hot"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "",
+    "css-loader": "",
+    "css-minimizer-webpack-plugin": "",
+    "glob-all": "",
+    "html-webpack-plugin": "",
+    "mini-css-extract-plugin": "",
+    "purgecss": "",
+    "purgecss-webpack-plugin": "",
+    "terser": "",
+    "terser-webpack-plugin": "",
+    "webpack": "",
+    "webpack-cli": "",
+    "webpack-dev-server": ""
+  }
+}

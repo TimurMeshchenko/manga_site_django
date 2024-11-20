@@ -4961,21 +4961,21 @@
             <div class="jsx-261496919888b024 root fullWidth Input_formControl__B11lU">
               <div class="Input_root___0KQ3 Input_outlined__GjuSL">
                 <input aria-invalid="false" name="old_password" placeholder="Старый пароль" rows="1" type="password"
-                  class="Input_input___YBKm" value="" id="id_old_password">
+                  class="Input_input___YBKm" value="" id="id_old_password" autocomplete="off">
               </div>
               <p class="Input_formHelperText__EwCsr"></p>
             </div>
             <div class="jsx-261496919888b024 root fullWidth Input_formControl__B11lU">
               <div class="Input_root___0KQ3 Input_outlined__GjuSL">
                 <input aria-invalid="false" name="new_password1" placeholder="Новый пароль" rows="1" type="password"
-                  class="Input_input___YBKm" value="" id="id_new_password1">
+                  class="Input_input___YBKm" value="" id="id_new_password1" autocomplete="off">
               </div>
               <p class="Input_formHelperText__EwCsr"></p>
             </div>
             <div class="jsx-261496919888b024 root fullWidth Input_formControl__B11lU">
               <div class="Input_root___0KQ3 Input_outlined__GjuSL"><input aria-invalid="false" name="new_password2"
                   placeholder="Пароль ещё раз" rows="1" type="password" class="Input_input___YBKm" value=""
-                  id="id_new_password2">
+                  id="id_new_password2" autocomplete="off">
               </div>
               <p class="Input_formHelperText__EwCsr"></p>
             </div>
@@ -4989,12 +4989,12 @@
           </form>
         </div>
         <a href="/manga/logout/"><button class="Button_button___CisL Button_button___CisL Button_contained__8_KFk Button_contained-primary__IViyX">Выход</button></a>
+        <script>
+          new Password_post()
+        </script>
         {% endif %}
       </div>
     </div>
   </main>
 </div>
-<script>
-  new Password_post()
-</script>
 {% endblock %}
