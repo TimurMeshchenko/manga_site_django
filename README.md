@@ -77,6 +77,14 @@ poetry run python -m uvicorn remanga_site.asgi:application --reload
 poetry run ./run_with_reload.sh
 ```
 
+Прод:
+
+/remanga/templates/bookmarks.html, /remanga/templates/title.html
+
+ws=new WebSocket(`wss://${window.location.host}/manga/ws/${session_id}`);
+
+poetry run python -m uvicorn remanga_site.asgi:application --ssl-keyfile /etc/letsencrypt/live/meshchenko.ru/privkey.pem --ssl-certfile /etc/letsencrypt/live/meshchenko.ru/fullchain.pem
+
 MacOS nginx
 ```bash
 proxy_pass to /usr/local/etc/nginx/nginx.conf
